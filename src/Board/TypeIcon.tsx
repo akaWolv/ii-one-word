@@ -15,11 +15,11 @@ const TypeIcon = ({ type }: ITypeIcon) => {
     case EType.Red:
     case EType.Blue:
     case EType.Green:
-      return <HailIcon style={{ fontSize: 80 }} />
+      return <HailIcon style={{ fontSize: 42 }} />
     case EType.Neutral:
-      return <DirectionsWalkIcon style={{ fontSize: 80, color: amber[800] }} />
+      return <DirectionsWalkIcon style={{ fontSize: 42, color: amber[800] }} />
     case EType.Assassin:
-      return <DangerousIcon style={{ fontSize: 80, color: pink[800] }} />
+      return <DangerousIcon style={{ fontSize: 42, color: pink[800] }} />
     default:
       return null
   }

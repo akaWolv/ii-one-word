@@ -1,11 +1,10 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { grey, purple } from '@mui/material/colors'
-import Card from '@mui/material/Card'
 import { EType } from '../interfaces/EType'
 import { Button } from '@mui/material'
 import getTileColorByType from '../getTileColorByType'
-import TypeIcon from "./TypeIcon";
+import TypeIcon from './TypeIcon'
 
 interface IWords {
   words: string[][]

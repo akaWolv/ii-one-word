@@ -61,7 +61,7 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
       <Typography
         variant="caption"
         display="block"
-        style={{ textAlign: 'center', fontSize: 25, textTransform: 'uppercase' }}
+        style={{ marginTop: '15%', textAlign: 'center', fontSize: 25, textTransform: 'uppercase' }}
       >
         <TypeIcon type={type} />
       </Typography>
@@ -85,7 +85,7 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
       <Typography
         variant="caption"
         display="block"
-        style={{ textAlign: 'center', fontSize: 25, textTransform: 'uppercase' }}
+        style={{ textAlign: 'center', fontSize: 25, marginTop: 10, textTransform: 'uppercase' }}
       >
         {word}
       </Typography>
