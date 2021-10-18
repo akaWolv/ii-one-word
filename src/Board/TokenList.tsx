@@ -1,6 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { grey, purple } from '@mui/material/colors'
+import { purple } from '@mui/material/colors'
 import { Button } from '@mui/material'
 import { ETokenStatus } from 'src/interfaces/ETokenStatus'
 
@@ -22,9 +22,9 @@ const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
   height: '10%'
 }))
 
-const StyledButton = styled(Button)(({ _status }: { _status: ETokenStatus }) => ({
+const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status, theme }) => ({
   backgroundColor: _status === ETokenStatus.Available ? purple[100] : purple[800],
-  color: purple[800],
+  color: theme.palette.primary.main,
   width: '100%',
   height: '100%',
   '&:hover': {

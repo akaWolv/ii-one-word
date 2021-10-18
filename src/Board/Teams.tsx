@@ -13,13 +13,13 @@ interface IWords {
   changeGameState: Function
 }
 
-const StyledButton = styled(Button)<{ _type?: EType }>(({ _type }) => ({
+const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
   backgroundColor: _type ? getTileColorByType(_type) : grey[50],
   width: '100%',
   height: '100%',
   fontSize: 25,
   '&:hover': {
-    backgroundColor: purple[800],
+    backgroundColor: theme.palette.primary.main,
     color: grey[50],
     cursor: 'pointer'
   }

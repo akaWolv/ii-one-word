@@ -10,5 +10,7 @@ yarn dev
 
 Production
 ```
-pm2 --name "ii-one-word" start yarn -- start
+pm2 start yarn --interpreter bash --name "ii-one-word" -- start
 ```
+
+Color ```rgb(209,0,164)```
