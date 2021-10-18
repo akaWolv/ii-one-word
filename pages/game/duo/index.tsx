@@ -1,11 +1,22 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
 import router from 'next/router'
-import { Button, ButtonGroup, Grid } from '@mui/material'
+import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Duo'
 import TokenList from 'src/Board/TokenList'
 import { EPlayer } from 'src/interfaces/EPlayer'
+import { styled } from '@mui/material/styles'
+import { grey } from '@mui/material/colors'
+import calculateDuoTilesToGo from 'src/calculateDuoTilesToGo'
+import GameModal from 'src/GameModal/Duo'
+
+const StyledContainer = styled(Grid)(({ theme }) => ({
+  color: grey[100],
+  textAlign: 'center',
+  height: '5vh',
+  flexGrow: 0
+}))
 
 interface IStart {
   words: string[][]
@@ -14,6 +25,7 @@ interface IStart {
   gameStateA: string
   gameStateB: string
   tokenState: string
+  flatBoard: string
 }
 
 const getCurrentUrl = () => new URL(window.location.href)
@@ -25,7 +37,7 @@ const editGameState = (gameState: string, orderId: number): string => {
 }
 
 // eslint-disable-next-line react/prop-types
-const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, tokenState }: IStart) => {
+const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, tokenState, flatBoard }: IStart) => {
   const changeGameState = (lineId: number, wordId: number, player: EPlayer) => {
     const orderId = lineId * 5 + wordId
     let gameStateList = []
@@ -59,12 +71,15 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
   const handleNewGame = () => router.push('/game/duo/new')
   const handleBackToStart = () => router.push('/')
 
+  const { tilesLeft, assassin } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
+
   return (
     <Grid container
           spacing={1}
           direction="row"
           alignItems="stretch"
     >
+      <GameModal tilesLeft={tilesLeft} assassin={assassin} />
       <Grid item xs={11} style={{ height: '95vh' }}>
         <Board
           words={words}
@@ -78,12 +93,19 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
         <TokenList tokenState={tokenState} updateTokenState={updateTokenState} />
       </Grid>
-      <Grid item xs={12} style={{ textAlign: 'center', height: '5vh', flexGrow: 0 }}>
-        <ButtonGroup size="small" variant="text" aria-label="outlined primary button group">
-          <Button onClick={handleNewGame}>New Game</Button>
-          <Button onClick={handleBackToStart}>Back to start</Button>
-        </ButtonGroup>
-      </Grid>
+      <StyledContainer container item xs={12}>
+        <Grid item xs={3}>
+          <Typography variant="h6">
+            There is <b>{tilesLeft}</b> agent{tilesLeft > 0 && 's'} to go
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <ButtonGroup size="small" variant="text">
+            <Button onClick={handleNewGame}>New Game</Button>
+            <Button onClick={handleBackToStart}>Back to start</Button>
+          </ButtonGroup>
+        </Grid>
+      </StyledContainer>
     </Grid>
   )
 }
@@ -111,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
   // get Board
   const resBoard = await fetch(`${process.env.APP_URL}/api/boards/duo/${boardId}`)
   const dataBoard = await resBoard.json()
-  const { boardPlayerA, boardPlayerB } = dataBoard
+  const { boardPlayerA, boardPlayerB, decodedId: flatBoard } = dataBoard
 
   return {
     props: {
@@ -120,7 +142,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       boardPlayerB: boardPlayerB,
       gameStateA,
       gameStateB,
-      tokenState
+      tokenState,
+      flatBoard
     }
   }
 }

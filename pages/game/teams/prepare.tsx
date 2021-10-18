@@ -1,10 +1,12 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
 import QRCode from 'react-qr-code'
-import { grey, lightBlue, red } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import router from 'next/router'
 import { EType } from 'src/interfaces/EType'
+import getTeamColor from 'src/getTeamColor'
+import { ETeam } from 'src/interfaces/ETeam'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
 
@@ -43,7 +45,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         <Typography variant="h3">Prepare for a Teams Game</Typography>
       </Grid>
 
-      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: red[500] }}>
+      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: getTeamColor(ETeam.Red) }}>
         <Grid item xs={12}>
           <Typography variant="h4">Red Team</Typography>
           <Typography variant="subtitle1" gutterBottom>key card</Typography>
@@ -63,7 +65,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: lightBlue[400] }}>
+      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: getTeamColor(ETeam.Blue) }}>
         <Grid item xs={12}>
           <Typography variant="h4">Blue Team</Typography>
           <Typography variant="subtitle1" gutterBottom>key card</Typography>

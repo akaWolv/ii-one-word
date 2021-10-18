@@ -21,7 +21,7 @@ const TeamKeyCard = ({ starting, board, team }: IStart) => {
       <Typography
         variant="h6"
         style={{ color: 'white', textAlign: 'center' }}>
-        Your are <span style={{ color: getTileColorByType(team) }}>
+        You are <span style={{ color: getTileColorByType(team) }}>
           {team === EType.Red ? 'Red' : 'Blue'}
         </span> {team === starting ? 'and' : 'but'} <span style={{ color: getTileColorByType(starting) }}>
           {starting === EType.Red ? 'Red' : 'Blue'}

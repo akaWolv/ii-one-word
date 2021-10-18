@@ -50,8 +50,8 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
   const orderId = lineId * 5 + wordId
   const stateA = gameStateA[orderId]
   const stateB = gameStateB[orderId]
-  const stateBoardForPlayerA = boardPlayerB[lineId][wordId]
-  const stateBoardForPlayerB = boardPlayerA[lineId][wordId]
+  const stateBoardForPlayerA = boardPlayerA[lineId][wordId]
+  const stateBoardForPlayerB = boardPlayerB[lineId][wordId]
 
   const handlePickTilePlayerA = () => changeGameState(lineId, wordId, EPlayer.A, stateBoardForPlayerA)
   const handlePickTilePlayerB = () => changeGameState(lineId, wordId, EPlayer.B, stateBoardForPlayerB)

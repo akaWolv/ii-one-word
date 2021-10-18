@@ -29,7 +29,7 @@ const KeyCard = ({ board }: IKeyCard) => {
       board.map((line, id) => (
         <tr key={id}>
           {
-            line.map((type, id) => <Item key={id} type={type}>{type}</Item>)
+            line.map((type, id) => <Item key={id} type={type} />)
           }
         </tr>
       ))

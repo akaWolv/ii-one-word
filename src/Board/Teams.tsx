@@ -1,9 +1,9 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { grey, purple } from '@mui/material/colors'
-import { EType } from '../interfaces/EType'
+import { grey } from '@mui/material/colors'
+import { EType } from 'src/interfaces/EType'
 import { Button } from '@mui/material'
-import getTileColorByType from '../getTileColorByType'
+import getTileColorByType from 'src/getTileColorByType'
 import TypeIcon from './TypeIcon'
 
 interface IWords {

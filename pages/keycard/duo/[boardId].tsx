@@ -21,7 +21,7 @@ const PlayerKeyCard = ({ board, player }: IStart) => {
       <Typography
         variant="h6"
         style={{ color: 'white', textAlign: 'center' }}>
-        Your are <span style={{ textTransform: 'uppercase', color: getPlayerColor(player) }}>Player {player}</span>
+        You are <span style={{ textTransform: 'uppercase', color: getPlayerColor(player) }}>Player {player}</span> | This is board for other player to guess
       </Typography>
     </div>
   </>
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, query, re
 
   return {
     props: {
-      board: player === EPlayer.A ? boardPlayerA : boardPlayerB,
+      board: player === EPlayer.A ? boardPlayerB : boardPlayerA,
       player
     }
   }

@@ -15,7 +15,7 @@ interface IPrepare {
   wordsId: string
 }
 
-const getBoardLink = (boardId: string, player: EPlayer.A|EPlayer.B): string => {
+const getBoardLink = (boardId: string, player: EPlayer): string => {
   const url = new URL(`${process.env.APP_URL}/keycard/duo/${boardId}`)
   url.searchParams.set('player', player)
   return url.toString()
