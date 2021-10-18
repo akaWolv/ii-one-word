@@ -68,7 +68,7 @@ const Game = ({
         <Grid item xs={3}>
           <Typography variant="h6">
             <span style={{ color: getTeamColor(ETeam.Red) }}>Red Team</span>
-            &nbsp;<b>{redTeamTilesLeft}</b> agent{redTeamTilesLeft > 0 && 's'} to go
+            &nbsp;<b>{redTeamTilesLeft}</b> agent{redTeamTilesLeft > 1 && 's'} to go
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -80,7 +80,7 @@ const Game = ({
         <Grid item xs={3}>
           <Typography variant="h6">
             <span style={{ color: getTeamColor(ETeam.Blue) }}>Blue Team </span>
-            &nbsp;<b>{blueTeamTilesLeft}</b> agent{blueTeamTilesLeft > 0 && 's'} to go
+            &nbsp;<b>{blueTeamTilesLeft}</b> agent{blueTeamTilesLeft > 1 && 's'} to go
           </Typography>
         </Grid>
       </StyledContainer>

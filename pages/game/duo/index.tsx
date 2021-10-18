@@ -96,7 +96,7 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
       <StyledContainer container item xs={12}>
         <Grid item xs={3}>
           <Typography variant="h6">
-            There is <b>{tilesLeft}</b> agent{tilesLeft > 0 && 's'} to go
+            There is <b>{tilesLeft}</b> agent{tilesLeft > 1 && 's'} to go
           </Typography>
         </Grid>
         <Grid item xs={6}>

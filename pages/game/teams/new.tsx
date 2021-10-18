@@ -14,8 +14,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const dataWords = await resWords.json()
   const { id: wordsId } = dataWords
 
-  console.log(boardId, wordsId)
-
   // redirect to prepare
   const redirectUrl = new URL(`${process.env.APP_URL}/game/teams/prepare`)
   redirectUrl.searchParams.set('board', boardId)
