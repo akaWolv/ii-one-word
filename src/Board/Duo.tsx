@@ -50,11 +50,11 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
   const orderId = lineId * 5 + wordId
   const stateA = gameStateA[orderId]
   const stateB = gameStateB[orderId]
-  const stateBoardA = boardPlayerA[lineId][wordId]
-  const stateBoardB = boardPlayerB[lineId][wordId]
+  const stateBoardForPlayerA = boardPlayerB[lineId][wordId]
+  const stateBoardForPlayerB = boardPlayerA[lineId][wordId]
 
-  const handlePickTilePlayerA = () => changeGameState(lineId, wordId, EPlayer.A, stateBoardA)
-  const handlePickTilePlayerB = () => changeGameState(lineId, wordId, EPlayer.B, stateBoardB)
+  const handlePickTilePlayerA = () => changeGameState(lineId, wordId, EPlayer.A, stateBoardForPlayerA)
+  const handlePickTilePlayerB = () => changeGameState(lineId, wordId, EPlayer.B, stateBoardForPlayerB)
 
   const renderPickedTile = (type: EType) => <StyledCard _type={type}>
     <CardContent>
@@ -68,12 +68,12 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
     </CardContent>
   </StyledCard>
 
-  if (stateA === '1' && stateBoardA !== EType.Neutral) {
-    return renderPickedTile(stateBoardA)
+  if (stateA === '1' && stateBoardForPlayerA !== EType.Neutral) {
+    return renderPickedTile(stateBoardForPlayerA)
   }
 
-  if (stateB === '1' && stateBoardB !== EType.Neutral) {
-    return renderPickedTile(stateBoardB)
+  if (stateB === '1' && stateBoardForPlayerB !== EType.Neutral) {
+    return renderPickedTile(stateBoardForPlayerB)
   }
 
   if (stateA === '1' && stateB === '1') {
