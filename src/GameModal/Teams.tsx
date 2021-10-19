@@ -1,8 +1,9 @@
 import React from 'react'
+import router from 'next/router'
 import { grey } from '@mui/material/colors'
 import getTeamColor from 'src/getTeamColor'
 import { ETeam } from 'src/interfaces/ETeam'
-import { Box, Modal, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Modal, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 const StyledBox = styled(Box)({
@@ -24,6 +25,9 @@ interface IGameModal {
 
 // eslint-disable-next-line react/prop-types
 const GameModal = ({ assassin, redTeamTilesLeft, blueTeamTilesLeft }: IGameModal) => {
+  const handleNewGame = () => router.push('/game/teams/new')
+  const handleBackToStart = () => router.push('/')
+
   let title = ''
   let text = ''
   let backgroundColor = ''
@@ -54,9 +58,13 @@ const GameModal = ({ assassin, redTeamTilesLeft, blueTeamTilesLeft }: IGameModal
         <Typography variant="h2">
           {title}
         </Typography>
-        <Typography variant="h4" sx={{ mt: 2 }}>
+        <Typography variant="h4" sx={{ mt: 2 }} gutterBottom>
           {text}
         </Typography>
+        <ButtonGroup size="large" variant="outlined" color="secondary" style={{ marginTop: 15 }}>
+          <Button onClick={handleNewGame}>New Game</Button>
+          <Button onClick={handleBackToStart}>Back to start</Button>
+        </ButtonGroup>
       </StyledBox>
     </Modal>
   )
