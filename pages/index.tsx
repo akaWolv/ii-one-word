@@ -1,5 +1,4 @@
 import React from 'react'
-import router from 'next/router'
 import { Button, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
