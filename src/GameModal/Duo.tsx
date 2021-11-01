@@ -24,7 +24,7 @@ interface IGameModal {
 
 // eslint-disable-next-line react/prop-types
 const GameModal = ({ assassin, tilesLeft }: IGameModal) => {
-  const handleNewGame = () => router.push('/game/teams/new')
+  const handleNewGame = () => router.push('/game/duo/new')
   const handleBackToStart = () => router.push('/')
 
   let title = ''
