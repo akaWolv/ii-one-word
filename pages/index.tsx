@@ -5,11 +5,6 @@ import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 
-interface IHome {
-  words: string[][]
-  board: Array<EType[]>
-}
-
 const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
   backgroundColor: 'transparent',
   border: `solid 2px ${theme.palette.primary.main}`,
@@ -27,9 +22,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
-const Home = ({ words, board }: IHome) => {
-  const handleClickNewTeams = () => router.push('game/teams/new')
-  const handleClickNewDuo = () => router.push('game/duo/new')
+const Home = () => {
   return (
     <Grid container
           spacing={5}
@@ -44,11 +37,14 @@ const Home = ({ words, board }: IHome) => {
         </StyledTypography>
         <StyledTypography variant="h1" >One-Word Game</StyledTypography>
       </Grid>
-      <Grid item xs={4}>
-        <StyledButton onClick={handleClickNewTeams}>Teams</StyledButton>
+      <Grid item xs={3}>
+        <StyledButton href="game/single/new">1 Team</StyledButton>
       </Grid>
-      <Grid item xs={4}>
-        <StyledButton onClick={handleClickNewDuo}>Duo (co-op)</StyledButton>
+      <Grid item xs={3}>
+        <StyledButton href="game/teams/new">2 Teams</StyledButton>
+      </Grid>
+      <Grid item xs={3}>
+        <StyledButton href="game/duo/new">Duo (co-op)</StyledButton>
       </Grid>
     </Grid>
   )

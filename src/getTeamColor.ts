@@ -1,4 +1,4 @@
-import { blue, red } from '@mui/material/colors'
+import { blue, lightGreen, red } from '@mui/material/colors'
 import { ETeam } from 'src/interfaces/ETeam'
 
 const getTeamColor = (player: ETeam) => {
@@ -7,6 +7,8 @@ const getTeamColor = (player: ETeam) => {
       return red[500]
     case ETeam.Blue:
       return blue[500]
+    case ETeam.Green:
+      return lightGreen[500]
   }
 }
 

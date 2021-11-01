@@ -8,7 +8,7 @@ const getTileColorByType = (type: EType) => {
     case EType.Blue:
       return lightBlue[400]
     case EType.Assassin:
-      return grey[900]
+      return grey[800]
     case EType.Neutral:
       return amber[100]
     case EType.Green:
