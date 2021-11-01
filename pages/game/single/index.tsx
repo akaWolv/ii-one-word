@@ -10,6 +10,7 @@ import { ETeam } from 'src/interfaces/ETeam'
 import getTeamColor from 'src/getTeamColor'
 import calculateSingleTilesToGo from 'src/calculateSingleTilesToGo'
 import GameModal from 'src/GameModal/Single'
+import TokenList from 'src/Board/TokenList'
 
 interface IGame {
   words: string[][]
@@ -17,6 +18,7 @@ interface IGame {
   flatBoard: string
   gameState: string
   starting: ETeam
+  tokenState: string
 }
 
 const StyledContainer = styled(Grid)(({ theme }) => ({
@@ -26,16 +28,28 @@ const StyledContainer = styled(Grid)(({ theme }) => ({
   flexGrow: 0
 }))
 
+const getCurrentUrl = () => new URL(window.location.href)
+
 // eslint-disable-next-line react/prop-types
-const Game = ({
-  words,
-  board,
-  flatBoard,
-  gameState
-}: IGame) => {
+const Game = ({ words, board, flatBoard, gameState, tokenState }: IGame) => {
   const changeGameState = (gameState: string) => {
-    const url = new URL(window.location.href)
+    const url = getCurrentUrl()
     url.searchParams.set('gameState', gameState)
+    router.push(url.toString())
+  }
+
+  const updateTokenState = () => {
+    const url = getCurrentUrl()
+    const countTaken = (tokenState.match(/0/g) || []).length
+    if (countTaken < tokenState.length) {
+      url.searchParams.set(
+        'tokenState',
+        [
+          '0'.repeat(countTaken + 1),
+          '1'.repeat(tokenState.length - countTaken - 1)
+        ].join('')
+      )
+    }
     router.push(url.toString())
   }
 
@@ -54,13 +68,16 @@ const Game = ({
           alignItems="stretch"
     >
       <GameModal tilesLeft={tilesLeft} assassin={assassin} />
-      <Grid item xs={12} style={{ height: '95vh' }}>
+      <Grid item xs={11} style={{ height: '95vh' }}>
         <Board
           words={words}
           board={board}
           gameState={gameState}
           changeGameState={changeGameState}
         />
+      </Grid>
+      <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
+        <TokenList tokenState={tokenState} updateTokenState={updateTokenState} />
       </Grid>
       <StyledContainer container item xs={12}>
         <Grid item xs={3}>
@@ -87,9 +104,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   const {
     board: boardId,
     words: wordsId,
-    gameState
+    gameState,
+    tokenState
   } = query
-  if (!boardId || !wordsId || !gameState) {
+  if (!boardId || !wordsId || !gameState || !tokenState) {
     res.writeHead(307, { Location: '/game/single/new' })
     res.end()
 
@@ -118,7 +136,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       words,
       board,
       flatBoard,
-      gameState
+      gameState,
+      tokenState
     }
   }
 }

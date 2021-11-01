@@ -9,8 +9,6 @@ interface ITokenList {
   updateTokenState: Function
 }
 
-const NUMBER_OF_TOKENS = 9
-
 const StyledUl = styled('ul')({
   width: '100%',
   height: '90%',
@@ -35,10 +33,11 @@ const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status, theme
 
 // eslint-disable-next-line react/prop-types
 const TokenList = ({ tokenState, updateTokenState }: ITokenList) => {
+  const numberOfTokens = tokenState.split('').length
   const tokenStateList = tokenState.split('')
   const handleUpdateStatus = () => updateTokenState()
   const renderTokens = () => {
-    return Array.from(Array(NUMBER_OF_TOKENS).keys()).map(
+    return Array.from(Array(numberOfTokens).keys()).map(
       (i, index) => {
         const tokenState: ETokenStatus = Number(tokenStateList[index]) ? ETokenStatus.Available : ETokenStatus.Used
         return <StyledLi key={index} _status={tokenState}>

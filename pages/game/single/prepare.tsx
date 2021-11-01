@@ -8,6 +8,7 @@ import getTeamColor from 'src/getTeamColor'
 import { ETeam } from 'src/interfaces/ETeam'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
+const INITIAL_TOKEN_STATE = '11111'
 
 interface IPrepare {
   boardId: string
@@ -28,6 +29,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
     redirectUrl.searchParams.set('board', boardId)
     redirectUrl.searchParams.set('words', wordsId)
     redirectUrl.searchParams.set('gameState', INITIAL_GAME_STATE)
+    redirectUrl.searchParams.set('tokenState', INITIAL_TOKEN_STATE)
     router.push(redirectUrl.toString())
   }
   return (
