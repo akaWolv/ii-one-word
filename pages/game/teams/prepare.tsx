@@ -25,13 +25,13 @@ const getBoardLink = (boardId: string, team: EType.Red | EType.Blue): string => 
 const Prepare = ({ boardId, wordsId }: IPrepare) => {
   const boardLinkRed = getBoardLink(boardId, EType.Red)
   const boardLinkBlue = getBoardLink(boardId, EType.Blue)
-  const handleClickStart = () => {
+  const getStartLink = (): string => {
     // redirect to prepare
-    const redirectUrl = new URL(`${process.env.APP_URL}/game/teams`)
-    redirectUrl.searchParams.set('board', boardId)
-    redirectUrl.searchParams.set('words', wordsId)
-    redirectUrl.searchParams.set('gameState', INITIAL_GAME_STATE)
-    router.push(redirectUrl.toString())
+    const startLink = new URL(`${process.env.APP_URL}/game/teams`)
+    startLink.searchParams.set('board', boardId)
+    startLink.searchParams.set('words', wordsId)
+    startLink.searchParams.set('gameState', INITIAL_GAME_STATE)
+    return startLink.toString()
   }
   return (
     <Grid container
@@ -77,10 +77,13 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           <TextField
             label="Blue team"
             variant="standard"
+            onFocus={event => {
+              event.target.select()
+            }}
             defaultValue={boardLinkBlue}
             InputProps={{
               readOnly: true,
-              style: { width: 400, color: grey[600] }
+              style: { width: 400, color: grey[300] }
             }}/>
         </Grid>
       </Grid>
@@ -89,7 +92,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         <Button
           variant="outlined"
           size="large"
-          onClick={handleClickStart}
+          href={getStartLink()}
           style={{ color: grey[400] }}
         >
           Let the game begin!

@@ -1,4 +1,5 @@
 import React from 'react'
+import router from 'next/router'
 import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
@@ -10,7 +11,7 @@ interface IWords {
   words: string[][]
   board: Array<EType[]>
   gameState: string
-  changeGameState: Function
+  getChangeGameStateUrl: Function
 }
 
 const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
@@ -31,18 +32,23 @@ interface ITile {
   word: string
   board: Array<EType[]>
   gameState: string
-  changeGameState: Function
+  getChangeGameStateUrl: Function
 }
-const Tile = ({ lineId, wordId, word, board, gameState, changeGameState }: ITile) => {
+const Tile = ({ lineId, wordId, word, board, gameState, getChangeGameStateUrl }: ITile) => {
   const orderId = lineId * 5 + wordId
   const state = gameState[orderId]
-  const pickTile = () => {
+  const getPickTileUrl = (): string => {
     const gameStateList = gameState.split('')
     gameStateList[orderId] = '1'
-    changeGameState(gameStateList.join(''))
+    return getChangeGameStateUrl(gameStateList.join(''))
   }
   if (state === '0') {
-    return <StyledButton onClick={pickTile}>{word}</StyledButton>
+    const pickTilUrl = getPickTileUrl()
+    const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault()
+      router.push(pickTilUrl)
+    }
+    return <StyledButton href={pickTilUrl} onClick={handleClick}>{word}</StyledButton>
   } else {
     const type: EType = board[lineId][wordId]
     return <StyledButton disabled={true} _type={type}><TypeIcon type={type} /></StyledButton>
@@ -50,7 +56,7 @@ const Tile = ({ lineId, wordId, word, board, gameState, changeGameState }: ITile
 }
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ words, board, gameState, changeGameState }: IWords) => {
+const Board = ({ words, board, gameState, getChangeGameStateUrl }: IWords) => {
   return <table style={{ tableLayout: 'fixed', width: '100%', height: '100%' }}>
     <tbody>
     {
@@ -65,7 +71,7 @@ const Board = ({ words, board, gameState, changeGameState }: IWords) => {
                   word={word}
                   board={board}
                   gameState={gameState}
-                  changeGameState={changeGameState}
+                  getChangeGameStateUrl={getChangeGameStateUrl}
                 />
               </td>
             ))

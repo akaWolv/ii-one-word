@@ -3,7 +3,6 @@ import type { GetServerSideProps } from 'next'
 import QRCode from 'react-qr-code'
 import { grey } from '@mui/material/colors'
 import { Button, Grid, TextField, Typography } from '@mui/material'
-import router from 'next/router'
 import { EPlayer } from 'src/interfaces/EPlayer'
 import getPlayerColor from 'src/getPlayerColor'
 
@@ -25,14 +24,13 @@ const getBoardLink = (boardId: string, player: EPlayer): string => {
 const Prepare = ({ boardId, wordsId }: IPrepare) => {
   const boardLinkPlayerA = getBoardLink(boardId, EPlayer.A)
   const boardLinkPlayerB = getBoardLink(boardId, EPlayer.B)
-  const handleClickStart = () => {
-    // redirect to prepare
-    const redirectUrl = new URL(`${process.env.APP_URL}/game/duo`)
-    redirectUrl.searchParams.set('board', boardId)
-    redirectUrl.searchParams.set('words', wordsId)
-    redirectUrl.searchParams.set('gameState', INITIAL_GAME_STATE)
-    redirectUrl.searchParams.set('tokenState', INITIAL_TOKEN_STATE)
-    router.push(redirectUrl.toString())
+  const getStartLink = ():string => {
+    const startLink = new URL(`${process.env.APP_URL}/game/duo`)
+    startLink.searchParams.set('board', boardId)
+    startLink.searchParams.set('words', wordsId)
+    startLink.searchParams.set('gameState', INITIAL_GAME_STATE)
+    startLink.searchParams.set('tokenState', INITIAL_TOKEN_STATE)
+    return startLink.toString()
   }
   return (
     <Grid container
@@ -78,10 +76,13 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           <TextField
             label="Blue team"
             variant="standard"
+            onFocus={event => {
+              event.target.select()
+            }}
             defaultValue={boardLinkPlayerB}
             InputProps={{
               readOnly: true,
-              style: { width: 400, color: grey[600] }
+              style: { width: 400, color: grey[300] }
             }}/>
         </Grid>
       </Grid>
@@ -90,7 +91,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         <Button
           variant="outlined"
           size="large"
-          onClick={handleClickStart}
+          href={getStartLink()}
           style={{ color: grey[400] }}
         >
           Let the game begin!

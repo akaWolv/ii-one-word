@@ -13,6 +13,8 @@ import GameModal from 'src/GameModal/Single'
 import TokenList from 'src/Board/TokenList'
 
 interface IGame {
+  boardId: string
+  wordsId: string
   words: string[][]
   board: Array<EType[]>
   flatBoard: string
@@ -28,14 +30,17 @@ const StyledContainer = styled(Grid)(({ theme }) => ({
   flexGrow: 0
 }))
 
-const getCurrentUrl = () => new URL(window.location.href)
+const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/single`)
 
 // eslint-disable-next-line react/prop-types
-const Game = ({ words, board, flatBoard, gameState, tokenState }: IGame) => {
-  const changeGameState = (gameState: string) => {
+const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState }: IGame) => {
+  const getChangeGameStateUrl = (gameState: string): string => {
     const url = getCurrentUrl()
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameState)
-    router.push(url.toString())
+    url.searchParams.set('tokenState', tokenState)
+    return url.toString()
   }
 
   const updateTokenState = () => {
@@ -52,9 +57,6 @@ const Game = ({ words, board, flatBoard, gameState, tokenState }: IGame) => {
     }
     router.push(url.toString())
   }
-
-  const handleNewGame = () => router.push('/game/single/new')
-  const handleBackToStart = () => router.push('/')
 
   const {
     tilesLeft,
@@ -73,7 +75,7 @@ const Game = ({ words, board, flatBoard, gameState, tokenState }: IGame) => {
           words={words}
           board={board}
           gameState={gameState}
-          changeGameState={changeGameState}
+          getChangeGameStateUrl={getChangeGameStateUrl}
         />
       </Grid>
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
@@ -88,8 +90,8 @@ const Game = ({ words, board, flatBoard, gameState, tokenState }: IGame) => {
         </Grid>
         <Grid item xs={6}>
           <ButtonGroup size="small" variant="text">
-            <Button onClick={handleNewGame}>New Game</Button>
-            <Button onClick={handleBackToStart}>Back to start</Button>
+            <Button href={`${process.env.APP_URL}/game/single/new`}>New Game</Button>
+            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
           </ButtonGroup>
         </Grid>
       </StyledContainer>
@@ -101,6 +103,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   res
 }) => {
+  console.log(query)
   const {
     board: boardId,
     words: wordsId,
@@ -133,6 +136,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      boardId,
+      wordsId,
       words,
       board,
       flatBoard,

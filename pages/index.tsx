@@ -36,14 +36,14 @@ const Home = () => {
         </StyledTypography>
         <StyledTypography variant="h1" >One-Word Game</StyledTypography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item sm={12} md={3}>
         <StyledButton href="game/single/new">1 Team</StyledButton>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item sm={12} md={3}>
         <StyledButton href="game/teams/new">2 Teams</StyledButton>
       </Grid>
-      <Grid item xs={3}>
-        <StyledButton href="game/duo/new">Duo (co-op)</StyledButton>
+      <Grid item sm={12} md={3}>
+        <StyledButton href="game/duo/new">Duo</StyledButton>
       </Grid>
     </Grid>
   )
