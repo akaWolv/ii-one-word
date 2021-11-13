@@ -5,6 +5,8 @@ import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 
 const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
+  // Backport to Tizen TV
+  color: '#D100A4FF',
   backgroundColor: 'transparent',
   border: `solid 2px ${theme.palette.primary.main}`,
   width: '100%',
@@ -18,7 +20,9 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
 }))
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  color: theme.palette.primary.main
+  // Backport to Tizen TV
+  // color: theme.palette.primary.main
+  color: '#D100A4FF'
 }))
 
 const Home = () => {
@@ -28,13 +32,13 @@ const Home = () => {
           direction="row"
           justifyContent="center"
           alignItems="center"
-          style={{ height: '100vh', textAlign: 'center', marginTop: 0, color: '#D100A4FF' }}
+          style={{ height: '100vh', textAlign: 'center', marginTop: 0 }}
     >
       <Grid item xs={12}>
         <StyledTypography variant="h2" >
           <img src={'indieimp.svg'} style={{ height: 150 }} />
         </StyledTypography>
-        <StyledTypography variant="h1" >One-Word Game</StyledTypography>
+        <StyledTypography variant="h1">One-Word Game</StyledTypography>
       </Grid>
       <Grid item sm={12} md={3}>
         <StyledButton href="game/single/new">1 Team</StyledButton>
