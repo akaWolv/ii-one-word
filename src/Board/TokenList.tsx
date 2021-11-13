@@ -3,10 +3,11 @@ import { styled } from '@mui/material/styles'
 import { purple } from '@mui/material/colors'
 import { Button } from '@mui/material'
 import { ETokenStatus } from 'src/interfaces/ETokenStatus'
+import router from 'next/router'
 
 interface ITokenList {
   tokenState: string
-  updateTokenState: Function
+  getUpdateTokenStateUrl: Function
 }
 
 const StyledUl = styled('ul')({
@@ -32,17 +33,22 @@ const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status, theme
 }))
 
 // eslint-disable-next-line react/prop-types
-const TokenList = ({ tokenState, updateTokenState }: ITokenList) => {
+const TokenList = ({ tokenState, getUpdateTokenStateUrl }: ITokenList) => {
   const numberOfTokens = tokenState.split('').length
   const tokenStateList = tokenState.split('')
-  const handleUpdateStatus = () => updateTokenState()
+  const updateStatusUrl = getUpdateTokenStateUrl()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    router.push(updateStatusUrl)
+  }
   const renderTokens = () => {
     return Array.from(Array(numberOfTokens).keys()).map(
       (i, index) => {
         const tokenState: ETokenStatus = Number(tokenStateList[index]) ? ETokenStatus.Available : ETokenStatus.Used
         return <StyledLi key={index} _status={tokenState}>
           <StyledButton
-            onClick={handleUpdateStatus}
+            href={updateStatusUrl}
+            onClick={handleClick}
             disabled={tokenState === ETokenStatus.Used}
             _status={tokenState}
           >

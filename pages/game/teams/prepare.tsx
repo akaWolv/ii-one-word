@@ -56,6 +56,9 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           <TextField
             label="Red team"
             variant="standard"
+            onFocus={event => {
+              event.target.select()
+            }}
             defaultValue={boardLinkRed}
             InputProps={{
               readOnly: true,

@@ -54,8 +54,11 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Red team"
+            label="Player A"
             variant="standard"
+            onFocus={event => {
+              event.target.select()
+            }}
             defaultValue={boardLinkPlayerA}
             InputProps={{
               readOnly: true,
@@ -74,7 +77,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Blue team"
+            label="Player B"
             variant="standard"
             onFocus={event => {
               event.target.select()

@@ -1,6 +1,5 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import router from 'next/router'
 import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Duo'
@@ -26,6 +25,7 @@ interface IStart {
   boardPlayerB: Array<EType[]>
   gameStateA: string
   gameStateB: string
+  gameState: string
   tokenState: string
   flatBoard: string
 }
@@ -47,6 +47,7 @@ const Game = ({
   boardPlayerB,
   gameStateA,
   gameStateB,
+  gameState,
   tokenState,
   flatBoard
 }: IStart) => {
@@ -69,8 +70,14 @@ const Game = ({
     url.searchParams.set('tokenState', tokenState)
     return url.toString()
   }
-  const updateTokenState = () => {
+
+  const getUpdateTokenStateUrl = (): string => {
     const url = getCurrentUrl()
+
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
+    url.searchParams.set('gameState', gameState)
+
     const countTaken = (tokenState.match(/0/g) || []).length
     if (countTaken < tokenState.length) {
       url.searchParams.set(
@@ -81,7 +88,7 @@ const Game = ({
         ].join('')
       )
     }
-    router.push(url.toString())
+    return url.toString()
   }
 
   const { tilesLeft, assassin } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
@@ -104,7 +111,7 @@ const Game = ({
         />
       </Grid>
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
-        <TokenList tokenState={tokenState} updateTokenState={updateTokenState} />
+        <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
       </Grid>
       <StyledContainer container item xs={12}>
         <Grid item xs={3}>
@@ -157,6 +164,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       boardPlayerB: boardPlayerB,
       gameStateA,
       gameStateB,
+      gameState,
       tokenState,
       flatBoard
     }

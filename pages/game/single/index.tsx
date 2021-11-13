@@ -1,6 +1,5 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import router from 'next/router'
 import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
@@ -42,8 +41,13 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
     return url.toString()
   }
 
-  const updateTokenState = () => {
+  const getUpdateTokenStateUrl = (): string => {
     const url = getCurrentUrl()
+
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
+    url.searchParams.set('gameState', gameState)
+
     const countTaken = (tokenState.match(/0/g) || []).length
     if (countTaken < tokenState.length) {
       url.searchParams.set(
@@ -54,7 +58,7 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
         ].join('')
       )
     }
-    router.push(url.toString())
+    return url.toString()
   }
 
   const {
@@ -78,7 +82,7 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
         />
       </Grid>
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
-        <TokenList tokenState={tokenState} updateTokenState={updateTokenState} />
+        <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
       </Grid>
       <StyledContainer container item xs={12}>
         <Grid item xs={3}>
