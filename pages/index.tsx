@@ -28,7 +28,7 @@ const Home = () => {
           direction="row"
           justifyContent="center"
           alignItems="center"
-          style={{ height: '100vh', textAlign: 'center', marginTop: 0 }}
+          style={{ height: '100vh', textAlign: 'center', marginTop: 0, color: '#D100A4FF' }}
     >
       <Grid item xs={12}>
         <StyledTypography variant="h2" >
