@@ -28,6 +28,7 @@ interface IStart {
   gameState: string
   tokenState: string
   flatBoard: string
+  withUpsideDownWord: boolean
 }
 
 const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/duo`)
@@ -49,7 +50,8 @@ const Game = ({
   gameStateB,
   gameState,
   tokenState,
-  flatBoard
+  flatBoard,
+  withUpsideDownWord
 }: IStart) => {
   const getChangeGameStateUrl = (lineId: number, wordId: number, player: EPlayer): string => {
     const orderId = lineId * 5 + wordId
@@ -68,6 +70,7 @@ const Game = ({
     url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameStateList.join(','))
     url.searchParams.set('tokenState', tokenState)
+    url.searchParams.set('tabletMode', String(Number(withUpsideDownWord)))
     return url.toString()
   }
 
@@ -88,6 +91,7 @@ const Game = ({
         ].join('')
       )
     }
+    url.searchParams.set('tabletMode', String(Number(withUpsideDownWord)))
     return url.toString()
   }
 
@@ -108,6 +112,7 @@ const Game = ({
           gameStateA={gameStateA}
           gameStateB={gameStateB}
           getChangeGameStateUrl={getChangeGameStateUrl}
+          withUpsideDownWord={withUpsideDownWord}
         />
       </Grid>
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
@@ -131,7 +136,7 @@ const Game = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
-  const { board: boardId, words: wordsId, gameState, tokenState } = query
+  const { board: boardId, words: wordsId, gameState, tokenState, tabletMode } = query
   if (!boardId || !wordsId || !gameState || !tokenState) {
     // res.writeHead(307, { Location: '/game/duo/new' })
     res.end()
@@ -166,7 +171,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       gameStateB,
       gameState,
       tokenState,
-      flatBoard
+      flatBoard,
+      withUpsideDownWord: Boolean(Number(tabletMode || 0))
     }
   }
 }

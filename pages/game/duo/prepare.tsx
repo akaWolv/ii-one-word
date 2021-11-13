@@ -24,12 +24,13 @@ const getBoardLink = (boardId: string, player: EPlayer): string => {
 const Prepare = ({ boardId, wordsId }: IPrepare) => {
   const boardLinkPlayerA = getBoardLink(boardId, EPlayer.A)
   const boardLinkPlayerB = getBoardLink(boardId, EPlayer.B)
-  const getStartLink = ():string => {
+  const getStartLink = (tabletMode: boolean):string => {
     const startLink = new URL(`${process.env.APP_URL}/game/duo`)
     startLink.searchParams.set('board', boardId)
     startLink.searchParams.set('words', wordsId)
     startLink.searchParams.set('gameState', INITIAL_GAME_STATE)
     startLink.searchParams.set('tokenState', INITIAL_TOKEN_STATE)
+    startLink.searchParams.set('tabletMode', String(Number(tabletMode)))
     return startLink.toString()
   }
   return (
@@ -94,10 +95,18 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
         <Button
           variant="outlined"
           size="large"
-          href={getStartLink()}
+          href={getStartLink(false)}
           style={{ color: grey[400] }}
         >
           Let the game begin!
+        </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          href={getStartLink(true)}
+          style={{ color: grey[400] }}
+        >
+          Tablet mode?
         </Button>
       </Grid>
     </Grid>

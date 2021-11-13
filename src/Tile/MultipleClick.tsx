@@ -5,7 +5,7 @@ import { EPicked } from '../interfaces/EPicked'
 import TypeIcon from '../Board/TypeIcon'
 import { styled } from '@mui/material/styles'
 import { Button, CardActions, CardContent, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { grey, deepPurple } from '@mui/material/colors'
 import Card from '@mui/material/Card'
 import getTileColorByType from '../getTileColorByType'
 import getPlayerColor from '../getPlayerColor'
@@ -39,9 +39,20 @@ interface ITile {
   gameStateA: string
   gameStateB: string
   getChangeGameStateUrl: Function
+  withUpsideDownWord: boolean
 }
 
-const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, gameStateB, getChangeGameStateUrl }: ITile) => {
+const Tile = ({
+  lineId,
+  wordId,
+  word,
+  boardPlayerA,
+  boardPlayerB,
+  gameStateA,
+  gameStateB,
+  getChangeGameStateUrl,
+  withUpsideDownWord
+}: ITile) => {
   const orderId = lineId * 5 + wordId
   const stateA = gameStateA[orderId]
   const stateB = gameStateB[orderId]
@@ -85,16 +96,23 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
   }
 
   return <StyledCard>
-    <CardContent>
+    <CardContent style={{ height: '75%' }}>
+
+        <Typography sx={{
+          fontSize: '0.7em', fontWeight: 400, color: deepPurple[400], textAlign: 'right', transform: 'scale(-1, -1)'
+        }}>
+          { withUpsideDownWord ? word : <span>&nbsp;</span> }
+        </Typography>
+
       <Typography
         variant="caption"
         display="block"
-        style={{ textAlign: 'center', fontSize: 25, marginTop: 10, textTransform: 'uppercase' }}
+        style={{ textAlign: 'center', bottom: 0, fontSize: 25, textTransform: 'uppercase' }}
       >
         {word}
       </Typography>
     </CardContent>
-    <CardActions style={{ justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
+    <CardActions style={{ height: '25%', justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
       <StyledButton
         size="small"
         href={pickTilePlayerAUrl}

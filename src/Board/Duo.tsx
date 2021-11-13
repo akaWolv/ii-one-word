@@ -9,11 +9,25 @@ interface IWords {
   gameStateA: string
   gameStateB: string
   getChangeGameStateUrl: Function
+  withUpsideDownWord: boolean
 }
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, getChangeGameStateUrl }: IWords) => {
-  return <table style={{ tableLayout: 'fixed', width: '100%', height: '100%', borderSpacing: '5px' }}>
+const Board = ({
+  words,
+  boardPlayerA,
+  boardPlayerB,
+  gameStateA,
+  gameStateB,
+  getChangeGameStateUrl,
+  withUpsideDownWord
+}: IWords) => {
+  return <table style={{
+    tableLayout: 'fixed',
+    width: '100%',
+    height: '100%',
+    borderSpacing: '5px'
+  }}>
     <tbody>
     {
       words.map((line, lineId) => (
@@ -30,6 +44,7 @@ const Board = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, getC
                   gameStateA={gameStateA}
                   gameStateB={gameStateB}
                   getChangeGameStateUrl={getChangeGameStateUrl}
+                  withUpsideDownWord={withUpsideDownWord}
                 />
               </td>
             ))
