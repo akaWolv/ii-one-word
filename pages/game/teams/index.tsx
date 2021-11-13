@@ -1,6 +1,5 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import router from 'next/router'
 import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
