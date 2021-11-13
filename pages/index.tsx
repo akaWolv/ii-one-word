@@ -5,8 +5,6 @@ import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 
 const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
-  // Backport to Tizen TV
-  color: '#D100A4FF',
   backgroundColor: 'transparent',
   border: `solid 2px ${theme.palette.primary.main}`,
   width: '100%',
@@ -20,9 +18,7 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
 }))
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  // Backport to Tizen TV
-  // color: theme.palette.primary.main
-  color: '#D100A4FF'
+  color: theme.palette.primary.main
 }))
 
 const Home = () => {

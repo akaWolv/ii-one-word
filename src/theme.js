@@ -8,7 +8,8 @@ let theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#D100A4FF'
+      // main: '#D100A4FF'
+      main: '#D100A4'
     },
     secondary: {
       main: grey[100]
