@@ -50,5 +50,4 @@ const Tile = ({ lineId, wordId, word, board, gameState, getChangeGameStateUrl }:
   }
 }
 
-
 export default Tile

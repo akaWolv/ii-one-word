@@ -19,6 +19,8 @@ const StyledContainer = styled(Grid)(({ theme }) => ({
 }))
 
 interface IStart {
+  boardId: string
+  wordsId: string
   words: string[][]
   boardPlayerA: Array<EType[]>
   boardPlayerB: Array<EType[]>
@@ -28,7 +30,7 @@ interface IStart {
   flatBoard: string
 }
 
-const getCurrentUrl = () => new URL(window.location.href)
+const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/duo`)
 
 const editGameState = (gameState: string, orderId: number): string => {
   const gameStateList = gameState.split('')
@@ -37,8 +39,18 @@ const editGameState = (gameState: string, orderId: number): string => {
 }
 
 // eslint-disable-next-line react/prop-types
-const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, tokenState, flatBoard }: IStart) => {
-  const changeGameState = (lineId: number, wordId: number, player: EPlayer) => {
+const Game = ({
+  boardId,
+  wordsId,
+  words,
+  boardPlayerA,
+  boardPlayerB,
+  gameStateA,
+  gameStateB,
+  tokenState,
+  flatBoard
+}: IStart) => {
+  const getChangeGameStateUrl = (lineId: number, wordId: number, player: EPlayer): string => {
     const orderId = lineId * 5 + wordId
     let gameStateList = []
 
@@ -51,8 +63,11 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
 
     // push location
     const url = getCurrentUrl()
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameStateList.join(','))
-    router.push(url.toString())
+    url.searchParams.set('tokenState', tokenState)
+    return url.toString()
   }
   const updateTokenState = () => {
     const url = getCurrentUrl()
@@ -68,8 +83,6 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
     }
     router.push(url.toString())
   }
-  const handleNewGame = () => router.push('/game/duo/new')
-  const handleBackToStart = () => router.push('/')
 
   const { tilesLeft, assassin } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
 
@@ -87,7 +100,7 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
           boardPlayerB={boardPlayerB}
           gameStateA={gameStateA}
           gameStateB={gameStateB}
-          changeGameState={changeGameState}
+          getChangeGameStateUrl={getChangeGameStateUrl}
         />
       </Grid>
       <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
@@ -101,8 +114,8 @@ const Game = ({ words, boardPlayerA, boardPlayerB, gameStateA, gameStateB, token
         </Grid>
         <Grid item xs={6}>
           <ButtonGroup size="small" variant="text">
-            <Button onClick={handleNewGame}>New Game</Button>
-            <Button onClick={handleBackToStart}>Back to start</Button>
+            <Button href={`${process.env.APP_URL}/game/duo/new`}>New Game</Button>
+            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
           </ButtonGroup>
         </Grid>
       </StyledContainer>
@@ -137,6 +150,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
 
   return {
     props: {
+      boardId,
+      wordsId,
       words,
       boardPlayerA: boardPlayerA,
       boardPlayerB: boardPlayerB,
