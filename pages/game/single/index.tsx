@@ -19,7 +19,6 @@ interface IGame {
   board: Array<EType[]>
   flatBoard: string
   gameState: string
-  starting: ETeam
   tokenState: string
 }
 

@@ -12,6 +12,8 @@ import calculateTeamsTilesToGo from 'src/calculateTeamsTilesToGo'
 import GameModal from 'src/GameModal/Teams'
 
 interface IGame {
+  boardId: string
+  wordsId: string
   words: string[][]
   board: Array<EType[]>
   flatBoard: string
@@ -27,21 +29,14 @@ const StyledContainer = styled(Grid)(({ theme }) => ({
 }))
 
 // eslint-disable-next-line react/prop-types
-const Game = ({
-  words,
-  board,
-  flatBoard,
-  gameState,
-  starting
-}: IGame) => {
-  const changeGameState = (gameState: string) => {
-    const url = new URL(window.location.href)
+const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }: IGame) => {
+  const getChangeGameStateUrl = (gameState: string) => {
+    const url = new URL(`${process.env.APP_URL}/game/teams`)
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameState)
-    router.push(url.toString())
+    return url.toString()
   }
-
-  const handleNewGame = () => router.push('/game/teams/new')
-  const handleBackToStart = () => router.push('/')
 
   const {
     redTeamTilesLeft,
@@ -61,7 +56,7 @@ const Game = ({
           words={words}
           board={board}
           gameState={gameState}
-          changeGameState={changeGameState}
+          getChangeGameStateUrl={getChangeGameStateUrl}
         />
       </Grid>
       <StyledContainer container item xs={12}>
@@ -73,8 +68,8 @@ const Game = ({
         </Grid>
         <Grid item xs={6}>
           <ButtonGroup size="small" variant="text">
-            <Button onClick={handleNewGame}>New Game</Button>
-            <Button onClick={handleBackToStart}>Back to start</Button>
+            <Button href={`${process.env.APP_URL}/game/teams/new`}>New Game</Button>
+            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
           </ButtonGroup>
         </Grid>
         <Grid item xs={3}>
@@ -125,6 +120,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      boardId,
+      wordsId,
       words,
       board,
       flatBoard,
