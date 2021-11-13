@@ -62,7 +62,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
             defaultValue={boardLinkPlayerA}
             InputProps={{
               readOnly: true,
-              style: { width: 400, color: grey[600] }
+              style: { width: 400, color: grey[300] }
             }}/>
         </Grid>
       </Grid>

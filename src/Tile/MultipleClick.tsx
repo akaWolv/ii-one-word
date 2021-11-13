@@ -20,7 +20,14 @@ const StyledCard = styled(Card)<{ _type?: EType }>(({ _type }) => ({
 
 const StyledButton = styled(Button)<{ _picked: EPicked, _player: EPlayer }>(({ _picked, _player }) => ({
   backgroundColor: _picked === EPicked.Yes ? getTileColorByType(EType.Neutral) : 'inherit',
-  color: getPlayerColor(_player)
+  color: getPlayerColor(_player),
+  height: '100%',
+  width: '45%',
+  '&:hover': {
+    backgroundColor: getPlayerColor(_player),
+    color: grey[50],
+    cursor: 'pointer'
+  }
 }))
 
 interface ITile {
@@ -93,6 +100,7 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
         href={pickTilePlayerAUrl}
         onClick={handleClickPlayerA}
         disabled={stateA === '1'}
+        style={{ float: 'left' }}
         _picked={stateA === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.A}
       >
@@ -102,6 +110,7 @@ const Tile = ({ lineId, wordId, word, boardPlayerA, boardPlayerB, gameStateA, ga
         size="small"
         href={pickTilePlayerBUrl}
         onClick={handleClickPlayerB}
+        style={{ float: 'right' }}
         disabled={stateB === '1'}
         _picked={stateB === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.B}
