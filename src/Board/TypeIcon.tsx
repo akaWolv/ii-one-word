@@ -1,7 +1,7 @@
 import React from 'react'
 import HailIcon from '@mui/icons-material/Hail'
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk'
-import DangerousIcon from '@mui/icons-material/Dangerous';
+import DangerousIcon from '@mui/icons-material/Dangerous'
 
 import { EType } from 'src/interfaces/EType'
 import { amber, pink } from '@mui/material/colors'
@@ -15,11 +15,11 @@ const TypeIcon = ({ type }: ITypeIcon) => {
     case EType.Red:
     case EType.Blue:
     case EType.Green:
-      return <HailIcon style={{ fontSize: 42 }} />
+      return <HailIcon style={{ fontSize: 44 }} />
     case EType.Neutral:
-      return <DirectionsWalkIcon style={{ fontSize: 42, color: amber[800] }} />
+      return <DirectionsWalkIcon style={{ fontSize: 44, color: amber[800] }} />
     case EType.Assassin:
-      return <DangerousIcon style={{ fontSize: 42, color: pink[800] }} />
+      return <DangerousIcon style={{ fontSize: 44, color: pink[600] }} />
     default:
       return null
   }

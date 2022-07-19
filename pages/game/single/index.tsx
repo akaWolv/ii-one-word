@@ -21,7 +21,12 @@ interface IGame {
   tokenState: string
 }
 
-const StyledContainer = styled(Grid)(({ theme }) => ({
+const StyledBoardContainer = styled(Grid)(({ theme }) => ({
+  textAlign: 'center',
+  height: '95vh',
+  flexGrow: 0
+}))
+const StyledBottomBar = styled(Grid)(({ theme }) => ({
   color: grey[100],
   textAlign: 'center',
   height: '5vh',
@@ -68,27 +73,30 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
 
   return (
     <Grid container
-          spacing={2}
+          spacing={1}
           direction="row"
-          alignItems="stretch"
+          alignItems="center"
     >
       <GameModal tilesLeft={tilesLeft} assassin={assassin} />
-      <Grid item xs={11} style={{ height: '95vh' }}>
-        <Board
-          words={words}
-          board={board}
-          gameState={gameState}
-          getChangeGameStateUrl={getChangeGameStateUrl}
-        />
-      </Grid>
-      <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
+      <StyledBoardContainer container item xs={12}>
+        <Grid item xs={11}>
+          <Board
+            words={words}
+            board={board}
+            gameState={gameState}
+            getChangeGameStateUrl={getChangeGameStateUrl}
+          />
+        </Grid>
+        <Grid item xs={1}>
         <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
       </Grid>
-      <StyledContainer container item xs={12}>
+      </StyledBoardContainer>
+      <StyledBottomBar container item xs={12}>
         <Grid item xs={3}>
           <Typography variant="h6">
-            <span style={{ color: getTeamColor(ETeam.Green) }}>Team </span>
-            &nbsp;have <b>{tilesLeft}</b> agent{tilesLeft > 1 && 's'} to go
+            <b>{tilesLeft}</b>&nbsp;<span style={{ color: getTeamColor(ETeam.Green) }}>
+            agent{tilesLeft > 1 && 's'}
+          </span>&nbsp;yet to discover
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -97,7 +105,7 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
             <Button href={`${process.env.APP_URL}`}>Back to start</Button>
           </ButtonGroup>
         </Grid>
-      </StyledContainer>
+      </StyledBottomBar>
     </Grid>
   )
 }

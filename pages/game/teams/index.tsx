@@ -61,8 +61,8 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }
       <StyledContainer container item xs={12}>
         <Grid item xs={3}>
           <Typography variant="h6">
-            <span style={{ color: getTeamColor(ETeam.Red) }}>Red Team</span>
-            &nbsp;<b>{redTeamTilesLeft}</b> agent{redTeamTilesLeft > 1 && 's'} to go
+            <span style={{ color: getTeamColor(ETeam.Red) }}>Red Team: </span>
+            &nbsp;<b>{redTeamTilesLeft}</b> agent{redTeamTilesLeft > 1 && 's'} yet to discover
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -73,8 +73,8 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }
         </Grid>
         <Grid item xs={3}>
           <Typography variant="h6">
-            <span style={{ color: getTeamColor(ETeam.Blue) }}>Blue Team </span>
-            &nbsp;<b>{blueTeamTilesLeft}</b> agent{blueTeamTilesLeft > 1 && 's'} to go
+            <span style={{ color: getTeamColor(ETeam.Blue) }}>Blue Team: </span>
+            &nbsp;<b>{blueTeamTilesLeft}</b> agent{blueTeamTilesLeft > 1 && 's'} yet to discover
           </Typography>
         </Grid>
       </StyledContainer>

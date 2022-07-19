@@ -9,12 +9,16 @@ import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
 import calculateDuoTilesToGo from 'src/calculateDuoTilesToGo'
 import GameModal from 'src/GameModal/Duo'
+import getTeamColor from '../../../src/getTeamColor'
+import { ETeam } from '../../../src/interfaces/ETeam'
 
-const StyledContainer = styled(Grid)(({ theme }) => ({
-  color: grey[100],
+const StyledBoardContainer = styled(Grid)(({ theme }) => ({
   textAlign: 'center',
-  height: '5vh',
-  flexGrow: 0
+  height: '95vh'
+}))
+const StyledBottomBar = styled(Grid)(({ theme }) => ({
+  color: grey[100],
+  textAlign: 'center'
 }))
 
 interface IStart {
@@ -101,27 +105,32 @@ const Game = ({
     <Grid container
           spacing={1}
           direction="row"
-          alignItems="stretch"
+          alignItems="center"
     >
       <GameModal tilesLeft={tilesLeft} assassin={assassin} />
-      <Grid item xs={11} style={{ height: '95vh' }}>
-        <Board
-          words={words}
-          boardPlayerA={boardPlayerA}
-          boardPlayerB={boardPlayerB}
-          gameStateA={gameStateA}
-          gameStateB={gameStateB}
-          getChangeGameStateUrl={getChangeGameStateUrl}
-          withUpsideDownWord={withUpsideDownWord}
-        />
-      </Grid>
-      <Grid item xs={1} style={{ textAlign: 'center', height: '95vh' }}>
-        <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
-      </Grid>
-      <StyledContainer container item xs={12}>
+      <StyledBoardContainer container item xs={12}>
+        <Grid item xs={11}>
+          <Board
+            words={words}
+            boardPlayerA={boardPlayerA}
+            boardPlayerB={boardPlayerB}
+            gameStateA={gameStateA}
+            gameStateB={gameStateB}
+            getChangeGameStateUrl={getChangeGameStateUrl}
+            withUpsideDownWord={withUpsideDownWord}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
+        </Grid>
+      </StyledBoardContainer>
+      <StyledBottomBar container item xs={12}>
         <Grid item xs={3}>
           <Typography variant="h6">
-            There is <b>{tilesLeft}</b> agent{tilesLeft > 1 && 's'} to go
+            <b>{tilesLeft}</b>&nbsp;
+            <span style={{ color: getTeamColor(ETeam.Green) }}>
+              agent{tilesLeft > 1 && 's'}
+            </span>&nbsp;yet to discover
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -130,7 +139,7 @@ const Game = ({
             <Button href={`${process.env.APP_URL}`}>Back to start</Button>
           </ButtonGroup>
         </Grid>
-      </StyledContainer>
+      </StyledBottomBar>
     </Grid>
   )
 }

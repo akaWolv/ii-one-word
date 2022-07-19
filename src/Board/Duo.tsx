@@ -34,7 +34,7 @@ const Board = ({
         <tr key={encodeURIComponent(line.join(''))}>
           {
             line.map((word, wordId) => (
-              <td key={`${lineId}-${wordId}`}>
+              <td key={`${lineId}-${wordId}`} style={{ width: '20%', height: '20%' }}>
                 <Tile
                   lineId={lineId}
                   wordId={wordId}

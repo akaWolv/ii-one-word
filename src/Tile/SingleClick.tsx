@@ -5,7 +5,7 @@ import TypeIcon from '../Board/TypeIcon'
 import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
 import getTileColorByType from '../getTileColorByType'
-import { grey } from '@mui/material/colors'
+import { grey, pink } from '@mui/material/colors'
 
 interface ITile {
   lineId: number
@@ -16,8 +16,12 @@ interface ITile {
   getChangeGameStateUrl: Function
 }
 
-const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
-  backgroundColor: _type ? getTileColorByType(_type) : grey[50],
+const StyledButton = styled(Button)<{ _type?: EType }>(({
+  _type,
+  theme
+}) => ({
+  backgroundColor: _type ? getTileColorByType(_type) : pink[50],
+  padding: 1,
   width: '100%',
   height: '100%',
   fontSize: 25,
@@ -29,7 +33,14 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
 }))
 
 // eslint-disable-next-line react/prop-types
-const Tile = ({ lineId, wordId, word, board, gameState, getChangeGameStateUrl }: ITile) => {
+const Tile = ({
+  lineId,
+  wordId,
+  word,
+  board,
+  gameState,
+  getChangeGameStateUrl
+}: ITile) => {
   const orderId = lineId * 5 + wordId
   const state = gameState[orderId]
   const getPickTileUrl = (): string => {
@@ -38,12 +49,12 @@ const Tile = ({ lineId, wordId, word, board, gameState, getChangeGameStateUrl }:
     return getChangeGameStateUrl(gameStateList.join(''))
   }
   if (state === '0') {
-    const pickTilUrl = getPickTileUrl()
+    const pickTileUrl = getPickTileUrl()
     const handleClick = (e: React.MouseEvent) => {
       e.preventDefault()
-      router.push(pickTilUrl)
+      router.push(pickTileUrl)
     }
-    return <StyledButton href={pickTilUrl} onClick={handleClick}>{word}</StyledButton>
+    return <StyledButton href={pickTileUrl} onClick={handleClick}>{word}</StyledButton>
   } else {
     const type: EType = board[lineId][wordId]
     return <StyledButton disabled={true} _type={type}><TypeIcon type={type} /></StyledButton>

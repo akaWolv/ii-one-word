@@ -76,7 +76,7 @@ const Tile = ({
       <Typography
         variant="caption"
         display="block"
-        style={{ marginTop: '15%', textAlign: 'center', fontSize: 25, textTransform: 'uppercase' }}
+        style={{ marginTop: '20%', textAlign: 'center' }}
       >
         <TypeIcon type={type} />
       </Typography>
@@ -96,10 +96,13 @@ const Tile = ({
   }
 
   return <StyledCard>
-    <CardContent style={{ height: '75%' }}>
-
+    <CardContent style={{ height: '75%', paddingBottom: 0 }}>
         <Typography sx={{
-          fontSize: '0.7em', fontWeight: 400, color: deepPurple[400], textAlign: 'right', transform: 'scale(-1, -1)'
+          fontSize: '0.7em',
+          fontWeight: 400,
+          color: deepPurple[400],
+          textAlign: 'right',
+          transform: 'scale(-1, -1)'
         }}>
           { withUpsideDownWord ? word : <span>&nbsp;</span> }
         </Typography>
@@ -112,7 +115,7 @@ const Tile = ({
         {word}
       </Typography>
     </CardContent>
-    <CardActions style={{ height: '25%', justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
+    <CardActions style={{ height: '23%', justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
       <StyledButton
         size="small"
         href={pickTilePlayerAUrl}
@@ -122,7 +125,7 @@ const Tile = ({
         _picked={stateA === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.A}
       >
-        Player A
+        Guess [ A ]
       </StyledButton>
       <StyledButton
         size="small"
@@ -133,7 +136,7 @@ const Tile = ({
         _picked={stateB === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.B}
       >
-        Player B
+        Guess [ B ]
       </StyledButton>
     </CardActions>
   </StyledCard>

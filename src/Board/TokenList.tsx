@@ -1,6 +1,7 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { purple } from '@mui/material/colors'
+import { Check } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import { ETokenStatus } from 'src/interfaces/ETokenStatus'
 import router from 'next/router'
@@ -12,11 +13,17 @@ interface ITokenList {
 
 const StyledUl = styled('ul')({
   width: '100%',
-  height: '90%',
-  listStyleType: 'none'
+  height: '100%',
+  listStyleType: 'none',
+  display: 'flex',
+  alignContent: 'center',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  margin: 0
 })
 const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
-  marginTop: 10,
+  marginTop: 5,
+  marginBottom: 5,
   width: '100%',
   height: '10%'
 }))
@@ -54,8 +61,8 @@ const TokenList = ({ tokenState, getUpdateTokenStateUrl }: ITokenList) => {
           >
             {
               tokenState === ETokenStatus.Available
-                ? '1 Move'
-                : ''
+                ? 'One Turn'
+                : <Check style={{ fontSize: 52 }} />
             }
           </StyledButton>
         </StyledLi>
