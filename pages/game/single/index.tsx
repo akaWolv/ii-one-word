@@ -10,6 +10,7 @@ import getTeamColor from 'src/getTeamColor'
 import calculateSingleTilesToGo from 'src/calculateSingleTilesToGo'
 import GameModal from 'src/GameModal/Single'
 import TokenList from 'src/Board/TokenList'
+import Menu from 'src/GameBottomBar/Menu'
 
 interface IGame {
   boardId: string
@@ -100,10 +101,7 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <ButtonGroup size="small" variant="text">
-            <Button href={`${process.env.APP_URL}/game/single/new`}>New Game</Button>
-            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
-          </ButtonGroup>
+          <Menu newGameUrl='/game/single/new' />
         </Grid>
       </StyledBottomBar>
     </Grid>

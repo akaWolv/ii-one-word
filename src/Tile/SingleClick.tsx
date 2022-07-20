@@ -5,7 +5,7 @@ import TypeIcon from '../Board/TypeIcon'
 import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
 import getTileColorByType from '../getTileColorByType'
-import { grey, pink } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 
 interface ITile {
   lineId: number
@@ -20,7 +20,8 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({
   _type,
   theme
 }) => ({
-  backgroundColor: _type ? getTileColorByType(_type) : pink[50],
+  backgroundColor: _type ? getTileColorByType(_type) : grey[800],
+  color: grey[300],
   padding: 1,
   width: '100%',
   height: '100%',

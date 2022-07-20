@@ -9,6 +9,7 @@ import { ETeam } from 'src/interfaces/ETeam'
 import getTeamColor from 'src/getTeamColor'
 import calculateTeamsTilesToGo from 'src/calculateTeamsTilesToGo'
 import GameModal from 'src/GameModal/Teams'
+import Menu from 'src/GameBottomBar/Menu'
 
 interface IGame {
   boardId: string
@@ -66,10 +67,7 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <ButtonGroup size="small" variant="text">
-            <Button href={`${process.env.APP_URL}/game/teams/new`}>New Game</Button>
-            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
-          </ButtonGroup>
+          <Menu newGameUrl='/game/teams/new' />
         </Grid>
         <Grid item xs={3}>
           <Typography variant="h6">

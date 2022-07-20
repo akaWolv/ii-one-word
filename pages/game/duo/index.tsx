@@ -1,6 +1,6 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Duo'
 import TokenList from 'src/Board/TokenList'
@@ -9,8 +9,9 @@ import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
 import calculateDuoTilesToGo from 'src/calculateDuoTilesToGo'
 import GameModal from 'src/GameModal/Duo'
-import getTeamColor from '../../../src/getTeamColor'
-import { ETeam } from '../../../src/interfaces/ETeam'
+import getTeamColor from 'src/getTeamColor'
+import { ETeam } from 'src/interfaces/ETeam'
+import Menu from 'src/GameBottomBar/Menu'
 
 const StyledBoardContainer = styled(Grid)(({ theme }) => ({
   textAlign: 'center',
@@ -134,10 +135,7 @@ const Game = ({
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <ButtonGroup size="small" variant="text">
-            <Button href={`${process.env.APP_URL}/game/duo/new`}>New Game</Button>
-            <Button href={`${process.env.APP_URL}`}>Back to start</Button>
-          </ButtonGroup>
+          <Menu newGameUrl='/game/duo/new' />
         </Grid>
       </StyledBottomBar>
     </Grid>

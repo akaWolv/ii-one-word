@@ -4,25 +4,37 @@ import { EPlayer } from '../interfaces/EPlayer'
 import { EPicked } from '../interfaces/EPicked'
 import TypeIcon from '../Board/TypeIcon'
 import { styled } from '@mui/material/styles'
-import { Button, CardActions, CardContent, Typography } from '@mui/material'
-import { grey, deepPurple } from '@mui/material/colors'
+import { alpha, Button, CardActions, CardContent, Typography } from '@mui/material'
+import { grey, pink } from '@mui/material/colors'
 import Card from '@mui/material/Card'
 import getTileColorByType from '../getTileColorByType'
 import getPlayerColor from '../getPlayerColor'
 import router from 'next/router'
 
 const StyledCard = styled(Card)<{ _type?: EType }>(({ _type }) => ({
-  backgroundColor: _type ? getTileColorByType(_type) : grey[50],
+  backgroundColor: _type ? getTileColorByType(_type) : grey[800],
+  color: grey[300],
   width: '100%',
   height: '100%',
   fontSize: 25
 }))
 
-const StyledButton = styled(Button)<{ _picked: EPicked, _player: EPlayer }>(({ _picked, _player }) => ({
-  backgroundColor: _picked === EPicked.Yes ? getTileColorByType(EType.Neutral) : 'inherit',
-  color: getPlayerColor(_player),
+const StyledCardContent = styled(Card)({
+  padding: 38,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   height: '100%',
-  width: '45%',
+  backgroundColor: 'transparent'
+})
+
+const StyledButton = styled(Button)<{ _picked: EPicked, _player: EPlayer }>(({ _picked, _player }) => ({
+  backgroundColor: _picked === EPicked.Yes
+    ? getTileColorByType(EType.Neutral)
+    : alpha(getPlayerColor(_player), 0.6),
+  color: grey[100],
+  padding: 0,
+  fontWeight: 'bold',
   '&:hover': {
     backgroundColor: getPlayerColor(_player),
     color: grey[50],
@@ -71,24 +83,18 @@ const Tile = ({
     router.push(pickTilePlayerBUrl)
   }
 
-  const renderPickedTile = (type: EType) => <StyledCard _type={type}>
-    <CardContent>
-      <Typography
-        variant="caption"
-        display="block"
-        style={{ marginTop: '20%', textAlign: 'center' }}
-      >
-        <TypeIcon type={type} />
-      </Typography>
-    </CardContent>
+  const renderPickedTile = (type: EType, player?: EPlayer) => <StyledCard _type={type}>
+    <StyledCardContent>
+        <TypeIcon type={type} player={player} />
+    </StyledCardContent>
   </StyledCard>
 
   if (stateA === '1' && stateBoardForPlayerA !== EType.Neutral) {
-    return renderPickedTile(stateBoardForPlayerA)
+    return renderPickedTile(stateBoardForPlayerA, EPlayer.A)
   }
 
   if (stateB === '1' && stateBoardForPlayerB !== EType.Neutral) {
-    return renderPickedTile(stateBoardForPlayerB)
+    return renderPickedTile(stateBoardForPlayerB, EPlayer.B)
   }
 
   if (stateA === '1' && stateB === '1') {
@@ -98,9 +104,9 @@ const Tile = ({
   return <StyledCard>
     <CardContent style={{ height: '75%', paddingBottom: 0 }}>
         <Typography sx={{
-          fontSize: '0.7em',
+          fontSize: '0.8em',
           fontWeight: 400,
-          color: deepPurple[400],
+          color: pink[200],
           textAlign: 'right',
           transform: 'scale(-1, -1)'
         }}>
@@ -117,7 +123,7 @@ const Tile = ({
     </CardContent>
     <CardActions style={{ height: '23%', justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
       <StyledButton
-        size="small"
+        variant='contained'
         href={pickTilePlayerAUrl}
         onClick={handleClickPlayerA}
         disabled={stateA === '1'}
@@ -125,10 +131,10 @@ const Tile = ({
         _picked={stateA === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.A}
       >
-        Guess [ A ]
+        A
       </StyledButton>
       <StyledButton
-        size="small"
+        variant='contained'
         href={pickTilePlayerBUrl}
         onClick={handleClickPlayerB}
         style={{ float: 'right' }}
@@ -136,7 +142,7 @@ const Tile = ({
         _picked={stateB === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.B}
       >
-        Guess [ B ]
+        B
       </StyledButton>
     </CardActions>
   </StyledCard>

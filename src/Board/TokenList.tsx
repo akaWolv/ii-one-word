@@ -30,11 +30,11 @@ const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
 
 const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status, theme }) => ({
   backgroundColor: _status === ETokenStatus.Available ? purple[100] : purple[800],
-  color: theme.palette.primary.main,
+  color: purple[800],
   width: '100%',
   height: '100%',
   '&:hover': {
-    backgroundColor: purple[300],
+    backgroundColor: purple[200],
     cursor: 'pointer'
   }
 }))
