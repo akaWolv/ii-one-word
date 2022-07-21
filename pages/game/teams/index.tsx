@@ -1,6 +1,6 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
