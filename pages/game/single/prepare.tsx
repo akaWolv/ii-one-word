@@ -71,7 +71,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           href={getStartLink()}
           style={{ color: grey[400] }}
         >
-          Let the game begin!
+          Start Game!
         </Button>
       </Grid>
     </Grid>

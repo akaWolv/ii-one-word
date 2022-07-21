@@ -14,14 +14,22 @@ interface IStart {
 // eslint-disable-next-line react/prop-types
 const PlayerKeyCard = ({ board, player }: IStart) => {
   return <>
-    <div style={{ width: '100vw', height: '90vh' }}>
+    <Typography
+      variant="h6"
+      style={{ color: 'white', textAlign: 'center', marginTop: 10 }}>
+      Key Card
+    </Typography>
+    <div style={{ width: '80vw', margin: '10px 10vw' }}>
       <KeyCard board={board} />
     </div>
     <div style={{ width: '100vw', height: '10vh' }}>
       <Typography
         variant="h6"
         style={{ color: 'white', textAlign: 'center' }}>
-        You are <span style={{ textTransform: 'uppercase', color: getPlayerColor(player) }}>Player {player}</span> | This is board for other player to guess
+        You are <span style={{ textTransform: 'uppercase', color: getPlayerColor(player) }}>Player {player}</span>
+      </Typography>
+      <Typography variant='h6' style={{ color: 'white', textAlign: 'center', fontSize: '0.8em' }}>
+        This is board for other player to guess
       </Typography>
     </div>
   </>

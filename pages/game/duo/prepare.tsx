@@ -98,7 +98,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           href={getStartLink(false)}
           style={{ color: grey[400] }}
         >
-          Let the game begin!
+          Start Game!
         </Button>
         <Button
           variant="outlined"
@@ -106,7 +106,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
           href={getStartLink(true)}
           style={{ color: grey[400] }}
         >
-          Tablet mode?
+          Tablet mode
         </Button>
       </Grid>
     </Grid>

@@ -18,7 +18,9 @@ const StyledTable = styled('table')(({ theme }) => ({
 }))
 
 const Item = styled('td')(({ type }: {type: EType}) => ({
-  backgroundColor: getTileColorByType(type)
+  backgroundColor: getTileColorByType(type),
+  lineHeight: 2.5,
+  color: 'transparent'
 }))
 
 // eslint-disable-next-line react/prop-types
@@ -29,7 +31,7 @@ const KeyCard = ({ board }: IKeyCard) => {
       board.map((line, id) => (
         <tr key={id}>
           {
-            line.map((type, id) => <Item key={id} type={type} />)
+            line.map((type, id) => <Item key={id} type={type}>{type}</Item>)
           }
         </tr>
       ))

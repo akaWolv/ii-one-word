@@ -100,7 +100,9 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, tokenState
           </span>&nbsp;yet to discover
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
+        </Grid>
+        <Grid item xs={3}>
           <Menu newGameUrl='/game/single/new' />
         </Grid>
       </StyledBottomBar>
