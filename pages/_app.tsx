@@ -20,7 +20,7 @@ export default function MyApp (props: AppProps) {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>One-word</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
