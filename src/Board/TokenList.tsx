@@ -1,15 +1,10 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { purple } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 import { Check } from '@mui/icons-material'
-import { Button } from '@mui/material'
+import { alpha, Button } from '@mui/material'
 import { ETokenStatus } from 'src/interfaces/ETokenStatus'
 import router from 'next/router'
-
-interface ITokenList {
-  tokenState: string
-  getUpdateTokenStateUrl: Function
-}
 
 const StyledUl = styled('ul')({
   width: '100%',
@@ -18,51 +13,88 @@ const StyledUl = styled('ul')({
   display: 'flex',
   alignContent: 'center',
   flexDirection: 'column',
-  justifyContent: 'center',
-  margin: 0
+  justifyContent: 'flex-start',
+  margin: 0,
+  padding: 10
 })
 const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
   marginTop: 5,
   marginBottom: 5,
+  marginLeft: 0,
+  marginRight: 0,
   width: '100%',
   height: '10%'
 }))
 
-const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status, theme }) => ({
-  backgroundColor: _status === ETokenStatus.Available ? purple[100] : purple[800],
-  color: purple[800],
+interface Props {
+  tokenState: string
+  getUpdateTokenStateUrl: Function,
+  getLastChanceUsedUrl: Function
+}
+
+const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({
+  _status,
+  theme
+}) => ({
   width: '100%',
   height: '100%',
+  fontWeight: 'bold',
+  backdropFilter: _status === ETokenStatus.Available ? 'saturate(150%)' : 'saturate(90%)',
   '&:hover': {
-    backgroundColor: purple[200],
+    backdropFilter: 'saturate(150%)',
     cursor: 'pointer'
   }
 }))
 
-// eslint-disable-next-line react/prop-types
-const TokenList = ({ tokenState, getUpdateTokenStateUrl }: ITokenList) => {
+const TokenList = ({
+  tokenState,
+  getUpdateTokenStateUrl,
+  getLastChanceUsedUrl
+}: Props) => {
   const numberOfTokens = tokenState.split('').length
   const tokenStateList = tokenState.split('')
   const updateStatusUrl = getUpdateTokenStateUrl()
-  const handleClick = (e: React.MouseEvent) => {
+  const lastChanceUsedUrl = getLastChanceUsedUrl()
+  const isLastChance = tokenState.search('1') === -1
+
+  const handleClick = (e: React.MouseEvent, updateStatusUrl: string) => {
     e.preventDefault()
     router.push(updateStatusUrl)
   }
   const renderTokens = () => {
+    let isFirstAvailableToken: boolean = true
     return Array.from(Array(numberOfTokens).keys()).map(
       (i, index) => {
         const tokenState: ETokenStatus = Number(tokenStateList[index]) ? ETokenStatus.Available : ETokenStatus.Used
-        return <StyledLi key={index} _status={tokenState}>
+        let opacity = 1
+        let availableTokenText = 'Finish Turn'
+        let isButtonDisabled = false
+        if (tokenState === ETokenStatus.Available) {
+          if (isFirstAvailableToken) {
+            isFirstAvailableToken = false
+          } else {
+            opacity = 0.5
+            availableTokenText = 'Next turn'
+            isButtonDisabled = true
+          }
+        } else {
+          isButtonDisabled = true
+        }
+        return <StyledLi key={index} _status={tokenState} style={{ opacity }}>
           <StyledButton
+            variant='outlined'
             href={updateStatusUrl}
-            onClick={handleClick}
-            disabled={tokenState === ETokenStatus.Used}
+            onClick={(e) => handleClick(e, updateStatusUrl)}
+            disabled={isButtonDisabled}
             _status={tokenState}
           >
             {
               tokenState === ETokenStatus.Available
-                ? 'One Turn'
-                : <Check style={{ fontSize: 52 }} />
+                ? availableTokenText
+                : <Check style={{
+                  fontSize: 52,
+                  color: '#D100A4'
+                }} />
             }
           </StyledButton>
         </StyledLi>
@@ -72,6 +104,17 @@ const TokenList = ({ tokenState, getUpdateTokenStateUrl }: ITokenList) => {
 
   return <StyledUl>
     {renderTokens()}
+    <StyledLi key={'last-chance'} _status={ETokenStatus.Available}>
+      <StyledButton
+        href={lastChanceUsedUrl}
+        onClick={(e) => handleClick(e, lastChanceUsedUrl)}
+        variant='outlined'
+        disabled={!isLastChance}
+        _status={isLastChance ? ETokenStatus.Available : ETokenStatus.Used}
+      >
+        Last Chance!
+      </StyledButton>
+    </StyledLi>
   </StyledUl>
 }
 

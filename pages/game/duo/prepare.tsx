@@ -5,6 +5,8 @@ import { grey } from '@mui/material/colors'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import { EPlayer } from 'src/interfaces/EPlayer'
 import getPlayerColor from 'src/getPlayerColor'
+import PrepareView from '../../../src/Prepare/Prepare'
+import { EType } from '../../../src/interfaces/EType'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000,0000000000000000000000000'
 const INITIAL_TOKEN_STATE = '111111111'
@@ -22,9 +24,7 @@ const getBoardLink = (boardId: string, player: EPlayer): string => {
 
 // eslint-disable-next-line react/prop-types
 const Prepare = ({ boardId, wordsId }: IPrepare) => {
-  const boardLinkPlayerA = getBoardLink(boardId, EPlayer.A)
-  const boardLinkPlayerB = getBoardLink(boardId, EPlayer.B)
-  const getStartLink = (tabletMode: boolean):string => {
+  const getStartLink = (tabletMode: boolean): string => {
     const startLink = new URL(`${process.env.APP_URL}/game/duo`)
     startLink.searchParams.set('board', boardId)
     startLink.searchParams.set('words', wordsId)
@@ -33,84 +33,13 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
     startLink.searchParams.set('tabletMode', String(Number(tabletMode)))
     return startLink.toString()
   }
-  return (
-    <Grid container
-          spacing={2}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          style={{ fontSize: '2em', minHeight: '100vh', padding: 10 }}
-    >
-      <Grid container item xs={12} style={{ justifyContent: 'center', color: grey[300] }}>
-        <Typography variant="h3">Prepare for a co-op Duo Game</Typography>
-      </Grid>
 
-      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: getPlayerColor(EPlayer.A) }}>
-        <Grid item xs={12}>
-          <Typography variant="h4">Player A</Typography>
-          <Typography variant="subtitle1" gutterBottom>key card</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <QRCode value={boardLinkPlayerA} size={400} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Player A"
-            variant="standard"
-            onFocus={event => {
-              event.target.select()
-            }}
-            defaultValue={boardLinkPlayerA}
-            InputProps={{
-              readOnly: true,
-              style: { width: 400, color: grey[300] }
-            }}/>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2} item xs={12} md={6} style={{ textAlign: 'center', color: getPlayerColor(EPlayer.B) }}>
-        <Grid item xs={12}>
-          <Typography variant="h4">Player B</Typography>
-          <Typography variant="subtitle1" gutterBottom>key card</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <QRCode value={boardLinkPlayerB} size={400} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Player B"
-            variant="standard"
-            onFocus={event => {
-              event.target.select()
-            }}
-            defaultValue={boardLinkPlayerB}
-            InputProps={{
-              readOnly: true,
-              style: { width: 400, color: grey[300] }
-            }}/>
-        </Grid>
-      </Grid>
-
-      <Grid container item xs={12} style={{ justifyContent: 'center' }}>
-        <Button
-          variant="outlined"
-          size="large"
-          href={getStartLink(false)}
-          style={{ color: grey[400] }}
-        >
-          Start Game!
-        </Button>
-        <Button
-          variant="outlined"
-          size="large"
-          href={getStartLink(true)}
-          style={{ color: grey[400] }}
-        >
-          Tablet mode
-        </Button>
-      </Grid>
-    </Grid>
-  )
+  return <PrepareView
+    playerAKeyCardLink={getBoardLink(boardId, EPlayer.A)}
+    playerBKeyCardLink={getBoardLink(boardId, EPlayer.B)}
+    startLink={getStartLink(false)}
+    tabletModeLink={getStartLink(true)}
+  />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum EType {
   Blue = 'b',
   Red = 'r',

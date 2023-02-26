@@ -11,7 +11,7 @@ interface IWords {
 
 // eslint-disable-next-line react/prop-types
 const Board = ({ words, board, gameState, getChangeGameStateUrl }: IWords) => {
-  return <table style={{ tableLayout: 'fixed', width: '100%', height: '100%' }}>
+  return <table style={{ tableLayout: 'fixed', width: '100%', height: '100%', padding: 0, margin: 0 }}>
     <tbody>
     {
       words.map((line, lineId) => (

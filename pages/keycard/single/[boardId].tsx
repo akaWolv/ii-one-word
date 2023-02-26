@@ -13,7 +13,7 @@ const PlayerKeyCard = ({ board }: IStart) => {
   return <>
     <Typography
       variant="h6"
-      style={{ color: 'white', textAlign: 'center', marginTop: 10 }}>
+      style={{ textAlign: 'center', marginTop: 10 }}>
       Key Card
     </Typography>
     <div style={{ width: '80vw', margin: '10px 10vw' }}>
