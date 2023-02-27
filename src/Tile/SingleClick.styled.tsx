@@ -7,9 +7,7 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({
   _type,
   theme
 }) => ({
-  // backgroundColor: _type ? getTileColorByType(_type) : theme.palette.secondary.main,
-  // background: 'linear-gradient(0deg, rgba(209,0,164,1) 39%, rgba(252,176,69,1) 100%)',
-  background: _type ? alpha(getTileColorByType(_type), 0.8) : alpha(theme.palette.secondary.light, 0.4),
+  background: alpha(_type !== undefined ? getTileColorByType(_type) : theme.palette.secondary.light, 0.75),
   color: theme.palette.primary.dark, // theme.palette.secondary.main,
   border: `solid 2px ${alpha(theme.palette.primary.main, 0.3)}`, // `solid 2px ${_type ? getTileColorByType(_type) : alpha(theme.palette.primary.main, 0.2)}`,
   padding: 1,

@@ -1,8 +1,8 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { Close, Done, Hail, DirectionsWalk, Dangerous } from '@mui/icons-material'
+import { Hail, DirectionsWalk, Dangerous } from '@mui/icons-material'
 import { amber, grey, pink } from '@mui/material/colors'
-import { alpha, Chip, Typography } from '@mui/material'
+import { alpha, Chip } from '@mui/material'
 
 import { EType } from 'src/interfaces/EType'
 import { EPlayer } from 'src/interfaces/EPlayer'
@@ -14,7 +14,7 @@ interface Params {
 }
 
 const StyledChip = styled(Chip)<{ $player?: EPlayer, $isWhiteText?: boolean }>(({ $player, $isWhiteText }) => ({
-  opacity: 0.7,
+  opacity: 0.9,
   fontSize: 18,
   fontWeight: 400,
   padding: 25,
@@ -42,7 +42,6 @@ const TypeTileContent = ({ type, player }: Params) => {
           label={`Agent ${player || ''}`}
           $player={player}
           $isWhiteText={isWhiteText}
-          sx={{ opacity: 0.8 }}
         />
       )
     case EType.Neutral:

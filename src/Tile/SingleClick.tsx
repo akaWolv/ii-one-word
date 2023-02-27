@@ -1,7 +1,6 @@
 import React from 'react'
 import router from 'next/router'
 import { EType } from '../interfaces/EType'
-import TypeIcon from '../Board/TypeIcon'
 import { StyledButton } from './SingleClick.styled'
 import TypeTileContent from '../Board/TypeTileContent'
 
