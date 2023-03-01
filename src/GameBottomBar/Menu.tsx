@@ -15,8 +15,8 @@ const StyledButtonContainer = styled('div')({
 
 const Menu = ({ newGameUrl }: Menu) => (
   <StyledButtonContainer>
-    <Button variant='outlined' href={`${process.env.APP_URL}${newGameUrl}`}>Start new Game</Button>
-    <Button variant='outlined' href={`${process.env.APP_URL}`}>Back to main window</Button>
+    <Button variant='outlined' href={`${process.env.APP_URL}${newGameUrl}`}>New Game</Button>
+    <Button variant='outlined' href={`${process.env.APP_URL}`}>Main window</Button>
   </StyledButtonContainer>
 )
 

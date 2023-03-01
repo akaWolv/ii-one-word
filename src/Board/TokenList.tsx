@@ -18,10 +18,6 @@ const StyledUl = styled('ul')({
   gap: 5
 })
 const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
-  // marginTop: 5,
-  // marginBottom: 5,
-  // marginLeft: 0,
-  // marginRight: 0,
   width: '100%',
   height: '10%'
 }))

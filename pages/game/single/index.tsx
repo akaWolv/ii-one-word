@@ -1,17 +1,14 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { alpha, Avatar, Chip } from '@mui/material'
-import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Single'
 import { ETeam } from 'src/interfaces/ETeam'
-import getTeamColor from 'src/getTeamColor'
 import calculateSingleTilesToGo from 'src/calculateSingleTilesToGo'
 import TokenList from 'src/Board/TokenList'
 import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
-import { Hail } from '@mui/icons-material'
 import GameEnd from 'src/GameEnd/Single'
+import AgentsLeftInfo from 'src/AgentsLeftInfo'
 
 interface Props {
   boardId: string
@@ -75,6 +72,7 @@ const Game = ({
   }
 
   const {
+    tilesTotal,
     tilesLeft,
     assassin
   } = calculateSingleTilesToGo(flatBoard, gameState)
@@ -98,18 +96,7 @@ const Game = ({
     bottomBar={
       <>
         <Menu newGameUrl="/game/single/new" />
-        <Chip
-          style={{ backgroundColor: getTeamColor(ETeam.Green) }}
-          avatar={<Avatar style={{
-            backgroundColor: alpha(grey[50], 0.1),
-            color: grey[900],
-            fontWeight: 'bold'
-          }}>{tilesLeft}</Avatar>}
-          deleteIcon={<Hail style={{ color: grey[50] }} />}
-          label={`Agent${tilesLeft > 1 ? 's' : ''} yet to discover`}
-          onDelete={() => {
-          }}
-        />
+        <AgentsLeftInfo tilesTotal={tilesTotal} tilesLeft={tilesLeft} team={ETeam.Green} />
       </>
     }
     gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}

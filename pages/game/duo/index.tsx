@@ -1,29 +1,15 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { alpha, Avatar, Chip, Grid, Typography } from '@mui/material'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Duo'
 import TokenList from 'src/Board/TokenList'
 import { EPlayer } from 'src/interfaces/EPlayer'
-import { styled } from '@mui/material/styles'
-import { grey } from '@mui/material/colors'
 import calculateDuoTilesToGo from 'src/calculateDuoTilesToGo'
-import GameModal from 'src/GameModal/Duo'
-import getTeamColor from 'src/getTeamColor'
 import { ETeam } from 'src/interfaces/ETeam'
 import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
 import GameEnd from 'src/GameEnd/Single'
-import { Hail } from '@mui/icons-material'
-
-const StyledBoardContainer = styled(Grid)(({ theme }) => ({
-  textAlign: 'center',
-  height: '95vh'
-}))
-const StyledBottomBar = styled(Grid)(({ theme }) => ({
-  color: grey[100],
-  textAlign: 'center'
-}))
+import AgentsLeftInfo from '../../../src/AgentsLeftInfo'
 
 interface Props {
   boardId: string
@@ -116,6 +102,7 @@ const Game = ({
   }
 
   const {
+    tilesTotal,
     tilesLeft,
     assassin
   } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
@@ -135,18 +122,7 @@ const Game = ({
     bottomBar={
       <>
         <Menu newGameUrl="/game/due/new" />
-        <Chip
-          style={{ backgroundColor: getTeamColor(ETeam.Green) }}
-          avatar={<Avatar style={{
-            backgroundColor: alpha(grey[50], 0.1),
-            color: grey[50],
-            fontWeight: 'bold'
-          }}>{tilesLeft}</Avatar>}
-          deleteIcon={<Hail style={{ color: grey[50] }} />}
-          label={`Agent${tilesLeft > 1 ? 's' : ''} yet to discover`}
-          onDelete={() => {
-          }}
-        />
+        <AgentsLeftInfo tilesTotal={tilesTotal} tilesLeft={tilesLeft} team={ETeam.Green} />
       </>
     }
     tokenList={
@@ -158,47 +134,6 @@ const Game = ({
     }
     gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}
   />
-
-  return (
-    <Grid container
-          spacing={1}
-          direction="row"
-          alignItems="center"
-    >
-      <GameModal tilesLeft={tilesLeft} assassin={assassin} />
-      <StyledBoardContainer container item xs={12}>
-        <Grid item xs={11}>
-          <Board
-            words={words}
-            boardPlayerA={boardPlayerA}
-            boardPlayerB={boardPlayerB}
-            gameStateA={gameStateA}
-            gameStateB={gameStateB}
-            getChangeGameStateUrl={getChangeGameStateUrl}
-            withUpsideDownWord={withUpsideDownWord}
-          />
-        </Grid>
-        <Grid item xs={1}>
-          <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} getLastChanceUsedUrl={getLastChanceUsedUrl} />
-        </Grid>
-      </StyledBoardContainer>
-      <StyledBottomBar container item xs={12}>
-        <Grid item xs={3}>
-          <Typography variant="h6">
-            <b>{tilesLeft}</b>&nbsp;
-            <span style={{ color: getTeamColor(ETeam.Green) }}>
-              agent{tilesLeft > 1 && 's'}
-            </span>&nbsp;yet to discover
-          </Typography>
-        </Grid>
-        <Grid item xs={5}>
-        </Grid>
-        <Grid item xs={3}>
-          <Menu newGameUrl="/game/duo/new" />
-        </Grid>
-      </StyledBottomBar>
-    </Grid>
-  )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({

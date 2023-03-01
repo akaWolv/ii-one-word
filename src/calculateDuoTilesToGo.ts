@@ -3,6 +3,7 @@ import { EType } from './interfaces/EType'
 const TILES = 15
 
 interface ICalculation {
+  tilesTotal: number
   tilesLeft: number
   assassin: number
 }
@@ -10,7 +11,8 @@ interface ICalculation {
 const calculateDuoTilesToGo = (flatBoard: string, gameStateA: string, gameStateB: string): ICalculation => {
   const [flatBoardA, flatBoardB] = flatBoard.split(',')
 
-  let tilesLeft: number = TILES
+  const tilesTotal: number = TILES
+  let tilesLeft = tilesTotal
   let assassin: number = 0
 
   for (const k in gameStateA.split('')) {
@@ -34,6 +36,7 @@ const calculateDuoTilesToGo = (flatBoard: string, gameStateA: string, gameStateB
   }
 
   return {
+    tilesTotal,
     tilesLeft,
     assassin
   }

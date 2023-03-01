@@ -1,16 +1,13 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { alpha, Avatar, Chip } from '@mui/material'
-import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Teams'
 import { ETeam } from 'src/interfaces/ETeam'
-import getTeamColor from 'src/getTeamColor'
 import calculateTeamsTilesToGo from 'src/calculateTeamsTilesToGo'
 import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
-import { Hail } from '@mui/icons-material'
 import GameEnd from 'src/GameEnd/Teams'
+import AgentsLeftInfo from 'src/AgentsLeftInfo'
 
 interface Props {
   boardId: string
@@ -40,6 +37,8 @@ const Game = ({
   }
 
   const {
+    redTeamTilesTotal,
+    blueTeamTilesTotal,
     redTeamTilesLeft,
     blueTeamTilesLeft,
     assassin
@@ -56,31 +55,9 @@ const Game = ({
     }
     bottomBar={
       <>
-        <Chip
-          style={{ backgroundColor: getTeamColor(ETeam.Red) }}
-          avatar={<Avatar style={{
-            backgroundColor: alpha(grey[50], 0.1),
-            color: grey[50],
-            fontWeight: 'bold'
-          }}>{redTeamTilesLeft}</Avatar>}
-          deleteIcon={<Hail style={{ color: grey[50] }} />}
-          label={`Agent${redTeamTilesLeft > 1 ? 's' : ''} yet to discover`}
-          onDelete={() => {
-          }}
-        />
+        <AgentsLeftInfo tilesTotal={redTeamTilesTotal} tilesLeft={redTeamTilesLeft} team={ETeam.Red} />
         <Menu newGameUrl="/game/teams/new" />
-        <Chip
-          style={{ backgroundColor: getTeamColor(ETeam.Blue) }}
-          avatar={<Avatar style={{
-            backgroundColor: alpha(grey[50], 0.1),
-            color: grey[50],
-            fontWeight: 'bold'
-          }}>{blueTeamTilesLeft}</Avatar>}
-          deleteIcon={<Hail style={{ color: grey[50] }} />}
-          label={`Agent${blueTeamTilesLeft > 1 ? 's' : ''} yet to discover`}
-          onDelete={() => {
-          }}
-        />
+        <AgentsLeftInfo tilesTotal={blueTeamTilesTotal} tilesLeft={blueTeamTilesLeft} team={ETeam.Blue} />
       </>
     }
     gameEnd={<GameEnd redTeamTilesLeft={redTeamTilesLeft} blueTeamTilesLeft={blueTeamTilesLeft} assassin={assassin} />}
