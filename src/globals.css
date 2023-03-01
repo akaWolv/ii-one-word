@@ -1,10 +1,12 @@
 html {
-    min-height: 100vh;
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, #ff3f96 5%, #ff6a2f 100%) 50% 50%;
-    height: 100vh;
-    width: 100vw;;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    /*height: 100vh;*/
+    /*width: 100vw;*/
     /*background-size: 400% 400%;*/
     /*animation: gradient 40s ease infinite;*/
 }
@@ -29,8 +31,6 @@ html {
     }
 }
 
-body {
-}
 
 @keyframes gradient {
     0% {

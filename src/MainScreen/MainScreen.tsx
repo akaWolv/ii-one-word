@@ -10,7 +10,7 @@ const MainScreen = () => {
           direction="row"
           justifyContent="center"
           alignItems="center"
-          style={{ height: '100vh', textAlign: 'center', marginTop: 0 }}
+          style={{ minHeight: '100vh', textAlign: 'center', marginTop: 0 }}
     >
       <Grid item xs={12}>
         <Typography variant="h2">
