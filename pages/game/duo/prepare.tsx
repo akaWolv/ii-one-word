@@ -1,12 +1,7 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import QRCode from 'react-qr-code'
-import { grey } from '@mui/material/colors'
-import { Button, Grid, TextField, Typography } from '@mui/material'
 import { EPlayer } from 'src/interfaces/EPlayer'
-import getPlayerColor from 'src/getPlayerColor'
-import PrepareView from '../../../src/Prepare/Prepare'
-import { EType } from '../../../src/interfaces/EType'
+import PrepareView from 'src/Prepare/Prepare'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000,0000000000000000000000000'
 const INITIAL_TOKEN_STATE = '111111111'

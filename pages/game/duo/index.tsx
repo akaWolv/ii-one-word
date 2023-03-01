@@ -1,6 +1,6 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { Grid, Typography } from '@mui/material'
+import { alpha, Avatar, Chip, Grid, Typography } from '@mui/material'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Duo'
 import TokenList from 'src/Board/TokenList'
@@ -12,6 +12,9 @@ import GameModal from 'src/GameModal/Duo'
 import getTeamColor from 'src/getTeamColor'
 import { ETeam } from 'src/interfaces/ETeam'
 import Menu from 'src/GameBottomBar/Menu'
+import GameBoard from 'src/GameBoard'
+import GameEnd from 'src/GameEnd/Single'
+import { Hail } from '@mui/icons-material'
 
 const StyledBoardContainer = styled(Grid)(({ theme }) => ({
   textAlign: 'center',
@@ -22,7 +25,7 @@ const StyledBottomBar = styled(Grid)(({ theme }) => ({
   textAlign: 'center'
 }))
 
-interface IStart {
+interface Props {
   boardId: string
   wordsId: string
   words: string[][]
@@ -34,6 +37,7 @@ interface IStart {
   tokenState: string
   flatBoard: string
   withUpsideDownWord: boolean
+  isLastChanceUsed: boolean
 }
 
 const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/duo`)
@@ -44,7 +48,6 @@ const editGameState = (gameState: string, orderId: number): string => {
   return gameStateList.join('')
 }
 
-// eslint-disable-next-line react/prop-types
 const Game = ({
   boardId,
   wordsId,
@@ -56,8 +59,9 @@ const Game = ({
   gameState,
   tokenState,
   flatBoard,
-  withUpsideDownWord
-}: IStart) => {
+  withUpsideDownWord,
+  isLastChanceUsed
+}: Props) => {
   const getChangeGameStateUrl = (lineId: number, wordId: number, player: EPlayer): string => {
     const orderId = lineId * 5 + wordId
     let gameStateList = []
@@ -76,6 +80,17 @@ const Game = ({
     url.searchParams.set('gameState', gameStateList.join(','))
     url.searchParams.set('tokenState', tokenState)
     url.searchParams.set('tabletMode', String(Number(withUpsideDownWord)))
+    return url.toString()
+  }
+
+  const getLastChanceUsedUrl = (): string => {
+    const url = getCurrentUrl()
+    url.searchParams.set('board', boardId)
+    url.searchParams.set('words', wordsId)
+    url.searchParams.set('gameState', gameState)
+    url.searchParams.set('tokenState', tokenState)
+    url.searchParams.set('tabletMode', String(Number(withUpsideDownWord)))
+    url.searchParams.set('isLastChanceUsed', '1')
     return url.toString()
   }
 
@@ -100,7 +115,49 @@ const Game = ({
     return url.toString()
   }
 
-  const { tilesLeft, assassin } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
+  const {
+    tilesLeft,
+    assassin
+  } = calculateDuoTilesToGo(flatBoard, gameStateA, gameStateB)
+
+  return <GameBoard
+    board={
+      <Board
+        words={words}
+        boardPlayerA={boardPlayerA}
+        boardPlayerB={boardPlayerB}
+        gameStateA={gameStateA}
+        gameStateB={gameStateB}
+        getChangeGameStateUrl={getChangeGameStateUrl}
+        withUpsideDownWord={withUpsideDownWord}
+      />
+    }
+    bottomBar={
+      <>
+        <Menu newGameUrl="/game/due/new" />
+        <Chip
+          style={{ backgroundColor: getTeamColor(ETeam.Green) }}
+          avatar={<Avatar style={{
+            backgroundColor: alpha(grey[50], 0.1),
+            color: grey[50],
+            fontWeight: 'bold'
+          }}>{tilesLeft}</Avatar>}
+          deleteIcon={<Hail style={{ color: grey[50] }} />}
+          label={`Agent${tilesLeft > 1 ? 's' : ''} yet to discover`}
+          onDelete={() => {
+          }}
+        />
+      </>
+    }
+    tokenList={
+      <TokenList
+        tokenState={tokenState}
+        getUpdateTokenStateUrl={getUpdateTokenStateUrl}
+        getLastChanceUsedUrl={getLastChanceUsedUrl}
+      />
+    }
+    gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}
+  />
 
   return (
     <Grid container
@@ -122,7 +179,7 @@ const Game = ({
           />
         </Grid>
         <Grid item xs={1}>
-          <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} />
+          <TokenList tokenState={tokenState} getUpdateTokenStateUrl={getUpdateTokenStateUrl} getLastChanceUsedUrl={getLastChanceUsedUrl} />
         </Grid>
       </StyledBoardContainer>
       <StyledBottomBar container item xs={12}>
@@ -137,17 +194,26 @@ const Game = ({
         <Grid item xs={5}>
         </Grid>
         <Grid item xs={3}>
-          <Menu newGameUrl='/game/duo/new' />
+          <Menu newGameUrl="/game/duo/new" />
         </Grid>
       </StyledBottomBar>
     </Grid>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
-  const { board: boardId, words: wordsId, gameState, tokenState, tabletMode } = query
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res
+}) => {
+  const {
+    board: boardId,
+    words: wordsId,
+    gameState,
+    tokenState,
+    tabletMode,
+    isLastChanceUsed
+  } = query
   if (!boardId || !wordsId || !gameState || !tokenState) {
-    // res.writeHead(307, { Location: '/game/duo/new' })
     res.end()
 
     return { props: {} }
@@ -167,7 +233,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
   // get Board
   const resBoard = await fetch(`${process.env.APP_URL}/api/boards/duo/${boardId}`)
   const dataBoard = await resBoard.json()
-  const { boardPlayerA, boardPlayerB, decodedId: flatBoard } = dataBoard
+  const {
+    boardPlayerA,
+    boardPlayerB,
+    decodedId: flatBoard
+  } = dataBoard
 
   return {
     props: {
@@ -181,7 +251,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       gameState,
       tokenState,
       flatBoard,
-      withUpsideDownWord: Boolean(Number(tabletMode || 0))
+      withUpsideDownWord: Boolean(Number(tabletMode || 0)),
+      isLastChanceUsed: Boolean(Number(isLastChanceUsed || '0'))
     }
   }
 }

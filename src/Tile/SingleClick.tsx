@@ -4,7 +4,7 @@ import { EType } from '../interfaces/EType'
 import { StyledButton } from './SingleClick.styled'
 import TypeTileContent from '../Board/TypeTileContent'
 
-interface ITile {
+interface Props {
   lineId: number
   wordId: number
   word: string
@@ -13,7 +13,6 @@ interface ITile {
   getChangeGameStateUrl: Function
 }
 
-// eslint-disable-next-line react/prop-types
 const Tile = ({
   lineId,
   wordId,
@@ -21,7 +20,7 @@ const Tile = ({
   board,
   gameState,
   getChangeGameStateUrl
-}: ITile) => {
+}: Props) => {
   const orderId = lineId * 5 + wordId
   const state = gameState[orderId]
   const getPickTileUrl = (): string => {

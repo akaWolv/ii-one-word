@@ -18,8 +18,8 @@ const KeyCard = ({
     elevation={6}
     suppressHydrationWarning={true}
   >
-    <Typography variant="h5" component="div" sx={{ color: distinctColor, fontWeight: 'bold' }}>
-      Key Card
+    <Typography variant="h5" component="div">
+      <span style={{ color: distinctColor, fontWeight: 'bold' }}>{leaderText}</span>: Key Card
     </Typography>
 
     <Typography sx={{

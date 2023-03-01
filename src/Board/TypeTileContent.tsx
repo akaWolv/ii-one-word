@@ -20,18 +20,13 @@ const StyledChip = styled(Chip)<{ $player?: EPlayer, $isWhiteText?: boolean }>((
   padding: 25,
   color: $isWhiteText ? grey[200] : 'inherited',
   textTransform: 'capitalize',
-  borderColor: $player ? alpha(getPlayerColor($player), 0.5) : 'inherited',
-  borderLeftWidth: $player ? 2 : 'inherited',
-  borderRightWidth: $player ? 2 : 'inherited',
-  borderStyle: $player ? 'solid' : 'inherited'
+  boxShadow: $player ? `0px 0px 15px 4px ${alpha(getPlayerColor($player), 0.5)}` : 'none'
 }))
 
 const TypeTileContent = ({ type, player }: Params) => {
   let isWhiteText: boolean = false
   switch (type) {
     case EType.Red:
-      isWhiteText = true
-    // eslint-disable-next-line no-fallthrough
     case EType.Blue:
       isWhiteText = true
     // eslint-disable-next-line no-fallthrough
@@ -39,7 +34,7 @@ const TypeTileContent = ({ type, player }: Params) => {
       return (
         <StyledChip
           avatar={<Hail style={{ color: grey[50] }} />}
-          label={`Agent ${player || ''}`}
+          label='Agent'
           $player={player}
           $isWhiteText={isWhiteText}
         />

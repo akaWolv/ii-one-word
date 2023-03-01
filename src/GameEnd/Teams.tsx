@@ -1,35 +1,45 @@
 import React from 'react'
 import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
-import { StyledBackdrop, StyledCard, StyledCardContent, StyledButton } from './GameEnd.styled'
+import { StyledBackdrop, StyledButton, StyledCard, StyledCardContent } from './GameEnd.styled'
+import getTileColorByType from '../getTileColorByType'
+import { EType } from '../interfaces/EType'
 
 interface Props {
   assassin: number
-  tilesLeft: number
-  isLastChanceUsed?: boolean
+  redTeamTilesLeft: number
+  blueTeamTilesLeft: number
 }
 
-const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
+const GameEnd = ({
+  assassin,
+  redTeamTilesLeft,
+  blueTeamTilesLeft
+}: Props) => {
   const handleNewGame = () => router.push('/game/single/new')
   const handleBackToStart = () => router.push('/')
 
   let title = ''
   let text = ''
   let isWin = false
+  let type: EType|undefined
 
   switch (true) {
     case assassin > 0:
       title = 'Oh snap!'
       text = 'Assassin tile revealed, you lost...'
       break
-    case isLastChanceUsed:
-      title = 'You failed'
-      text = 'Some Agents remain undiscovered...'
-      break
-    case tilesLeft === 0:
-      title = 'You won!'
+    case redTeamTilesLeft === 0:
+      title = 'Red team won!'
       text = 'All agents have been discovered!'
       isWin = true
+      type = EType.Red
+      break
+    case blueTeamTilesLeft === 0:
+      title = 'Blue team won!'
+      text = 'All agents have been discovered!'
+      isWin = true
+      type = EType.Blue
       break
     default:
       return null
@@ -47,13 +57,18 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
           sx={{ height: '50%' }}
         />
         <StyledCardContent>
-          <Typography variant="h1" style={{ textDecoration: 'underline' }}>
+          <Typography variant="h1" style={{ textDecoration: `underline ${type ? getTileColorByType(type) : ''}` }}>
             {title}
           </Typography>
           <Typography variant="h4" gutterBottom>
             {text}
           </Typography>
-          <Typography variant="h3" sx={{ mt: 2 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row' }}>
+          <Typography variant="h3" sx={{ mt: 2 }} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            flexDirection: 'row'
+          }}>
             <StyledButton onClick={handleNewGame}>New Game</StyledButton>
             <StyledButton onClick={handleBackToStart}>Back to start</StyledButton>
           </Typography>

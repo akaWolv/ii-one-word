@@ -1,7 +1,7 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
-import PrepareView from '../../../src/Prepare/Prepare'
+import PrepareView from 'src/Prepare/Prepare'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
 

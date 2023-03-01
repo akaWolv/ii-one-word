@@ -22,7 +22,7 @@ const StyledBackdrop = styled('div')<{ $isWin: boolean }>(({ $isWin }) => ({
   width: '100%',
   height: '100%',
   zIndex: 1000,
-  backdropFilter: `${$isWin ? 'hue-rotate(190deg) ' : 'grayscale(100%) brightness(70%)'} blur(2px)`, // contrast(150%) brightness(90%)
+  backdropFilter: `${$isWin ? 'contrast(200%) brightness(30%)' : 'grayscale(100%) brightness(70%)'} blur(2px)`, // contrast(150%) brightness(90%) // hue-rotate(190deg)
   // animation
   animationDuration: '1.5s',
   animationName: 'fadein-GameEnd-StyledBackdrop',

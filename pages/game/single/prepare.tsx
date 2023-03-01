@@ -1,6 +1,5 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-
 import PrepareView from 'src/Prepare'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'

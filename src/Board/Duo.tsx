@@ -1,8 +1,8 @@
 import React from 'react'
 import { EType } from 'src/interfaces/EType'
-import Tile from '../Tile/MultipleClick'
+import Tile from '../Tile/MultipleClick/MultipleClick'
 
-interface IWords {
+interface Props {
   words: string[][]
   boardPlayerA: Array<EType[]>
   boardPlayerB: Array<EType[]>
@@ -12,7 +12,6 @@ interface IWords {
   withUpsideDownWord: boolean
 }
 
-// eslint-disable-next-line react/prop-types
 const Board = ({
   words,
   boardPlayerA,
@@ -21,7 +20,7 @@ const Board = ({
   gameStateB,
   getChangeGameStateUrl,
   withUpsideDownWord
-}: IWords) => {
+}: Props) => {
   return <table style={{
     tableLayout: 'fixed',
     width: '100%',

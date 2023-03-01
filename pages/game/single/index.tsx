@@ -9,11 +9,11 @@ import getTeamColor from 'src/getTeamColor'
 import calculateSingleTilesToGo from 'src/calculateSingleTilesToGo'
 import TokenList from 'src/Board/TokenList'
 import Menu from 'src/GameBottomBar/Menu'
-import GameBoard from 'src/GameBoard/Single'
+import GameBoard from 'src/GameBoard'
 import { Hail } from '@mui/icons-material'
 import GameEnd from 'src/GameEnd/Single'
 
-interface IGame {
+interface Props {
   boardId: string
   wordsId: string
   words: string[][]
@@ -21,12 +21,11 @@ interface IGame {
   flatBoard: string
   gameState: string
   tokenState: string
-  isLastChanceUsedState: string
+  isLastChanceUsed: boolean
 }
 
 const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/single`)
 
-// eslint-disable-next-line react/prop-types
 const Game = ({
   boardId,
   wordsId,
@@ -35,15 +34,15 @@ const Game = ({
   flatBoard,
   gameState,
   tokenState,
-  isLastChanceUsedState
-}: IGame) => {
+  isLastChanceUsed
+}: Props) => {
   const getLastChanceUsedUrl = (): string => {
     const url = getCurrentUrl()
     url.searchParams.set('board', boardId)
     url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameState)
     url.searchParams.set('tokenState', tokenState)
-    url.searchParams.set('isLastChanceUsedState', '1')
+    url.searchParams.set('isLastChanceUsed', '1')
     return url.toString()
   }
 
@@ -80,8 +79,6 @@ const Game = ({
     assassin
   } = calculateSingleTilesToGo(flatBoard, gameState)
 
-  const isLastChanceUsed = Boolean(Number(isLastChanceUsedState))
-
   return <GameBoard
     board={
       <Board
@@ -98,21 +95,23 @@ const Game = ({
         getLastChanceUsedUrl={getLastChanceUsedUrl}
       />
     }
-    gameInfo={
-      <Chip
-        style={{ backgroundColor: getTeamColor(ETeam.Green) }}
-        avatar={<Avatar style={{
-          backgroundColor: alpha(grey[50], 0.1),
-          color: grey[900],
-          fontWeight: 'bold'
-        }}>{tilesLeft}</Avatar>}
-        deleteIcon={<Hail style={{ color: grey[50] }} />}
-        label={`Agent${tilesLeft > 1 ? 's' : ''} yet to discover`}
-        onDelete={() => {
-        }}
-      />
+    bottomBar={
+      <>
+        <Menu newGameUrl="/game/single/new" />
+        <Chip
+          style={{ backgroundColor: getTeamColor(ETeam.Green) }}
+          avatar={<Avatar style={{
+            backgroundColor: alpha(grey[50], 0.1),
+            color: grey[900],
+            fontWeight: 'bold'
+          }}>{tilesLeft}</Avatar>}
+          deleteIcon={<Hail style={{ color: grey[50] }} />}
+          label={`Agent${tilesLeft > 1 ? 's' : ''} yet to discover`}
+          onDelete={() => {
+          }}
+        />
+      </>
     }
-    gameMenu={<Menu newGameUrl="/game/single/new" />}
     gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}
   />
 }
@@ -121,13 +120,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   res
 }) => {
-  console.log(query)
   const {
     board: boardId,
     words: wordsId,
     gameState,
     tokenState,
-    isLastChanceUsedState
+    isLastChanceUsed
   } = query
   if (!boardId || !wordsId || !gameState || !tokenState) {
     res.writeHead(307, { Location: '/game/single/new' })
@@ -162,7 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       flatBoard,
       gameState,
       tokenState,
-      isLastChanceUsedState: isLastChanceUsedState || '0'
+      isLastChanceUsed: Boolean(Number(isLastChanceUsed || '0'))
     }
   }
 }

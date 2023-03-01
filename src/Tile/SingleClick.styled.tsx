@@ -9,7 +9,8 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({
 }) => ({
   background: alpha(_type !== undefined ? getTileColorByType(_type) : theme.palette.secondary.light, 0.75),
   color: theme.palette.primary.dark, // theme.palette.secondary.main,
-  border: `solid 2px ${alpha(theme.palette.primary.main, 0.3)}`, // `solid 2px ${_type ? getTileColorByType(_type) : alpha(theme.palette.primary.main, 0.2)}`,
+  border: `solid 2px ${_type ? alpha(theme.palette.primary.dark, 0.4) : alpha(theme.palette.primary.main, 0.2)}`,
+  // border: `solid 2px ${alpha(theme.palette.primary.main, 0.3)}`,
   padding: 1,
   width: '100%',
   height: '100%',

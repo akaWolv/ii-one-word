@@ -4,18 +4,16 @@ import { StyledGridContainer, StyledBoardContainer, StyledBottomBar } from './Ga
 
 interface Props {
   board: ReactElement,
-  tokenList: ReactElement
-  gameInfo: ReactElement
-  gameMenu: ReactElement
+  bottomBar: ReactElement
   gameEnd: ReactElement
+  tokenList?: ReactElement
 }
 
 const GameBoard = ({
   board,
-  tokenList,
-  gameInfo,
-  gameMenu,
-  gameEnd
+  bottomBar,
+  gameEnd,
+  tokenList
 }: Props) => {
   return (
     <StyledGridContainer
@@ -44,8 +42,7 @@ const GameBoard = ({
       </StyledBoardContainer>
       <Grid item xs={1} />
       <StyledBottomBar item xs={10}>
-        {gameMenu}
-        {gameInfo}
+        {bottomBar}
       </StyledBottomBar>
       <Grid item xs={1} />
     </StyledGridContainer>

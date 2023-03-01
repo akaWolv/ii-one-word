@@ -1,8 +1,7 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
-import { grey } from '@mui/material/colors'
 import { Check } from '@mui/icons-material'
-import { alpha, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import { ETokenStatus } from 'src/interfaces/ETokenStatus'
 import router from 'next/router'
 
@@ -15,13 +14,14 @@ const StyledUl = styled('ul')({
   flexDirection: 'column',
   justifyContent: 'flex-start',
   margin: 0,
-  padding: 10
+  padding: 5,
+  gap: 5
 })
 const StyledLi = styled('li')(({ _status }: { _status: ETokenStatus }) => ({
-  marginTop: 5,
-  marginBottom: 5,
-  marginLeft: 0,
-  marginRight: 0,
+  // marginTop: 5,
+  // marginBottom: 5,
+  // marginLeft: 0,
+  // marginRight: 0,
   width: '100%',
   height: '10%'
 }))
@@ -38,6 +38,7 @@ const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({
 }) => ({
   width: '100%',
   height: '100%',
+  padding: '0 5px',
   fontWeight: 'bold',
   backdropFilter: _status === ETokenStatus.Available ? 'saturate(150%)' : 'saturate(90%)',
   '&:hover': {

@@ -10,8 +10,7 @@ const StyledButtonContainer = styled('div')({
   display: 'flex',
   alignItems: 'space-between',
   gap: 10,
-  fontWeight: 'bold',
-  paddingLeft: 5
+  fontWeight: 'bold'
 })
 
 const Menu = ({ newGameUrl }: Menu) => (
