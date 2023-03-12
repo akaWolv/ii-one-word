@@ -1,7 +1,7 @@
 import React from 'react'
 import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
-import { StyledBackdrop, StyledButton, StyledCard, StyledCardContent } from './GameEnd.styled'
+import { StyledBackdrop, StyledCustomBackdrop, StyledButton, StyledCard, StyledCardContent } from './GameEnd.styled'
 import getTileColorByType from '../getTileColorByType'
 import { EType } from '../interfaces/EType'
 
@@ -47,8 +47,9 @@ const GameEnd = ({
 
   return (
     <>
-      <StyledBackdrop $isWin={isWin} />
-      <StyledCard elevation={12} $isWin={isWin}>
+      { !isWin && <StyledCustomBackdrop $iswin={false} /> }
+      <StyledBackdrop open={true} />
+      <StyledCard elevation={12} $iswin={isWin}>
         <CardMedia
           component="img"
           height="194"
@@ -66,10 +67,10 @@ const GameEnd = ({
           <Typography variant="h3" sx={{ mt: 2 }} style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-around',
             flexDirection: 'row'
           }}>
-            <StyledButton onClick={handleNewGame}>New Game</StyledButton>
+            <StyledButton onClick={handleNewGame}>Another Game</StyledButton>
             <StyledButton onClick={handleBackToStart}>Back to start</StyledButton>
           </Typography>
         </StyledCardContent>

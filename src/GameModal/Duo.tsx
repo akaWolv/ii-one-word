@@ -56,7 +56,7 @@ const GameModal = ({ assassin, tilesLeft }: IGameModal) => {
           {text}
         </Typography>
         <ButtonGroup size="large" variant="outlined" color="secondary" style={{ marginTop: 15 }}>
-          <Button onClick={handleNewGame}>New Game</Button>
+          <Button onClick={handleNewGame}>Another Game</Button>
           <Button onClick={handleBackToStart}>Back to start</Button>
         </ButtonGroup>
       </StyledBox>

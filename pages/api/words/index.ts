@@ -19,7 +19,6 @@ const getRandomKeys = (db: string[], n: number): number[] => {
 }
 
 export default function handler (req: NextApiRequest, res: NextApiResponse<Data | DataError>) {
-  // const dbSize =
   const randomKeys = getRandomKeys(words, 25)
   const randomKeysString = randomKeys.join(',')
   res.status(200).json(

@@ -17,6 +17,7 @@ const KeyCard = ({
   <StyledPaper
     elevation={6}
     suppressHydrationWarning={true}
+    style={{ width: '100%', height: '100%' }}
   >
     <Typography variant="h5" component="div">
       <span style={{ color: distinctColor, fontWeight: 'bold' }}>{leaderText}</span>: Key Card
@@ -28,22 +29,19 @@ const KeyCard = ({
       <b>{leaderText || 'Leader'}</b> scans this QRcode with his phone
     </Typography>
     {
-      process.browser && (
         <QRCode
           value={boardLink}
+          // size={400}
           style={{
-            width: 'auto',
-            maxWidth: '100%',
+            width: '100%',
             height: 'auto',
-            flexGrow: 10,
             marginTop: '5px',
             marginBottom: '5px'
           }}
         />
-      )
     }
     <TextField
-      label="...or he copies the key card link below:"
+      label="...or copy the key card link below:"
       variant="standard"
       onFocus={event => {
         event.target.select()

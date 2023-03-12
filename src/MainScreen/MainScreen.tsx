@@ -2,15 +2,14 @@ import React from 'react'
 import { Grid, Typography } from '@mui/material'
 import StyledButton from './StyledButton'
 import { StyledAlternateSpan } from './StyledTypography'
+import { MainScreenContainer } from './MainScreen.styled'
 
 const MainScreen = () => {
   return (
-    <Grid container
-          spacing={5}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          style={{ minHeight: '100vh', textAlign: 'center', marginTop: 0 }}
+    <MainScreenContainer container
+        spacing={5}
+        direction="row"
+        justifyContent="center"
     >
       <Grid item xs={12}>
         <Typography variant="h2">
@@ -28,7 +27,7 @@ const MainScreen = () => {
       <Grid item xs={12} md={3}>
         <StyledButton variant='outlined' href="game/duo/new">Duo</StyledButton>
       </Grid>
-    </Grid>
+    </MainScreenContainer>
   )
 }
 

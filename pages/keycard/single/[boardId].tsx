@@ -2,34 +2,31 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
 import KeyCard from 'src/KeyCard'
-import { Typography } from '@mui/material'
 
-interface IStart {
+interface Props {
   board: Array<EType[]>
 }
 
-// eslint-disable-next-line react/prop-types
-const PlayerKeyCard = ({ board }: IStart) => {
-  return <>
-    <Typography
-      variant="h6"
-      style={{ textAlign: 'center', marginTop: 10 }}>
-      Key Card
-    </Typography>
-    <div style={{ width: '80vw', margin: '10px 10vw' }}>
-      <KeyCard board={board} />
-    </div>
-    <div style={{ width: '100vw', height: '10vh' }}>
-      <Typography
-        variant="h6"
-        style={{ color: 'white', textAlign: 'center' }}>
-        This is board for 1 Team gameplay
-      </Typography>
-    </div>
-  </>
+const PlayerKeyCard = ({ board }: Props) => {
+  return (
+    <KeyCard
+      text={(
+        <ul>
+          <li>This key card is for your eyes only. </li>
+          <li>Use it to provide tips for your team. </li>
+          <li>Discover all green fields.</li>
+          <li>You have to avoid black tiles.</li>
+        </ul>
+      )}
+      board={board}
+    />
+  )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, query, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res
+}) => {
   // @ts-ignore
   const { boardId } = params
   if (!boardId) {

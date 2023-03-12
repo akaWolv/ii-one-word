@@ -25,6 +25,7 @@ const Prepare = ({ boardId, wordsId }: Props) => {
     return startLink.toString()
   }
   return <PrepareView
+    gameName='Singe Team Game'
     greenKeyCardLink={getBoardLink(boardId)}
     startLink={getStartLink()}
   />

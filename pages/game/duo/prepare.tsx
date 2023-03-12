@@ -30,6 +30,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
   }
 
   return <PrepareView
+    gameName='Duo Game'
     playerAKeyCardLink={getBoardLink(boardId, EPlayer.A)}
     playerBKeyCardLink={getBoardLink(boardId, EPlayer.B)}
     startLink={getStartLink(false)}

@@ -1,7 +1,7 @@
 import React from 'react'
 import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
-import { StyledBackdrop, StyledCard, StyledCardContent, StyledButton } from './GameEnd.styled'
+import { StyledBackdrop, StyledCustomBackdrop, StyledCard, StyledCardContent, StyledButton } from './GameEnd.styled'
 
 interface Props {
   assassin: number
@@ -37,8 +37,9 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
 
   return (
     <>
-      <StyledBackdrop $isWin={isWin} />
-      <StyledCard elevation={12} $isWin={isWin}>
+      { !isWin && <StyledCustomBackdrop $iswin={false} /> }
+      <StyledBackdrop open={true} />
+      <StyledCard elevation={12} $iswin={isWin}>
         <CardMedia
           component="img"
           height="194"
@@ -53,8 +54,8 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
           <Typography variant="h4" gutterBottom>
             {text}
           </Typography>
-          <Typography variant="h3" sx={{ mt: 2 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row' }}>
-            <StyledButton onClick={handleNewGame}>New Game</StyledButton>
+          <Typography variant="h3" sx={{ mt: 2 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
+            <StyledButton onClick={handleNewGame}>Another Game</StyledButton>
             <StyledButton onClick={handleBackToStart}>Back to start</StyledButton>
           </Typography>
         </StyledCardContent>

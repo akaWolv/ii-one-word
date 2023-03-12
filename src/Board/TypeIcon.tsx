@@ -42,7 +42,7 @@ const TypeIcon = ({ type, player }: TypeIcon) => {
           label={`Agent ${player || ''}`}
           onDelete={() => {}}
           $player={player}
-          $isWhiteText={isWhiteText}
+          $isWhiteText={isWhiteText ? true : undefined}
         />
       )
     case EType.Neutral:

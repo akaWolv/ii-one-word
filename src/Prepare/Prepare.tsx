@@ -8,6 +8,7 @@ import KeyCard from './KeyCard'
 import StartCard from './StartCard'
 
 interface Props {
+  gameName: string
   startLink: string
   tabletModeLink?: string
   greenKeyCardLink?: string
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const Prepare = ({
+  gameName,
   startLink,
   tabletModeLink,
   greenKeyCardLink,
@@ -27,7 +29,7 @@ const Prepare = ({
   playerBKeyCardLink
 }: Props) => {
   const renderKeyCardContainer = (boardLink: string, distinctColor: string, leaderText?: string) => (
-    <Grid container item sm={6} md={5} lg={4} style={{ justifyContent: 'center' }}>
+    <Grid container item sm={6} md={5} lg={4}>
       <KeyCard
         boardLink={boardLink}
         distinctColor={distinctColor}
@@ -38,27 +40,27 @@ const Prepare = ({
 
   return (
     <Grid container
-          spacing={2}
-          direction="row"
+          spacing={5}
+          direction="column"
           justifyContent="center"
-          alignItems="stretch"
           style={{
             fontSize: '2em',
             minHeight: '100vh',
             padding: 10
           }}
     >
-      <Grid container item xs={12} style={{ justifyContent: 'center' }}>
-        <Typography variant="h3">Prepare for a Single Team Game</Typography>
+      <Grid container item xs={12} justifyContent="center">
+        <Typography variant="h3">Prepare for a <b>{gameName}</b></Typography>
       </Grid>
 
-      { greenKeyCardLink && renderKeyCardContainer(greenKeyCardLink, getTeamColor(ETeam.Green), 'Leader')}
-      { redKeyCardLink && renderKeyCardContainer(redKeyCardLink, getTeamColor(ETeam.Red), 'Red Leader')}
-      { blueKeyCardLink && renderKeyCardContainer(blueKeyCardLink, getTeamColor(ETeam.Blue), 'Blue Leader')}
-      { playerAKeyCardLink && renderKeyCardContainer(playerAKeyCardLink, getPlayerColor(EPlayer.A), 'Player A')}
-      { playerBKeyCardLink && renderKeyCardContainer(playerBKeyCardLink, getPlayerColor(EPlayer.B), 'Player B')}
-
-      <Grid container item xs={12} sm={12} style={{ justifyContent: 'center' }}>
+      <Grid container item xs={12} justifyContent="space-around" spacing={5} style={{ flexGrow: 1 }}>
+        { greenKeyCardLink && renderKeyCardContainer(greenKeyCardLink, getTeamColor(ETeam.Green), 'Leader')}
+        { redKeyCardLink && renderKeyCardContainer(redKeyCardLink, getTeamColor(ETeam.Red), 'Red Leader')}
+        { blueKeyCardLink && renderKeyCardContainer(blueKeyCardLink, getTeamColor(ETeam.Blue), 'Blue Leader')}
+        { playerAKeyCardLink && renderKeyCardContainer(playerAKeyCardLink, getPlayerColor(EPlayer.A), 'Player A')}
+        { playerBKeyCardLink && renderKeyCardContainer(playerBKeyCardLink, getPlayerColor(EPlayer.B), 'Player B')}
+      </Grid>
+      <Grid container item xs={12} sm={12} justifyContent="center">
         <StartCard startLink={startLink} tabletModeLink={tabletModeLink} />
       </Grid>
     </Grid>
