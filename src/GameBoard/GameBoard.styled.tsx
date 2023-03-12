@@ -5,9 +5,9 @@ const StyledGridContainer = styled(Grid)({
   alignItems: 'center'
 })
 
-const StyledBoardContainer = styled(Grid)<{$isTabletView: boolean}>(({ $isTabletView }) => ({
+const StyledBoardContainer = styled(Grid)<{$istabletview: boolean}>(({ $istabletview }) => ({
   textAlign: 'center',
-  height: $isTabletView ? '85vh' : '95vh',
+  height: $istabletview ? '85vh' : '95vh',
   flexGrow: 0
 }))
 

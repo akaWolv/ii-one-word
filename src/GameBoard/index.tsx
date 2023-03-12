@@ -29,7 +29,7 @@ const GameBoard = ({
       spacing={1}
       direction="row"
     >
-      <StyledBoardContainer container item xs={12} $isTabletView={isTabletView}>
+      <StyledBoardContainer container item xs={12} $istabletview={isTabletView}>
         <Grid item xs={1} style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 15 }}>
           <a href={process.env.APP_URL}>
             <img
