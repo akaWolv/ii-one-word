@@ -2,34 +2,32 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
 import KeyCard from 'src/KeyCard'
-import { Typography } from '@mui/material'
 
-interface IStart {
+interface Props {
   board: Array<EType[]>
 }
 
-// eslint-disable-next-line react/prop-types
-const PlayerKeyCard = ({ board }: IStart) => {
-  return <>
-    <Typography
-      variant="h6"
-      style={{ color: 'white', textAlign: 'center', marginTop: 10 }}>
-      Key Card
-    </Typography>
-    <div style={{ width: '80vw', margin: '10px 10vw' }}>
-      <KeyCard board={board} />
-    </div>
-    <div style={{ width: '100vw', height: '10vh' }}>
-      <Typography
-        variant="h6"
-        style={{ color: 'white', textAlign: 'center' }}>
-        This is board for 1 Team gameplay
-      </Typography>
-    </div>
-  </>
+const PlayerKeyCard = ({ board }: Props) => {
+  return (
+    <KeyCard
+      text={(
+        <ul style={{ padding: 5, margin: '5px 0' }}>
+          <li>Tylko Ty możesz oglądać <i>kartę klucz</i>.</li>
+          <li>Użyj jej, aby nakierować swoj zespoł na właściwe hasła.</li>
+          <li>Odkryjcie wszystkie zielone karty.</li>
+          <li>Omijajcie czarne pole.</li>
+          <li><b>Podpowiedź</b>: Najlepiej podawaj hasła, które kojarzą się z więcej niż jednym słowem.</li>
+        </ul>
+      )}
+      board={board}
+    />
+  )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, query, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res
+}) => {
   // @ts-ignore
   const { boardId } = params
   if (!boardId) {

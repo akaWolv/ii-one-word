@@ -1,13 +1,10 @@
 import React from 'react'
 import router from 'next/router'
 import { EType } from '../interfaces/EType'
-import TypeIcon from '../Board/TypeIcon'
-import { styled } from '@mui/material/styles'
-import { Button } from '@mui/material'
-import getTileColorByType from '../getTileColorByType'
-import { grey } from '@mui/material/colors'
+import { StyledButton } from './SingleClick.styled'
+import TypeTileContent from '../Board/TypeTileContent'
 
-interface ITile {
+interface Props {
   lineId: number
   wordId: number
   word: string
@@ -16,24 +13,6 @@ interface ITile {
   getChangeGameStateUrl: Function
 }
 
-const StyledButton = styled(Button)<{ _type?: EType }>(({
-  _type,
-  theme
-}) => ({
-  backgroundColor: _type ? getTileColorByType(_type) : grey[800],
-  color: grey[300],
-  padding: 1,
-  width: '100%',
-  height: '100%',
-  fontSize: 25,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: grey[50],
-    cursor: 'pointer'
-  }
-}))
-
-// eslint-disable-next-line react/prop-types
 const Tile = ({
   lineId,
   wordId,
@@ -41,7 +20,7 @@ const Tile = ({
   board,
   gameState,
   getChangeGameStateUrl
-}: ITile) => {
+}: Props) => {
   const orderId = lineId * 5 + wordId
   const state = gameState[orderId]
   const getPickTileUrl = (): string => {
@@ -58,7 +37,7 @@ const Tile = ({
     return <StyledButton href={pickTileUrl} onClick={handleClick}>{word}</StyledButton>
   } else {
     const type: EType = board[lineId][wordId]
-    return <StyledButton disabled={true} _type={type}><TypeIcon type={type} /></StyledButton>
+    return <StyledButton disabled={true} _type={type}><TypeTileContent type={type} /></StyledButton>
   }
 }
 

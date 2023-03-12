@@ -1,41 +1,48 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
-import KeyCard from 'src/KeyCard'
-import { Typography } from '@mui/material'
 import { EPlayer } from 'src/interfaces/EPlayer'
-import getPlayerColor from 'src/getPlayerColor'
+import KeyCard from 'src/KeyCard'
+import { StyledTeamChip } from 'src/KeyCard/KeyCard.styled'
 
-interface IStart {
+interface Props {
   board: Array<EType[]>
   player: EPlayer.A | EPlayer.B
 }
 
-// eslint-disable-next-line react/prop-types
-const PlayerKeyCard = ({ board, player }: IStart) => {
-  return <>
-    <Typography
-      variant="h6"
-      style={{ color: 'white', textAlign: 'center', marginTop: 10 }}>
-      Key Card
-    </Typography>
-    <div style={{ width: '80vw', margin: '10px 10vw' }}>
-      <KeyCard board={board} />
-    </div>
-    <div style={{ width: '100vw', height: '10vh' }}>
-      <Typography
-        variant="h6"
-        style={{ color: 'white', textAlign: 'center' }}>
-        You are <span style={{ textTransform: 'uppercase', color: getPlayerColor(player) }}>Player {player}</span>
-      </Typography>
-      <Typography variant='h6' style={{ color: 'white', textAlign: 'center', fontSize: '0.8em' }}>
-        This is board for other player to guess
-      </Typography>
-    </div>
-  </>
+const PlayerKeyCard = ({
+  board,
+  player
+}: Props) => {
+  const playerColor = EPlayer.A === player ? EType.Red : EType.Blue
+  return (
+    <KeyCard
+      text={(
+        <>
+        <ul style={{ padding: 5, margin: '5px 0' }}>
+          <li>Nie pokazuj <i>karty klucz</i> partnerowi.</li>
+          <li>Pomóż partnerowi odgadnąć zielone pola z twojej <i>karty klucz</i>.</li>
+          <li>Partner musi omijać czarne pola.</li>
+          <li><b>Podpowiedź</b>: Najlepiej podawaj hasła, które kojarzą się z więcej niż jednym słowem.</li>
+        </ul>
+        <ul style={{ padding: 5, margin: '5px 0' }}>
+          <li>
+            Ty odpowiadaj klikając
+            &nbsp;<StyledTeamChip $team={playerColor} label={`Guzik ${String(player).toUpperCase()}`} />
+          </li>
+        </ul>
+        </>
+      )}
+      board={board}
+    />
+  )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, query, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  query,
+  res
+}) => {
   const { player } = query
   // @ts-ignore
   const { boardId } = params
@@ -49,7 +56,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params, query, re
   // get Board
   const resBoard = await fetch(`${process.env.APP_URL}/api/boards/duo/${boardId}`)
   const dataBoard = await resBoard.json()
-  const { boardPlayerA, boardPlayerB } = dataBoard
+  const {
+    boardPlayerA,
+    boardPlayerB
+  } = dataBoard
 
   return {
     props: {

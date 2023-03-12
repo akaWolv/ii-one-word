@@ -30,8 +30,10 @@ const TypeIcon = ({ type, player }: TypeIcon) => {
   switch (type) {
     case EType.Red:
       isWhiteText = true
+    // eslint-disable-next-line no-fallthrough
     case EType.Blue:
       isWhiteText = true
+    // eslint-disable-next-line no-fallthrough
     case EType.Green:
       return (
         <StyledChip
@@ -40,7 +42,7 @@ const TypeIcon = ({ type, player }: TypeIcon) => {
           label={`Agent ${player || ''}`}
           onDelete={() => {}}
           $player={player}
-          $isWhiteText={isWhiteText}
+          $isWhiteText={isWhiteText ? true : undefined}
         />
       )
     case EType.Neutral:

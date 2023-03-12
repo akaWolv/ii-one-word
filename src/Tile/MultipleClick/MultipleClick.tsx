@@ -1,48 +1,14 @@
 import React from 'react'
-import { EType } from '../interfaces/EType'
-import { EPlayer } from '../interfaces/EPlayer'
-import { EPicked } from '../interfaces/EPicked'
-import TypeIcon from '../Board/TypeIcon'
-import { styled } from '@mui/material/styles'
-import { alpha, Button, CardActions, CardContent, Typography } from '@mui/material'
-import { grey, pink } from '@mui/material/colors'
-import Card from '@mui/material/Card'
-import getTileColorByType from '../getTileColorByType'
-import getPlayerColor from '../getPlayerColor'
 import router from 'next/router'
+import { EType } from 'src/interfaces/EType'
+import { EPlayer } from 'src/interfaces/EPlayer'
+import { EPicked } from 'src/interfaces/EPicked'
+import { CardContent } from '@mui/material'
+import { StyledButton, StyledCard, StyledCardContent, StyledButtonContainer } from './MultipleClick.styled'
+import TileContent from './TileContent'
+import TypeTileContent from 'src/Board/TypeTileContent'
 
-const StyledCard = styled(Card)<{ _type?: EType }>(({ _type }) => ({
-  backgroundColor: _type ? getTileColorByType(_type) : grey[800],
-  color: grey[300],
-  width: '100%',
-  height: '100%',
-  fontSize: 25
-}))
-
-const StyledCardContent = styled(Card)({
-  padding: 38,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  backgroundColor: 'transparent'
-})
-
-const StyledButton = styled(Button)<{ _picked: EPicked, _player: EPlayer }>(({ _picked, _player }) => ({
-  backgroundColor: _picked === EPicked.Yes
-    ? getTileColorByType(EType.Neutral)
-    : alpha(getPlayerColor(_player), 0.6),
-  color: grey[100],
-  padding: 0,
-  fontWeight: 'bold',
-  '&:hover': {
-    backgroundColor: getPlayerColor(_player),
-    color: grey[50],
-    cursor: 'pointer'
-  }
-}))
-
-interface ITile {
+interface Props {
   lineId: number
   wordId: number
   word: string
@@ -64,7 +30,7 @@ const Tile = ({
   gameStateB,
   getChangeGameStateUrl,
   withUpsideDownWord
-}: ITile) => {
+}: Props) => {
   const orderId = lineId * 5 + wordId
   const stateA = gameStateA[orderId]
   const stateB = gameStateB[orderId]
@@ -85,7 +51,7 @@ const Tile = ({
 
   const renderPickedTile = (type: EType, player?: EPlayer) => <StyledCard _type={type}>
     <StyledCardContent>
-        <TypeIcon type={type} player={player} />
+        <TypeTileContent type={type} player={player} />
     </StyledCardContent>
   </StyledCard>
 
@@ -102,28 +68,12 @@ const Tile = ({
   }
 
   return <StyledCard>
-    <CardContent style={{ height: '75%', paddingBottom: 0 }}>
-        <Typography sx={{
-          fontSize: '0.8em',
-          fontWeight: 400,
-          color: pink[200],
-          textAlign: 'right',
-          transform: 'scale(-1, -1)'
-        }}>
-          { withUpsideDownWord ? word : <span>&nbsp;</span> }
-        </Typography>
-
-      <Typography
-        variant="caption"
-        display="block"
-        style={{ textAlign: 'center', bottom: 0, fontSize: 25, textTransform: 'uppercase' }}
-      >
-        {word}
-      </Typography>
+    <CardContent style={{ padding: 0, flexGrow: 2 }}>
+      <TileContent word={word} withUpsideDownWord={withUpsideDownWord} />
     </CardContent>
-    <CardActions style={{ height: '23%', justifyItems: 'stretch', justifyContent: 'space-evenly' }}>
+    <StyledButtonContainer>
       <StyledButton
-        variant='contained'
+        variant='outlined'
         href={pickTilePlayerAUrl}
         onClick={handleClickPlayerA}
         disabled={stateA === '1'}
@@ -134,7 +84,7 @@ const Tile = ({
         A
       </StyledButton>
       <StyledButton
-        variant='contained'
+        variant='outlined'
         href={pickTilePlayerBUrl}
         onClick={handleClickPlayerB}
         style={{ float: 'right' }}
@@ -144,7 +94,7 @@ const Tile = ({
       >
         B
       </StyledButton>
-    </CardActions>
+    </StyledButtonContainer>
   </StyledCard>
 }
 

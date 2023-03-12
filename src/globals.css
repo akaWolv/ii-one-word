@@ -1,4 +1,50 @@
 html {
-    min-height: 100%;
-    background-image: linear-gradient(130deg, #2B2B2B, #111111);
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #ff3f96 5%, #ff6a2f 100%) 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    /*height: 100vh;*/
+    /*width: 100vw;*/
+    /*background-size: 400% 400%;*/
+    /*animation: gradient 40s ease infinite;*/
 }
+
+body {
+    height: 100%;
+}
+
+@keyframes App-logo-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes App-logo-shake {
+    0% { transform: rotate(0); }
+    10%,11% { transform: rotate(-0.005turn); }
+    11%,12% { transform: rotate(0.002turn); }
+    12%,13% { transform: rotate(-0.002turn); }
+    14%,15% { transform: rotate(0); }
+    100% { transform: rotate(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        /*animation: App-logo-pulse infinite 3s ease, App-logo-shake infinite 10s ease;*/
+    }
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 50% 0;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 50% 0;
+    }
+}
+

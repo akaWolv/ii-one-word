@@ -1,17 +1,15 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
-import { Grid, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { grey } from '@mui/material/colors'
 import { EType } from 'src/interfaces/EType'
 import Board from 'src/Board/Teams'
 import { ETeam } from 'src/interfaces/ETeam'
-import getTeamColor from 'src/getTeamColor'
 import calculateTeamsTilesToGo from 'src/calculateTeamsTilesToGo'
-import GameModal from 'src/GameModal/Teams'
 import Menu from 'src/GameBottomBar/Menu'
+import GameBoard from 'src/GameBoard'
+import GameEnd from 'src/GameEnd/Teams'
+import AgentsLeftInfo from 'src/AgentsLeftInfo'
 
-interface IGame {
+interface Props {
   boardId: string
   wordsId: string
   words: string[][]
@@ -21,17 +19,17 @@ interface IGame {
   starting: ETeam
 }
 
-const StyledContainer = styled(Grid)(({ theme }) => ({
-  color: grey[100],
-  textAlign: 'center',
-  height: '5vh',
-  flexGrow: 0
-}))
-
-// eslint-disable-next-line react/prop-types
-const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }: IGame) => {
+const url = new URL(`${process.env.APP_URL}/game/teams`)
+const Game = ({
+  boardId,
+  wordsId,
+  words,
+  board,
+  flatBoard,
+  gameState,
+  starting
+}: Props) => {
   const getChangeGameStateUrl = (gameState: string) => {
-    const url = new URL(`${process.env.APP_URL}/game/teams`)
     url.searchParams.set('board', boardId)
     url.searchParams.set('words', wordsId)
     url.searchParams.set('gameState', gameState)
@@ -39,45 +37,31 @@ const Game = ({ boardId, wordsId, words, board, flatBoard, gameState, starting }
   }
 
   const {
+    redTeamTilesTotal,
+    blueTeamTilesTotal,
     redTeamTilesLeft,
     blueTeamTilesLeft,
     assassin
   } = calculateTeamsTilesToGo(flatBoard, gameState, starting)
 
-  return (
-    <Grid container
-          spacing={2}
-          direction="row"
-          alignItems="stretch"
-    >
-      <GameModal redTeamTilesLeft={redTeamTilesLeft} blueTeamTilesLeft={blueTeamTilesLeft} assassin={assassin} />
-      <Grid item xs={12} style={{ height: '95vh' }}>
-        <Board
-          words={words}
-          board={board}
-          gameState={gameState}
-          getChangeGameStateUrl={getChangeGameStateUrl}
-        />
-      </Grid>
-      <StyledContainer container item xs={12}>
-        <Grid item xs={3}>
-          <Typography variant="h6">
-            <span style={{ color: getTeamColor(ETeam.Red) }}>Red Team: </span>
-            &nbsp;<b>{redTeamTilesLeft}</b> agent{redTeamTilesLeft > 1 && 's'} yet to discover
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Menu newGameUrl='/game/teams/new' />
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6">
-            <span style={{ color: getTeamColor(ETeam.Blue) }}>Blue Team: </span>
-            &nbsp;<b>{blueTeamTilesLeft}</b> agent{blueTeamTilesLeft > 1 && 's'} yet to discover
-          </Typography>
-        </Grid>
-      </StyledContainer>
-    </Grid>
-  )
+  return <GameBoard
+    board={
+      <Board
+        words={words}
+        board={board}
+        gameState={gameState}
+        getChangeGameStateUrl={getChangeGameStateUrl}
+      />
+    }
+    bottomBar={
+      <>
+        <AgentsLeftInfo tilesTotal={redTeamTilesTotal} tilesLeft={redTeamTilesLeft} team={ETeam.Red} />
+        <Menu newGameUrl="/game/teams/new" />
+        <AgentsLeftInfo tilesTotal={blueTeamTilesTotal} tilesLeft={blueTeamTilesLeft} team={ETeam.Blue} />
+      </>
+    }
+    gameEnd={<GameEnd redTeamTilesLeft={redTeamTilesLeft} blueTeamTilesLeft={blueTeamTilesLeft} assassin={assassin} />}
+  />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({

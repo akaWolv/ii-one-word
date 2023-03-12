@@ -2,41 +2,56 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
 import KeyCard from 'src/KeyCard'
-import { Typography } from '@mui/material'
-import getTileColorByType from 'src/getTileColorByType'
+import { StyledTeamChip } from 'src/KeyCard/KeyCard.styled'
 
-interface IStart {
+interface Params {
   board: Array<EType[]>
   starting: EType.Red | EType.Blue
   team: EType.Red | EType.Blue
 }
 
-// eslint-disable-next-line react/prop-types
-const TeamKeyCard = ({ starting, board, team }: IStart) => {
-  return <>
-    <Typography
-      variant="h6"
-      style={{ color: 'white', textAlign: 'center', marginTop: 10 }}>
-      Key Card
-    </Typography>
-    <div style={{ width: '80vw', margin: '10px 10vw' }}>
-      <KeyCard board={board} />
-    </div>
-    <div style={{ width: '100vw', height: '10vh' }}>
-      <Typography
-        variant="h6"
-        style={{ color: 'white', textAlign: 'center' }}>
-        You are <span style={{ color: getTileColorByType(team) }}>
-          {team === EType.Red ? 'Red' : 'Blue'}
-        </span> {team === starting ? 'and' : 'but'} <span style={{ color: getTileColorByType(starting) }}>
-          {starting === EType.Red ? 'Red' : 'Blue'}
-        </span> starts
-      </Typography>
-    </div>
-  </>
+const TeamKeyCard = ({
+  starting,
+  board,
+  team
+}: Params) => {
+  return (
+    <KeyCard
+      text={(
+        <ul style={{
+          padding: 5,
+          margin: '5px 0'
+        }}>
+          <li>Tylko Ty możesz oglądać <i>kartę klucz</i>.</li>
+          <li>Użyj jej, aby nakierować swój zespoł na właściwe hasła.</li>
+          <li>
+            Jesteś w drużynie {team === EType.Red ? 'Czerwonych' : 'Niebieskich'}.
+            Odkryjcie wszystkie
+            &nbsp;<StyledTeamChip $team={team} label={team === EType.Red ? 'czerwone' : 'niebieskie'} />&nbsp;
+            karty.
+          </li>
+          <li>Omijaj czarną kartę!</li>
+          <li>
+            {
+              starting === team
+                ? <b>Twoja drużyna zaczyna!</b>
+                : 'Drużyna przeciwna zaczyna.'
+            }
+          </li>
+          <li><b>Podpowiedź</b>: Najlepiej podawaj hasła, które kojarzą się z więcej niż jednym słowem.</li>
+        </ul>
+      )}
+      board={board}
+      highlightedteam={team}
+    />
+  )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, query, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  query,
+  res
+}) => {
   const { team } = query
   // @ts-ignore
   const { boardId } = params
@@ -50,10 +65,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params, query, re
   // get Board
   const resBoard = await fetch(`${process.env.APP_URL}/api/boards/teams/${boardId}`)
   const dataBoard = await resBoard.json()
-  const { starting, board } = dataBoard
+  const {
+    starting,
+    board
+  } = dataBoard
 
   return {
-    props: { board, starting, team }
+    props: {
+      board,
+      starting,
+      team
+    }
   }
 }
 
