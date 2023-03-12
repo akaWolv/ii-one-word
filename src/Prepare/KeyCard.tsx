@@ -19,29 +19,26 @@ const KeyCard = ({
     suppressHydrationWarning={true}
     style={{ width: '100%', height: '100%' }}
   >
-    <Typography variant="h5" component="div">
-      <span style={{ color: distinctColor, fontWeight: 'bold' }}>{leaderText}</span>: Key Card
+    <Typography variant="h6">
+      Karta Klucz dla <span style={{ color: distinctColor, fontWeight: 'bold' }}>{leaderText}</span>
     </Typography>
 
-    <Typography sx={{
-      fontSize: 14
-    }} color="text.secondary">
-      <b>{leaderText || 'Leader'}</b> scans this QRcode with his phone
+    <Typography variant='body2' color="text.secondary">
+      Kod QR do zeskanowania przez <b>{leaderText}</b>
     </Typography>
     {
         <QRCode
           value={boardLink}
-          // size={400}
           style={{
             width: '100%',
             height: 'auto',
             marginTop: '5px',
-            marginBottom: '5px'
+            marginBottom: '10px'
           }}
         />
     }
     <TextField
-      label="...or copy the key card link below:"
+      label="...albo link poniżej do skopiowania:"
       variant="standard"
       onFocus={event => {
         event.target.select()

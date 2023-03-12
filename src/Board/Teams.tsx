@@ -10,15 +10,28 @@ interface IWords {
 }
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ words, board, gameState, getChangeGameStateUrl }: IWords) => {
-  return <table style={{ tableLayout: 'fixed', width: '100%', height: '100%' }}>
+const Board = ({
+  words,
+  board,
+  gameState,
+  getChangeGameStateUrl
+}: IWords) => {
+  return <table style={{
+    tableLayout: 'fixed',
+    width: '100%',
+    height: '100%',
+    borderSpacing: '5px'
+  }}>
     <tbody>
     {
       words.map((line, lineId) => (
         <tr key={encodeURIComponent(line.join(''))}>
           {
             line.map((word, wordId) => (
-              <td key={`${lineId}-${wordId}`} style={{ width: '20%', height: '20%' }}>
+              <td key={`${lineId}-${wordId}`} style={{
+                width: '20%',
+                height: '20%'
+              }}>
                 <Tile
                   lineId={lineId}
                   wordId={wordId}

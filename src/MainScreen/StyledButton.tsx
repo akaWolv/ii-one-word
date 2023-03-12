@@ -7,7 +7,7 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({ _type, theme }) => ({
   border: `solid 2px ${alpha(theme.palette.primary.light, 0.6)}`,
   width: '100%',
   height: 150,
-  fontSize: 30,
+  fontSize: '1.5vw',
   color: theme.palette.primary.light,
   '&:hover': {
     backdropFilter: 'saturate(300%)',

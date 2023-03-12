@@ -28,10 +28,7 @@ interface Props {
   getLastChanceUsedUrl: Function
 }
 
-const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({
-  _status,
-  theme
-}) => ({
+const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({ _status }) => ({
   width: '100%',
   height: '100%',
   padding: '0 5px',
@@ -40,7 +37,8 @@ const StyledButton = styled(Button)<{ _status: ETokenStatus }>(({
   '&:hover': {
     backdropFilter: 'saturate(150%)',
     cursor: 'pointer'
-  }
+  },
+  fontSize: '0.8vw'
 }))
 
 const TokenList = ({
@@ -64,14 +62,14 @@ const TokenList = ({
       (i, index) => {
         const tokenState: ETokenStatus = Number(tokenStateList[index]) ? ETokenStatus.Available : ETokenStatus.Used
         let opacity = 1
-        let availableTokenText = 'Finish Turn'
+        let availableTokenText = 'Koniec rundy'
         let isButtonDisabled = false
         if (tokenState === ETokenStatus.Available) {
           if (isFirstAvailableToken) {
             isFirstAvailableToken = false
           } else {
             opacity = 0.5
-            availableTokenText = 'Next turn'
+            availableTokenText = 'Następna runda'
             isButtonDisabled = true
           }
         } else {
@@ -89,7 +87,7 @@ const TokenList = ({
               tokenState === ETokenStatus.Available
                 ? availableTokenText
                 : <Check style={{
-                  fontSize: 52,
+                  fontSize: 42,
                   color: '#D100A4'
                 }} />
             }
@@ -109,7 +107,7 @@ const TokenList = ({
         disabled={!isLastChance}
         _status={isLastChance ? ETokenStatus.Available : ETokenStatus.Used}
       >
-        Last Chance!
+        Ostatnia szansa!
       </StyledButton>
     </StyledLi>
   </StyledUl>

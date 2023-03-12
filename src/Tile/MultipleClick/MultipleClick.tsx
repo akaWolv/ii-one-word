@@ -1,13 +1,12 @@
 import React from 'react'
-import { EType } from '../../interfaces/EType'
-import { EPlayer } from '../../interfaces/EPlayer'
-import { EPicked } from '../../interfaces/EPicked'
-import TypeIcon from '../../Board/TypeIcon'
-import { CardContent } from '@mui/material'
 import router from 'next/router'
+import { EType } from 'src/interfaces/EType'
+import { EPlayer } from 'src/interfaces/EPlayer'
+import { EPicked } from 'src/interfaces/EPicked'
+import { CardContent } from '@mui/material'
 import { StyledButton, StyledCard, StyledCardContent, StyledButtonContainer } from './MultipleClick.styled'
 import TileContent from './TileContent'
-import TypeTileContent from '../../Board/TypeTileContent'
+import TypeTileContent from 'src/Board/TypeTileContent'
 
 interface Props {
   lineId: number
@@ -52,7 +51,6 @@ const Tile = ({
 
   const renderPickedTile = (type: EType, player?: EPlayer) => <StyledCard _type={type}>
     <StyledCardContent>
-        {/*<TypeIcon type={type} player={player} />*/}
         <TypeTileContent type={type} player={player} />
     </StyledCardContent>
   </StyledCard>
@@ -70,7 +68,7 @@ const Tile = ({
   }
 
   return <StyledCard>
-    <CardContent style={{ padding: 0 }}>
+    <CardContent style={{ padding: 0, flexGrow: 2 }}>
       <TileContent word={word} withUpsideDownWord={withUpsideDownWord} />
     </CardContent>
     <StyledButtonContainer>

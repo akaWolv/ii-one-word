@@ -1,8 +1,8 @@
 import { styled } from '@mui/material/styles'
 import { Grid } from '@mui/material'
 
-const MainScreenContainer = styled(Grid)({
-  minHeight: '100vh',
+const MainScreenContainer = styled(Grid)<{ $isTabletView: boolean }>(({ $isTabletView }) => ({
+  height: $isTabletView ? '90vh' : '100vh',
   textAlign: 'center',
   marginTop: 0,
   paddingBottom: 15,
@@ -11,6 +11,6 @@ const MainScreenContainer = styled(Grid)({
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'center'
-})
+}))
 
 export { MainScreenContainer }

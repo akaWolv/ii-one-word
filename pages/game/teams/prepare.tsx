@@ -26,7 +26,7 @@ const Prepare = ({ boardId, wordsId }: IPrepare) => {
     return startLink.toString()
   }
   return <PrepareView
-    gameName='Teams Game'
+    gameName='Czerwoni kontra Niebiescy'
     redKeyCardLink={getBoardLink(boardId, EType.Red)}
     blueKeyCardLink={getBoardLink(boardId, EType.Blue)}
     startLink={getStartLink()}

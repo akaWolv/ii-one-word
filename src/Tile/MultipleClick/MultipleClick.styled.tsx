@@ -13,7 +13,9 @@ const StyledCard = styled(Card)<{ _type?: EType }>(({ _type, theme }) => ({
   padding: 1,
   width: '100%',
   height: '100%',
-  fontSize: 25
+  fontSize: 25,
+  display: 'flex',
+  flexDirection: 'column'
 }))
 
 const StyledCardContent = styled(Card)({

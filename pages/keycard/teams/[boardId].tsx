@@ -18,20 +18,27 @@ const TeamKeyCard = ({
   return (
     <KeyCard
       text={(
-        <ul>
-          <li>This key card is for your eyes only.</li>
+        <ul style={{
+          padding: 5,
+          margin: '5px 0'
+        }}>
+          <li>Tylko Ty możesz oglądać <i>kartę klucz</i>.</li>
+          <li>Użyj jej, aby nakierować swój zespoł na właściwe hasła.</li>
           <li>
-            Your team is&nbsp;
-            <StyledTeamChip $team={team} label={team === EType.Red ? 'Red' : 'Blue'} />
+            Jesteś w drużynie {team === EType.Red ? 'Czerwonych' : 'Niebieskich'}.
+            Odkryjcie wszystkie
+            &nbsp;<StyledTeamChip $team={team} label={team === EType.Red ? 'czerwone' : 'niebieskie'} />&nbsp;
+            karty.
           </li>
-          <li>Use it to provide tips for your team.</li>
-          <li>Discover all green fields.</li>
-          <li>You have to avoid black tile.</li>
+          <li>Omijaj czarną kartę!</li>
           <li>
-            Team&nbsp;
-            <StyledTeamChip $team={starting} label={starting === EType.Red ? 'Red' : 'Blue'} />
-            &nbsp;is starting
+            {
+              starting === team
+                ? <b>Twoja drużyna zaczyna!</b>
+                : 'Drużyna przeciwna zaczyna.'
+            }
           </li>
+          <li><b>Podpowiedź</b>: Najlepiej podawaj hasła, które kojarzą się z więcej niż jednym słowem.</li>
         </ul>
       )}
       board={board}

@@ -11,11 +11,12 @@ const PlayerKeyCard = ({ board }: Props) => {
   return (
     <KeyCard
       text={(
-        <ul>
-          <li>This key card is for your eyes only. </li>
-          <li>Use it to provide tips for your team. </li>
-          <li>Discover all green fields.</li>
-          <li>You have to avoid black tiles.</li>
+        <ul style={{ padding: 5, margin: '5px 0' }}>
+          <li>Tylko Ty możesz oglądać <i>kartę klucz</i>.</li>
+          <li>Użyj jej, aby nakierować swoj zespoł na właściwe hasła.</li>
+          <li>Odkryjcie wszystkie zielone karty.</li>
+          <li>Omijajcie czarne pole.</li>
+          <li><b>Podpowiedź</b>: Najlepiej podawaj hasła, które kojarzą się z więcej niż jednym słowem.</li>
         </ul>
       )}
       board={board}

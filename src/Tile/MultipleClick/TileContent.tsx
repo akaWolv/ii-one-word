@@ -23,7 +23,7 @@ const TileContent = ({
         style={{
           textAlign: 'center',
           bottom: 0,
-          fontSize: 25,
+          fontSize: '1.5vw',
           textTransform: 'uppercase'
         }}
       >

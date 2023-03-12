@@ -9,7 +9,7 @@ import { ETeam } from 'src/interfaces/ETeam'
 import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
 import GameEnd from 'src/GameEnd/Single'
-import AgentsLeftInfo from '../../../src/AgentsLeftInfo'
+import AgentsLeftInfo from 'src/AgentsLeftInfo'
 
 interface Props {
   boardId: string
