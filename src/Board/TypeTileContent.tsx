@@ -15,7 +15,7 @@ interface Params {
 
 const StyledChip = styled(Chip)<{ $player?: EPlayer, $iswhitetext?: boolean }>(({ $player, $iswhitetext }) => ({
   opacity: 0.9,
-  fontSize: '1.5vw',
+  fontSize: '1.1vw',
   fontWeight: 400,
   padding: 20,
   color: $iswhitetext ? grey[200] : 'inherited',
