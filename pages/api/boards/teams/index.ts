@@ -14,7 +14,7 @@ export default function handler (req: NextApiRequest, res: NextApiResponse<Data|
   shuffleArray(tilesNumbers)
   const tiles: ITiles = {}
 
-  // assasin
+  // assassin
   tilesNumbers.slice(0, 1).forEach(i => {
     tiles[++i] = EType.Assassin
   })

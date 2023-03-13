@@ -74,10 +74,10 @@ const Tile = ({
     <StyledButtonContainer>
       <StyledButton
         variant='outlined'
+        size='small'
         href={pickTilePlayerAUrl}
         onClick={handleClickPlayerA}
         disabled={stateA === '1'}
-        style={{ float: 'left' }}
         _picked={stateA === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.A}
       >
@@ -85,9 +85,9 @@ const Tile = ({
       </StyledButton>
       <StyledButton
         variant='outlined'
+        size='small'
         href={pickTilePlayerBUrl}
         onClick={handleClickPlayerB}
-        style={{ float: 'right' }}
         disabled={stateB === '1'}
         _picked={stateB === '1' ? EPicked.Yes : EPicked.No}
         _player={EPlayer.B}

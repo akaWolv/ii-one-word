@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { isTablet, isMobileOnly } from 'react-device-detect'
+import { isMobileOnly } from 'react-device-detect'
 import { Grid, Typography } from '@mui/material'
 import StyledButton from './StyledButton'
 import { StyledAlternateSpan } from './StyledTypography'
@@ -7,12 +7,8 @@ import { MainScreenContainer } from './MainScreen.styled'
 import PhoneView from './PhoneView'
 
 const MainScreen = () => {
-  const [isTabletView, setIsTabletView] = useState<boolean>(false)
   const [isMobileOnlyView, setIsMobileOnlyView] = useState<boolean>(false)
   useEffect(() => {
-    if (isTablet) {
-      setIsTabletView(isTablet)
-    }
     if (isMobileOnly) {
       setIsMobileOnlyView(isMobileOnly)
     }
@@ -27,7 +23,6 @@ const MainScreen = () => {
       spacing={5}
       direction="row"
       justifyContent="center"
-      $istabletview={isTabletView}
     >
       <Grid item xs={12}>
         <Typography variant="h2">

@@ -17,7 +17,6 @@ const KeyCard = ({
   <StyledPaper
     elevation={6}
     suppressHydrationWarning={true}
-    style={{ width: '100%', height: '100%' }}
   >
     <Typography variant="h6">
       Karta Klucz dla <span style={{ color: distinctColor, fontWeight: 'bold' }}>{leaderText}</span>
@@ -26,17 +25,26 @@ const KeyCard = ({
     <Typography variant='body2' color="text.secondary">
       Kod QR do zeskanowania przez <b>{leaderText}</b>
     </Typography>
+    <div style={{
+      flexGrow: 1,
+      width: '100%',
+      paddingTop: '5px',
+      paddingBottom: '5px',
+      display: 'flex'
+    }}>
     {
         <QRCode
           value={boardLink}
           style={{
             width: '100%',
+            maxWidth: '100%',
             height: 'auto',
-            marginTop: '5px',
-            marginBottom: '10px'
+            maxHeight: '100%',
+            margin: '0 auto'
           }}
         />
     }
+    </div>
     <TextField
       label="...albo link poniżej do skopiowania:"
       variant="standard"

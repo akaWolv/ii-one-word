@@ -14,7 +14,7 @@ const StyledButton = styled(Button)<{ _type?: EType }>(({
   padding: 1,
   width: '100%',
   height: '100%',
-  fontSize: 25,
+  fontSize: '1.7vw',
   '&:hover': {
     border: `solid 2px ${alpha(theme.palette.primary.main, 0.4)}`,
     backgroundColor: alpha(theme.palette.secondary.light, 1),

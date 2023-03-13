@@ -121,7 +121,7 @@ const Game = ({
     }
     bottomBar={
       <>
-        <Menu newGameUrl="/game/due/new" />
+        <Menu newGameUrl="/game/duo/new" />
         <AgentsLeftInfo tilesTotal={tilesTotal} tilesLeft={tilesLeft} team={ETeam.Green} />
       </>
     }

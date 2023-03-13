@@ -1,8 +1,8 @@
 import { styled } from '@mui/material/styles'
 import { Grid } from '@mui/material'
 
-const MainScreenContainer = styled(Grid)<{ $istabletview: boolean }>(({ $istabletview }) => ({
-  height: $istabletview ? '90vh' : '100vh',
+const MainScreenContainer = styled(Grid)({
+  height: '100%',
   textAlign: 'center',
   marginTop: 0,
   paddingBottom: 15,
@@ -11,6 +11,6 @@ const MainScreenContainer = styled(Grid)<{ $istabletview: boolean }>(({ $istable
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'center'
-}))
+})
 
 export { MainScreenContainer }

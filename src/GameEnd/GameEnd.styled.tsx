@@ -2,6 +2,14 @@ import { styled } from '@mui/material/styles'
 import { alpha, Backdrop, Button, Card, CardContent } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
+const StyledButtonContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  gap: 30
+})
+
 const StyledButton = styled(Button)(({ theme }) => ({
   color: '#fff',
   width: 200,
@@ -80,4 +88,4 @@ const StyledCardContent = styled(CardContent)({
   boxShadow: '0px -15px 30px -25px #111'
 })
 
-export { StyledBackdrop, StyledCustomBackdrop, StyledCard, StyledCardContent, StyledButton }
+export { StyledBackdrop, StyledButton, StyledButtonContainer, StyledCustomBackdrop, StyledCard, StyledCardContent }

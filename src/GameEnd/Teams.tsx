@@ -1,7 +1,14 @@
 import React from 'react'
 import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
-import { StyledBackdrop, StyledCustomBackdrop, StyledButton, StyledCard, StyledCardContent } from './GameEnd.styled'
+import {
+  StyledBackdrop,
+  StyledButtonContainer,
+  StyledCustomBackdrop,
+  StyledButton,
+  StyledCard,
+  StyledCardContent
+} from './GameEnd.styled'
 import getTileColorByType from '../getTileColorByType'
 import { EType } from '../interfaces/EType'
 
@@ -22,22 +29,22 @@ const GameEnd = ({
   let title = ''
   let text = ''
   let isWin = false
-  let type: EType|undefined
+  let type: EType | undefined
 
   switch (true) {
     case assassin > 0:
-      title = 'Oh snap!'
-      text = 'Assassin tile revealed, you lost...'
+      title = 'Przegrana!'
+      text = 'Karta zabójcy została odkryta...'
       break
     case redTeamTilesLeft === 0:
-      title = 'Red team won!'
-      text = 'All agents have been discovered!'
+      title = 'Drużyna Czerwonych wygrywa!'
+      text = 'Odnaleźli wszystkich agentów!'
       isWin = true
       type = EType.Red
       break
     case blueTeamTilesLeft === 0:
-      title = 'Blue team won!'
-      text = 'All agents have been discovered!'
+      title = 'Drużyna Niebieskich wygrywa!'
+      text = 'Odnaleźli wszystkich agentów!'
       isWin = true
       type = EType.Blue
       break
@@ -47,7 +54,7 @@ const GameEnd = ({
 
   return (
     <>
-      { !isWin && <StyledCustomBackdrop $iswin={false} /> }
+      {!isWin && <StyledCustomBackdrop $iswin={false} />}
       <StyledBackdrop open={true} />
       <StyledCard elevation={12} $iswin={isWin}>
         <CardMedia
@@ -64,15 +71,10 @@ const GameEnd = ({
           <Typography variant="h4" gutterBottom>
             {text}
           </Typography>
-          <Typography variant="h3" sx={{ mt: 2 }} style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            flexDirection: 'row'
-          }}>
-            <StyledButton onClick={handleNewGame}>Another Game</StyledButton>
-            <StyledButton onClick={handleBackToStart}>Back to start</StyledButton>
-          </Typography>
+          <StyledButtonContainer>
+            <StyledButton onClick={handleNewGame}>Kolejna Gra</StyledButton>
+            <StyledButton onClick={handleBackToStart}>Ekran Główny</StyledButton>
+          </StyledButtonContainer>
         </StyledCardContent>
       </StyledCard>
     </>

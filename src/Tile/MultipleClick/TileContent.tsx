@@ -1,6 +1,5 @@
-import { Typography } from '@mui/material'
 import React from 'react'
-import { StyledUpsideDownWord } from './TileContent.styled'
+import { StyledUpsideDownWord, StyledWord } from './TileContent.styled'
 
 interface Props {
   word: string
@@ -13,23 +12,10 @@ const TileContent = ({
 }: Props) => {
   return (
     <>
-      <StyledUpsideDownWord>
-        {withUpsideDownWord ? word : <span>&nbsp;</span>}
-      </StyledUpsideDownWord>
-
-      <Typography
-        variant="caption"
-        display="block"
-        style={{
-          textAlign: 'center',
-          bottom: 0,
-          fontSize: '1.5vw',
-          textTransform: 'uppercase'
-        }}
-      >
-        {word}
-      </Typography>
-    </>)
+      <StyledUpsideDownWord>{withUpsideDownWord ? word : <span>&nbsp;</span>}</StyledUpsideDownWord>
+      <StyledWord variant="caption">{word}</StyledWord>
+    </>
+  )
 }
 
 export default TileContent

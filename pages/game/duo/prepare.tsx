@@ -6,7 +6,7 @@ import PrepareView from 'src/Prepare/Prepare'
 const INITIAL_GAME_STATE = '0000000000000000000000000,0000000000000000000000000'
 const INITIAL_TOKEN_STATE = '111111111'
 
-interface IPrepare {
+interface Props {
   boardId: string
   wordsId: string
 }
@@ -17,8 +17,7 @@ const getBoardLink = (boardId: string, player: EPlayer): string => {
   return url.toString()
 }
 
-// eslint-disable-next-line react/prop-types
-const Prepare = ({ boardId, wordsId }: IPrepare) => {
+const Prepare = ({ boardId, wordsId }: Props) => {
   const getStartLink = (tabletMode: boolean): string => {
     const startLink = new URL(`${process.env.APP_URL}/game/duo`)
     startLink.searchParams.set('board', boardId)

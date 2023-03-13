@@ -5,7 +5,7 @@ import PrepareView from 'src/Prepare/Prepare'
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
 
-interface IPrepare {
+interface Props {
   boardId: string
   wordsId: string
 }
@@ -16,7 +16,7 @@ const getBoardLink = (boardId: string, team: EType.Red | EType.Blue): string => 
   return url.toString()
 }
 
-const Prepare = ({ boardId, wordsId }: IPrepare) => {
+const Prepare = ({ boardId, wordsId }: Props) => {
   const getStartLink = (): string => {
     // redirect to prepare
     const startLink = new URL(`${process.env.APP_URL}/game/teams`)

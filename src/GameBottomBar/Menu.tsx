@@ -15,8 +15,20 @@ const StyledButtonContainer = styled('div')({
 
 const Menu = ({ newGameUrl }: Menu) => (
   <StyledButtonContainer>
-    <Button variant='outlined' href={`${process.env.APP_URL}${newGameUrl}`}>Nowa gra</Button>
-    <Button variant='outlined' href={`${process.env.APP_URL}`}>Ekran główny</Button>
+    <Button
+      variant='outlined'
+      size='small'
+      style={{ margin: '0 5px' }}
+      href={`${process.env.APP_URL}${newGameUrl}`}>
+      Nowa gra
+    </Button>
+    <Button
+      variant='outlined'
+      size='small'
+      style={{ margin: '0 5px' }}
+      href={`${process.env.APP_URL}`}>
+      Ekran główny
+    </Button>
   </StyledButtonContainer>
 )
 

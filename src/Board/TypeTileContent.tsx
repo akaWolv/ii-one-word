@@ -15,9 +15,9 @@ interface Params {
 
 const StyledChip = styled(Chip)<{ $player?: EPlayer, $iswhitetext?: boolean }>(({ $player, $iswhitetext }) => ({
   opacity: 0.9,
-  fontSize: 18,
+  fontSize: '1.5vw',
   fontWeight: 400,
-  padding: 25,
+  padding: 20,
   color: $iswhitetext ? grey[200] : 'inherited',
   textTransform: 'capitalize',
   boxShadow: $player ? `0px 0px 15px 4px ${alpha(getPlayerColor($player), 0.5)}` : 'none'
@@ -43,7 +43,7 @@ const TypeTileContent = ({ type, player }: Params) => {
       return (
         <StyledChip
           avatar={<DirectionsWalk style={{ color: amber[700] }} />}
-          label='Neutral'
+          label='Neutralny'
           size="small"
           sx={{ backgroundColor: amber[100] }}
         />
@@ -52,7 +52,7 @@ const TypeTileContent = ({ type, player }: Params) => {
       return (
         <StyledChip
           avatar={<Dangerous style={{ color: pink[600] }} />}
-          label='Assassin'
+          label='Zabójca'
         />
       )
     default:

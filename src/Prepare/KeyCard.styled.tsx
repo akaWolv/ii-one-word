@@ -3,11 +3,12 @@ import { styled } from '@mui/material/styles'
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.light,
-  height: '60vh',
+  width: '100%',
+  height: '100%',
   padding: '15px',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'flex-start'
 }))
 
 export { StyledPaper }

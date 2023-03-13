@@ -1,5 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { isTablet } from 'react-device-detect'
+import React, { ReactElement } from 'react'
 import { Grid } from '@mui/material'
 import { StyledGridContainer, StyledBoardContainer, StyledBottomBar } from './GameBoard.styled'
 
@@ -16,20 +15,13 @@ const GameBoard = ({
   gameEnd,
   tokenList
 }: Props) => {
-  const [isTabletView, setIsTabletView] = useState<boolean>(false)
-  useEffect(() => {
-    if (isTablet) {
-      setIsTabletView(isTablet)
-    }
-  }, [])
-
   return (
     <StyledGridContainer
       container
       spacing={1}
       direction="row"
     >
-      <StyledBoardContainer container item xs={12} $istabletview={isTabletView}>
+      <StyledBoardContainer container item xs={12}>
         <Grid item xs={1} style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 15 }}>
           <a href={process.env.APP_URL}>
             <img

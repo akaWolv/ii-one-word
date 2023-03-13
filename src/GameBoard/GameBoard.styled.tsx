@@ -2,19 +2,22 @@ import { styled } from '@mui/material/styles'
 import { Grid } from '@mui/material'
 
 const StyledGridContainer = styled(Grid)({
+  height: '100%',
+  margin: 0,
+  padding: 0,
+  paddingRight: 5,
+  paddingBottom: 5,
   alignItems: 'center'
 })
 
-const StyledBoardContainer = styled(Grid)<{$istabletview: boolean}>(({ $istabletview }) => ({
+const StyledBoardContainer = styled(Grid)({
   textAlign: 'center',
-  height: $istabletview ? '85vh' : '95vh',
-  flexGrow: 0
-}))
+  height: '95%'
+})
 
 const StyledBottomBar = styled(Grid)({
   textAlign: 'center',
-  height: '5vh',
-  flexGrow: 0,
+  height: '5%',
   display: 'flex',
   justifyContent: 'space-between'
 })

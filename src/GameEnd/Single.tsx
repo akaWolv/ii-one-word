@@ -1,7 +1,14 @@
 import React from 'react'
 import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
-import { StyledBackdrop, StyledCustomBackdrop, StyledCard, StyledCardContent, StyledButton } from './GameEnd.styled'
+import {
+  StyledBackdrop,
+  StyledButton,
+  StyledButtonContainer,
+  StyledCustomBackdrop,
+  StyledCard,
+  StyledCardContent
+} from './GameEnd.styled'
 
 interface Props {
   assassin: number
@@ -19,16 +26,16 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
 
   switch (true) {
     case assassin > 0:
-      title = 'Oh snap!'
-      text = 'Assassin tile revealed, you lost...'
+      title = 'Przegrana!'
+      text = 'Karta zabójcy została odkryta...'
       break
     case isLastChanceUsed:
-      title = 'You failed'
-      text = 'Some Agents remain undiscovered...'
+      title = 'Nie udało się'
+      text = 'Nie wszyscy agenci zostali odkryci'
       break
     case tilesLeft === 0:
-      title = 'You won!'
-      text = 'All agents have been discovered!'
+      title = 'Zwycięstwo!'
+      text = 'Wszyscy agenci zostali odnalezieni!'
       isWin = true
       break
     default:
@@ -54,10 +61,10 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
           <Typography variant="h4" gutterBottom>
             {text}
           </Typography>
-          <Typography variant="h3" sx={{ mt: 2 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
-            <StyledButton onClick={handleNewGame}>Another Game</StyledButton>
-            <StyledButton onClick={handleBackToStart}>Back to start</StyledButton>
-          </Typography>
+          <StyledButtonContainer>
+            <StyledButton style={{ margin: '0 5px' }} onClick={handleNewGame}>Kolejna Gra</StyledButton>
+            <StyledButton style={{ margin: '0 5px' }} onClick={handleBackToStart}>Ekran Główny</StyledButton>
+          </StyledButtonContainer>
         </StyledCardContent>
       </StyledCard>
     </>
