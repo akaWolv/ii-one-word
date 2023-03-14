@@ -23,14 +23,13 @@ const KeyCard = ({
     </Typography>
 
     <Typography variant='body2' color="text.secondary">
-      Kod QR do zeskanowania przez <b>{leaderText}</b>
+      Kod QR do zeskanowania przez <b style={{ whiteSpace: 'nowrap' }}>{leaderText}</b>
     </Typography>
     <div style={{
-      flexGrow: 1,
       width: '100%',
       paddingTop: '5px',
       paddingBottom: '5px',
-      display: 'flex'
+      display: 'block'
     }}>
     {
         <QRCode

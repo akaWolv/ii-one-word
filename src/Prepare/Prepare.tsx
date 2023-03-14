@@ -28,7 +28,7 @@ const Prepare = ({
   playerBKeyCardLink
 }: Props) => {
   const renderKeyCardContainer = (boardLink: string, distinctColor: string, leaderText?: string) => (
-    <Grid container item sm={6} md={5} lg={4}>
+    <Grid container item sm={5} md={5} lg={4} justifyContent='center' alignItems='stretch' style={{ padding: 20 }}>
       <KeyCard
         boardLink={boardLink}
         distinctColor={distinctColor}
@@ -56,14 +56,23 @@ const Prepare = ({
         </Paper>
       </Grid>
 
-      <Grid container item style={{ flexGrow: 1 }}>
-        <Grid container item justifyContent="space-around" direction='row' style={{ padding: 20 }}>
-          {greenKeyCardLink && renderKeyCardContainer(greenKeyCardLink, getTeamColor(ETeam.Green), 'Lidera')}
-          {redKeyCardLink && renderKeyCardContainer(redKeyCardLink, getTeamColor(ETeam.Red), 'Lidera Czerwonych')}
-          {blueKeyCardLink && renderKeyCardContainer(blueKeyCardLink, getTeamColor(ETeam.Blue), 'Lidera Niebieskich')}
-          {playerAKeyCardLink && renderKeyCardContainer(playerAKeyCardLink, getPlayerColor(EPlayer.A), 'Gracza A')}
-          {playerBKeyCardLink && renderKeyCardContainer(playerBKeyCardLink, getPlayerColor(EPlayer.B), 'Gracza B')}
+
+      <Grid item
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="stretch"
+            style={{ flexGrow: 2 }}
+      >
+
+        <Grid container item justifyContent="space-around" direction='row'>
+            {greenKeyCardLink && renderKeyCardContainer(greenKeyCardLink, getTeamColor(ETeam.Green), 'Lidera')}
+            {redKeyCardLink && renderKeyCardContainer(redKeyCardLink, getTeamColor(ETeam.Red), 'Lidera Czerwonych')}
+            {blueKeyCardLink && renderKeyCardContainer(blueKeyCardLink, getTeamColor(ETeam.Blue), 'Lidera Niebieskich')}
+            {playerAKeyCardLink && renderKeyCardContainer(playerAKeyCardLink, getPlayerColor(EPlayer.A), 'Gracza A')}
+            {playerBKeyCardLink && renderKeyCardContainer(playerBKeyCardLink, getPlayerColor(EPlayer.B), 'Gracza B')}
         </Grid>
+
       </Grid>
 
       <Grid container item>

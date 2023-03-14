@@ -7,8 +7,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   height: '100%',
   padding: '15px',
   display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start'
+  flexDirection: 'column'
 }))
 
 export { StyledPaper }

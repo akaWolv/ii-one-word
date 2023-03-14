@@ -35,6 +35,7 @@ const StyledButton = styled(Button)<{ _picked: EPicked, _player: EPlayer }>(({ _
     color: calculatedColor,
     padding: 0,
     fontWeight: 'bold',
+    minWidth: 20,
     flex: 1,
     '&:hover': {
       color: grey[900],
