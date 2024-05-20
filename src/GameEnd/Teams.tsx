@@ -1,5 +1,4 @@
 import React from 'react'
-import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
 import {
   StyledBackdrop,
@@ -23,8 +22,8 @@ const GameEnd = ({
   redTeamTilesLeft,
   blueTeamTilesLeft
 }: Props) => {
-  const handleNewGame = () => router.push('/game/single/new')
-  const handleBackToStart = () => router.push('/')
+  const handleNewGame = () => window.location.href = '/game/teams/new'
+  const handleBackToStart = () => window.location.href = '/'
 
   let title = ''
   let text = ''
@@ -54,9 +53,9 @@ const GameEnd = ({
 
   return (
     <>
-      {!isWin && <StyledCustomBackdrop $iswin={false} />}
+      {!isWin && <StyledCustomBackdrop iswin={+false} />}
       <StyledBackdrop open={true} />
-      <StyledCard elevation={12} $iswin={isWin}>
+      <StyledCard elevation={12} iswin={+isWin}>
         <CardMedia
           component="img"
           height="194"

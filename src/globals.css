@@ -1,20 +1,3 @@
-html {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(45deg, #ff3f96 5%, #ff6a2f 100%) 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    /*height: 100vh;*/
-    /*width: 100vw;*/
-    /*background-size: 400% 400%;*/
-    /*animation: gradient 40s ease infinite;*/
-}
-
-body {
-    height: 100%;
-}
-
 @keyframes App-logo-pulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1); opacity: 0.9; }
@@ -34,7 +17,6 @@ body {
         /*animation: App-logo-pulse infinite 3s ease, App-logo-shake infinite 10s ease;*/
     }
 }
-
 
 @keyframes gradient {
     0% {

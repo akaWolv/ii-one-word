@@ -28,7 +28,7 @@ const PlayerKeyCard = ({
         <ul style={{ padding: 5, margin: '5px 0' }}>
           <li>
             Ty odpowiadaj klikając
-            &nbsp;<StyledTeamChip $team={playerColor} label={`Guzik ${String(player).toUpperCase()}`} />
+            &nbsp;<StyledTeamChip team={playerColor} label={`Guzik ${String(player).toUpperCase()}`} />
           </li>
         </ul>
         </>

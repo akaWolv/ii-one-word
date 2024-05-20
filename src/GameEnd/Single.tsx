@@ -1,5 +1,4 @@
 import React from 'react'
-import router from 'next/router'
 import { CardMedia, Typography } from '@mui/material'
 import {
   StyledBackdrop,
@@ -14,11 +13,12 @@ interface Props {
   assassin: number
   tilesLeft: number
   isLastChanceUsed?: boolean
+  gameType: 'single' | 'duo'
 }
 
-const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
-  const handleNewGame = () => router.push('/game/single/new')
-  const handleBackToStart = () => router.push('/')
+const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed, gameType }: Props) => {
+  const handleNewGame = () => window.location.href = `/game/${gameType == 'single' ? 'single' : 'duo'}/new`
+  const handleBackToStart = () => window.location.href = '/'
 
   let title = ''
   let text = ''
@@ -44,17 +44,18 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
 
   return (
     <>
-      { !isWin && <StyledCustomBackdrop $iswin={false} /> }
+      { !isWin && <StyledCustomBackdrop iswin={+false} /> }
       <StyledBackdrop open={true} />
-      <StyledCard elevation={12} $iswin={isWin}>
+      <StyledCard elevation={12} iswin={+isWin}>
         <CardMedia
           component="img"
           height="194"
-          image={`${process.env.APP_URL}/indieimp.svg`}
-          alt="Logo of IndieImp.com"
-          sx={{ height: '50%' }}
-        />
-        <StyledCardContent>
+          image={`${ process.env.APP_URL }/indieimp.svg`}
+  alt = "Logo of IndieImp.com"
+  sx = {{ height: '50%' }
+}
+/>
+  < StyledCardContent >
           <Typography variant="h1" style={{ textDecoration: 'underline' }}>
             {title}
           </Typography>
@@ -65,8 +66,8 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed }: Props) => {
             <StyledButton style={{ margin: '0 5px' }} onClick={handleNewGame}>Kolejna Gra</StyledButton>
             <StyledButton style={{ margin: '0 5px' }} onClick={handleBackToStart}>Ekran Główny</StyledButton>
           </StyledButtonContainer>
-        </StyledCardContent>
-      </StyledCard>
+        </StyledCardContent >
+      </StyledCard >
     </>
   )
 }

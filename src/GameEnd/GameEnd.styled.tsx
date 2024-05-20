@@ -29,14 +29,14 @@ const StyledBackdrop = styled(Backdrop)({
   transitionDelay: '1s !important'
 })
 
-const StyledCustomBackdrop = styled('div')<{ $iswin: boolean }>(({ $iswin }) => ({
+const StyledCustomBackdrop = styled('div')<{ iswin: number }>(({ iswin }) => ({
   position: 'fixed',
   top: 0,
   left: 0,
   width: '100%',
   height: '100%',
   zIndex: 1000,
-  backdropFilter: `${$iswin ? 'contrast(200%) brightness(30%)' : 'grayscale(100%) brightness(70%)'} blur(2px)`, // contrast(150%) brightness(90%) // hue-rotate(190deg)
+  backdropFilter: `${iswin ? 'contrast(200%) brightness(30%)' : 'grayscale(100%) brightness(70%)'} blur(2px)`, // contrast(150%) brightness(90%) // hue-rotate(190deg)
   // animation
   animationDuration: '1.5s',
   animationName: 'fadein-GameEnd-StyledBackdrop',
@@ -48,7 +48,7 @@ const StyledCustomBackdrop = styled('div')<{ $iswin: boolean }>(({ $iswin }) => 
   }
 }))
 
-const StyledCard = styled(Card)<{ $iswin: boolean }>(({ $iswin }) => ({
+const StyledCard = styled(Card)<{ iswin: number }>(({ iswin }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -57,7 +57,7 @@ const StyledCard = styled(Card)<{ $iswin: boolean }>(({ $iswin }) => ({
   margin: '1%',
   zIndex: 1001,
   background: (
-    $iswin
+    iswin
       ? 'linear-gradient(0deg, rgba(178, 255, 89,1) 60%, rgba(29, 233, 182,1) 100%)'
       : 'linear-gradient(0deg, rgba(255,63,150,1) 60%, rgba(252,0,0,1) 100%)'
   ),
@@ -66,7 +66,7 @@ const StyledCard = styled(Card)<{ $iswin: boolean }>(({ $iswin }) => ({
   alignContent: 'center',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  color: ($iswin ? grey[700] : grey[200]),
+  color: (iswin ? grey[700] : grey[200]),
   // animation
   animationDelay: '1s',
   animationDuration: '0.2s',

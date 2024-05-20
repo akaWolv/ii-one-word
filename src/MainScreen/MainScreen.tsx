@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { isMobileOnly } from 'react-device-detect'
 import { Grid, Typography } from '@mui/material'
 import StyledButton from './StyledButton'

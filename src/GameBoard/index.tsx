@@ -18,7 +18,7 @@ const GameBoard = ({
   return (
     <StyledGridContainer
       container
-      spacing={1}
+      spacing={0}
       direction="row"
     >
       <StyledBoardContainer container item xs={12}>

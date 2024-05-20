@@ -43,7 +43,7 @@ const Prepare = ({
       direction="column"
       alignItems="space-between"
       justifyContent="center"
-      style={{ height: '100%' }}
+      style={{ height: '100dvh' }}
     >
       <Grid container item>
         <Paper elevation={6} style={{
@@ -55,7 +55,6 @@ const Prepare = ({
           <Typography variant="h4">Przygotowanie do gry: <b>{gameName}</b></Typography>
         </Paper>
       </Grid>
-
 
       <Grid item
             container

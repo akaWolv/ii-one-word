@@ -13,14 +13,14 @@ interface Params {
   player?: EPlayer
 }
 
-const StyledChip = styled(Chip)<{ $player?: EPlayer, $iswhitetext?: boolean }>(({ $player, $iswhitetext }) => ({
+const StyledChip = styled(Chip)<{ player?: EPlayer, iswhitetext?: boolean }>(({ player, iswhitetext }) => ({
   opacity: 0.9,
   fontSize: '1.1vw',
   fontWeight: 400,
   padding: 20,
-  color: $iswhitetext ? grey[200] : 'inherited',
+  color: iswhitetext ? grey[200] : 'inherited',
   textTransform: 'capitalize',
-  boxShadow: $player ? `0px 0px 15px 4px ${alpha(getPlayerColor($player), 0.5)}` : 'none'
+  boxShadow: player ? `0px 0px 15px 4px ${alpha(getPlayerColor(player), 0.5)}` : 'none'
 }))
 
 const TypeTileContent = ({ type, player }: Params) => {
@@ -35,8 +35,8 @@ const TypeTileContent = ({ type, player }: Params) => {
         <StyledChip
           avatar={<Hail style={{ color: grey[50] }} />}
           label='Agent'
-          $player={player}
-          $iswhitetext={isWhiteText ? true : undefined}
+          player={player}
+          iswhitetext={isWhiteText ? true : undefined}
         />
       )
     case EType.Neutral:

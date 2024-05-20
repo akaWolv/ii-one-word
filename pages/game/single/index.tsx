@@ -99,7 +99,7 @@ const Game = ({
         <AgentsLeftInfo tilesTotal={tilesTotal} tilesLeft={tilesLeft} team={ETeam.Green} />
       </>
     }
-    gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}
+    gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} gameType='single' />}
   />
 }
 

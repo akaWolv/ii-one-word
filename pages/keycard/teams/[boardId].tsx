@@ -27,7 +27,7 @@ const TeamKeyCard = ({
           <li>
             Jesteś w drużynie {team === EType.Red ? 'Czerwonych' : 'Niebieskich'}.
             Odkryjcie wszystkie
-            &nbsp;<StyledTeamChip $team={team} label={team === EType.Red ? 'czerwone' : 'niebieskie'} />&nbsp;
+            &nbsp;<StyledTeamChip team={team} label={team === EType.Red ? 'czerwone' : 'niebieskie'} />&nbsp;
             karty.
           </li>
           <li>Omijaj czarną kartę!</li>

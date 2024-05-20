@@ -6,12 +6,12 @@ import createEmotionCache from 'src/createEmotionCache'
 import theme from 'src/theme'
 
 export default class MyDocument extends Document {
-  render () {
+  render() {
     return (
       <Html lang="en" >
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={theme.palette.secondary.main} />
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link
@@ -24,8 +24,8 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-        <Main />
-        <NextScript />
+          <Main />
+          <NextScript />
         </body>
       </Html>
     )
@@ -66,8 +66,8 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: function app (App) {
-        return function appProps (props) {
+      enhanceApp: function app(App) {
+        return function appProps(props) {
           // @ts-ignore
           return <App emotionCache={cache} {...props} />
         }

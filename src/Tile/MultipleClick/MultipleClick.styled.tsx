@@ -19,7 +19,7 @@ const StyledCard = styled(Card)<{ _type?: EType }>(({ _type, theme }) => ({
 }))
 
 const StyledCardContent = styled(Card)({
-  padding: 38,
+  padding: 8,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

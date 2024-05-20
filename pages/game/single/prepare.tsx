@@ -34,7 +34,7 @@ const Prepare = ({ boardId, wordsId }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
   const { board: boardId, words: wordsId } = query
   if (!boardId || !wordsId) {
-    res.writeHead(307, { Location: '/game/teams/new' })
+    res.writeHead(307, { Location: '/game/single/new' })
     res.end()
     return { props: {} }
   }

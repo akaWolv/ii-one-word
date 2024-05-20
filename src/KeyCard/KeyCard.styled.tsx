@@ -3,13 +3,13 @@ import { Chip, Grid, Paper } from '@mui/material'
 import { EType } from '../interfaces/EType'
 import getTileColorByType from '../getTileColorByType'
 
-const StyledTeamChip = styled(Chip)<{ $team: EType }>(({
+const StyledTeamChip = styled(Chip)<{ team: EType }>(({
   theme,
-  $team
+  team
 }) => {
-  const textColor = $team === EType.Red ? theme.palette.primary.light : theme.palette.primary.dark
+  const textColor = team === EType.Red ? theme.palette.primary.light : theme.palette.primary.dark
   return {
-    backgroundColor: getTileColorByType($team),
+    backgroundColor: getTileColorByType(team),
     color: textColor,
     borderColor: textColor
   }

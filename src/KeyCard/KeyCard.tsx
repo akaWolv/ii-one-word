@@ -19,7 +19,7 @@ const KeyCard = ({ text, board, highlightedteam }: Props) => {
     >
       <Grid item justifyContent="flex-start" xs={12} sm={6}>
         <Typography variant="h3">Karta Klucz</Typography>
-        <Typography variant="body1">
+        <Typography component="div" variant="body1">
           {text}
         </Typography>
       </Grid>

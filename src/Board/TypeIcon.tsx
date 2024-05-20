@@ -13,16 +13,16 @@ interface TypeIcon {
   player?: EPlayer
 }
 
-const StyledChip = styled(Chip)<{ $player?: EPlayer, $isWhiteText?: boolean }>(({ $player, $isWhiteText }) => ({
+const StyledChip = styled(Chip)<{ player?: EPlayer, iswhitetext?: boolean }>(({ player, iswhitetext }) => ({
   fontSize: 18,
   fontWeight: 400,
   padding: 25,
   textTransform: 'capitalize',
-  color: $isWhiteText ? grey[200] : 'inherited',
-  borderColor: $player ? alpha(getPlayerColor($player), 0.5) : 'inherited',
-  borderLeftWidth: $player ? 2 : 'inherited',
-  borderRightWidth: $player ? 2 : 'inherited',
-  borderStyle: $player ? 'solid' : 'inherited'
+  color: iswhitetext ? grey[200] : 'inherited',
+  borderColor: player ? alpha(getPlayerColor(player), 0.5) : 'inherited',
+  borderLeftWidth: player ? 2 : 'inherited',
+  borderRightWidth: player ? 2 : 'inherited',
+  borderStyle: player ? 'solid' : 'inherited'
 }))
 
 const TypeIcon = ({ type, player }: TypeIcon) => {
@@ -41,8 +41,8 @@ const TypeIcon = ({ type, player }: TypeIcon) => {
           deleteIcon={<Done />}
           label={`Agent ${player || ''}`}
           onDelete={() => {}}
-          $player={player}
-          $isWhiteText={isWhiteText ? true : undefined}
+          player={player}
+          iswhitetext={isWhiteText ? true : undefined}
         />
       )
     case EType.Neutral:

@@ -132,7 +132,7 @@ const Game = ({
         getLastChanceUsedUrl={getLastChanceUsedUrl}
       />
     }
-    gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} />}
+    gameEnd={<GameEnd tilesLeft={tilesLeft} assassin={assassin} isLastChanceUsed={isLastChanceUsed} gameType='duo' />}
   />
 }
 
