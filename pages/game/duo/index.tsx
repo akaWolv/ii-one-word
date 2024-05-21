@@ -10,6 +10,9 @@ import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
 import GameEnd from 'src/GameEnd/Single'
 import AgentsLeftInfo from 'src/AgentsLeftInfo'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   boardId: string
@@ -26,7 +29,7 @@ interface Props {
   isLastChanceUsed: boolean
 }
 
-const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/duo`)
+const getCurrentUrl = () => new URL(`${publicRuntimeConfig.APP_URL}/game/duo`)
 
 const editGameState = (gameState: string, orderId: number): string => {
   const gameStateList = gameState.split('')
@@ -156,7 +159,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const [gameStateA, gameStateB] = String(gameState).split(',')
 
   // get Words
-  const resWords = await fetch(`${process.env.APP_URL}/api/words/${wordsId}`)
+  const resWords = await fetch(`${publicRuntimeConfig.APP_URL}/api/words/${wordsId}`)
   const dataWords = await resWords.json()
   if (!dataWords) {
     return {
@@ -166,7 +169,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { words } = dataWords
 
   // get Board
-  const resBoard = await fetch(`${process.env.APP_URL}/api/boards/duo/${boardId}`)
+  const resBoard = await fetch(`${publicRuntimeConfig.APP_URL}/api/boards/duo/${boardId}`)
   const dataBoard = await resBoard.json()
   const {
     boardPlayerA,

@@ -1,6 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Grid } from '@mui/material'
 import { StyledGridContainer, StyledBoardContainer, StyledBottomBar } from './GameBoard.styled'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   board: ReactElement,
@@ -23,10 +26,10 @@ const GameBoard = ({
     >
       <StyledBoardContainer container item xs={12}>
         <Grid item xs={1} style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 15 }}>
-          <a href={process.env.APP_URL}>
+          <a href={publicRuntimeConfig.APP_URL}>
             <img
               className="App-logo"
-              src={`${process.env.APP_URL}/indieimp.svg`}
+              src={`${publicRuntimeConfig.APP_URL}/indieimp.svg`}
               style={{ width: '75%' }}
               alt="Logo of IndieImp.com"
             />

@@ -8,6 +8,9 @@ import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
 import GameEnd from 'src/GameEnd/Teams'
 import AgentsLeftInfo from 'src/AgentsLeftInfo'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   boardId: string
@@ -19,7 +22,7 @@ interface Props {
   starting: ETeam
 }
 
-const url = new URL(`${process.env.APP_URL}/game/teams`)
+const url = new URL(`${publicRuntimeConfig.APP_URL}/game/teams`)
 const Game = ({
   boardId,
   wordsId,
@@ -81,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   // get Words
-  const resWords = await fetch(`${process.env.APP_URL}/api/words/${wordsId}`)
+  const resWords = await fetch(`${publicRuntimeConfig.APP_URL}/api/words/${wordsId}`)
   const dataWords = await resWords.json()
   if (!dataWords) {
     return {
@@ -91,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { words } = dataWords
 
   // get Board
-  const resBoard = await fetch(`${process.env.APP_URL}/api/boards/teams/${boardId}`)
+  const resBoard = await fetch(`${publicRuntimeConfig.APP_URL}/api/boards/teams/${boardId}`)
   const dataBoard = await resBoard.json()
   const {
     board,

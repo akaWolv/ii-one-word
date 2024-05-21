@@ -8,6 +8,9 @@ import {
   StyledCard,
   StyledCardContent
 } from './GameEnd.styled'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   assassin: number
@@ -50,7 +53,7 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed, gameType }: Props) => 
         <CardMedia
           component="img"
           height="194"
-          image={`${process.env.APP_URL}/indieimp.svg`}
+          image={`${publicRuntimeConfig.APP_URL}/indieimp.svg`}
   alt = "Logo of IndieImp.com"
   sx = {{ height: '50%' }
 }

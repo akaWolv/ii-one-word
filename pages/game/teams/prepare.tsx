@@ -2,6 +2,9 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
 import PrepareView from 'src/Prepare/Prepare'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
 
@@ -11,7 +14,7 @@ interface Props {
 }
 
 const getBoardLink = (boardId: string, team: EType.Red | EType.Blue): string => {
-  const url = new URL(`${process.env.APP_URL}/keycard/teams/${boardId}`)
+  const url = new URL(`${publicRuntimeConfig.APP_URL}/keycard/teams/${boardId}`)
   url.searchParams.set('team', team)
   return url.toString()
 }
@@ -19,7 +22,7 @@ const getBoardLink = (boardId: string, team: EType.Red | EType.Blue): string => 
 const Prepare = ({ boardId, wordsId }: Props) => {
   const getStartLink = (): string => {
     // redirect to prepare
-    const startLink = new URL(`${process.env.APP_URL}/game/teams`)
+    const startLink = new URL(`${publicRuntimeConfig.APP_URL}/game/teams`)
     startLink.searchParams.set('board', boardId)
     startLink.searchParams.set('words', wordsId)
     startLink.searchParams.set('gameState', INITIAL_GAME_STATE)

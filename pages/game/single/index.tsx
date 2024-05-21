@@ -9,6 +9,9 @@ import Menu from 'src/GameBottomBar/Menu'
 import GameBoard from 'src/GameBoard'
 import GameEnd from 'src/GameEnd/Single'
 import AgentsLeftInfo from 'src/AgentsLeftInfo'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   boardId: string
@@ -21,7 +24,7 @@ interface Props {
   isLastChanceUsed: boolean
 }
 
-const getCurrentUrl = () => new URL(`${process.env.APP_URL}/game/single`)
+const getCurrentUrl = () => new URL(`${publicRuntimeConfig.APP_URL}/game/single`)
 
 const Game = ({
   boardId,
@@ -122,7 +125,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   // get Words
-  const resWords = await fetch(`${process.env.APP_URL}/api/words/${wordsId}`)
+  const resWords = await fetch(`${publicRuntimeConfig.APP_URL}/api/words/${wordsId}`)
   const dataWords = await resWords.json()
   if (!dataWords) {
     return {
@@ -132,7 +135,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { words } = dataWords
 
   // get Board
-  const resBoard = await fetch(`${process.env.APP_URL}/api/boards/single/${boardId}`)
+  const resBoard = await fetch(`${publicRuntimeConfig.APP_URL}/api/boards/single/${boardId}`)
   const {
     board,
     decodedId: flatBoard

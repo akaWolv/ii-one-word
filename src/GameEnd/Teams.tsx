@@ -10,6 +10,9 @@ import {
 } from './GameEnd.styled'
 import getTileColorByType from '../getTileColorByType'
 import { EType } from '../interfaces/EType'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   assassin: number
@@ -59,7 +62,7 @@ const GameEnd = ({
         <CardMedia
           component="img"
           height="194"
-          image={`${process.env.APP_URL}/indieimp.svg`}
+          image={`${publicRuntimeConfig.APP_URL}/indieimp.svg`}
           alt="Logo of IndieImp.com"
           sx={{ height: '50%' }}
         />

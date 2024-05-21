@@ -4,6 +4,9 @@ import { EType } from 'src/interfaces/EType'
 import { EPlayer } from 'src/interfaces/EPlayer'
 import KeyCard from 'src/KeyCard'
 import { StyledTeamChip } from 'src/KeyCard/KeyCard.styled'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   board: Array<EType[]>
@@ -54,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   // get Board
-  const resBoard = await fetch(`${process.env.APP_URL}/api/boards/duo/${boardId}`)
+  const resBoard = await fetch(`${publicRuntimeConfig.APP_URL}/api/boards/duo/${boardId}`)
   const dataBoard = await resBoard.json()
   const {
     boardPlayerA,

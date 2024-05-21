@@ -2,6 +2,9 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EPlayer } from 'src/interfaces/EPlayer'
 import PrepareView from 'src/Prepare/Prepare'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const INITIAL_GAME_STATE = '0000000000000000000000000,0000000000000000000000000'
 const INITIAL_TOKEN_STATE = '111111111'
@@ -12,14 +15,14 @@ interface Props {
 }
 
 const getBoardLink = (boardId: string, player: EPlayer): string => {
-  const url = new URL(`${process.env.APP_URL}/keycard/duo/${boardId}`)
+  const url = new URL(`${publicRuntimeConfig.APP_URL}/keycard/duo/${boardId}`)
   url.searchParams.set('player', player)
   return url.toString()
 }
 
 const Prepare = ({ boardId, wordsId }: Props) => {
   const getStartLink = (tabletMode: boolean): string => {
-    const startLink = new URL(`${process.env.APP_URL}/game/duo`)
+    const startLink = new URL(`${publicRuntimeConfig.APP_URL}/game/duo`)
     startLink.searchParams.set('board', boardId)
     startLink.searchParams.set('words', wordsId)
     startLink.searchParams.set('gameState', INITIAL_GAME_STATE)

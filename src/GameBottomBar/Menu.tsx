@@ -1,6 +1,9 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Menu {
   newGameUrl: string
@@ -19,14 +22,14 @@ const Menu = ({ newGameUrl }: Menu) => (
       variant='outlined'
       size='small'
       style={{ margin: '0 5px' }}
-      href={`${process.env.APP_URL}${newGameUrl}`}>
+      href={`${publicRuntimeConfig.APP_URL}${newGameUrl}`}>
       Nowa gra
     </Button>
     <Button
       variant='outlined'
       size='small'
       style={{ margin: '0 5px' }}
-      href={`${process.env.APP_URL}`}>
+      href={`${publicRuntimeConfig.APP_URL}`}>
       Ekran główny
     </Button>
   </StyledButtonContainer>

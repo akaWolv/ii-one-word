@@ -1,6 +1,9 @@
 import React from 'react'
 import type { GetServerSideProps } from 'next'
 import PrepareView from 'src/Prepare'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const INITIAL_GAME_STATE = '0000000000000000000000000'
 const INITIAL_TOKEN_STATE = '11111'
@@ -11,13 +14,13 @@ interface Props {
 }
 
 const getBoardLink = (boardId: string): string => {
-  const url = new URL(`${process.env.APP_URL}/keycard/single/${boardId}`)
+  const url = new URL(`${publicRuntimeConfig.APP_URL}/keycard/single/${boardId}`)
   return url.toString()
 }
 
 const Prepare = ({ boardId, wordsId }: Props) => {
   const getStartLink = (): string => {
-    const startLink = new URL(`${process.env.APP_URL}/game/single`)
+    const startLink = new URL(`${publicRuntimeConfig.APP_URL}/game/single`)
     startLink.searchParams.set('board', boardId)
     startLink.searchParams.set('words', wordsId)
     startLink.searchParams.set('gameState', INITIAL_GAME_STATE)

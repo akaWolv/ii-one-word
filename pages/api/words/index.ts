@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Data, DataError } from './IResponse'
-import { words } from './words.json'
 import getWordsFromDb from 'src/getWordsFromDb'
 import parseListToBoardArray from 'src/parseListToBoardArray'
+import data from './words.json'
+
+const { words } = data
 
 const getRandomKeys = (db: string[], n: number): number[] => {
   const dbSize = db.length

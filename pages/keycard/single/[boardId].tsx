@@ -2,6 +2,9 @@ import React from 'react'
 import type { GetServerSideProps } from 'next'
 import { EType } from 'src/interfaces/EType'
 import KeyCard from 'src/KeyCard'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 interface Props {
   board: Array<EType[]>
@@ -38,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   // get Board
-  const resBoard = await fetch(`${process.env.APP_URL}/api/boards/single/${boardId}`)
+  const resBoard = await fetch(`${publicRuntimeConfig.APP_URL}/api/boards/single/${boardId}`)
   const { board } = await resBoard.json()
 
   return {

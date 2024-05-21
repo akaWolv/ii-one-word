@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import parseListToBoardArray from 'src/parseListToBoardArray'
 import { Data, DataError } from './IResponse'
 import getWordsFromDb from 'src/getWordsFromDb'
-import { words } from './words.json'
+import data from './words.json'
+
+const { words } = data
 
 export default function handler (req: NextApiRequest, res: NextApiResponse<Data | DataError>) {
   const { id } = req.query
