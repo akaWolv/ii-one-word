@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "PORT=3000 NODE_OPTIONS=--openssl-legacy-provider next dev",
     "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
-    "start": "PORT=3002 next start",
+    "start": "PORT=3001 next start",
     "lint": "next lint"
   },
   "dependencies": {
