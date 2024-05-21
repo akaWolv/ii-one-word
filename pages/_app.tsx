@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -10,8 +10,6 @@ import { AppProps } from 'next/app'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
-
-const options = { shouldForwardProp: (prop: string) => !String(prop).includes('$') }
 
 export default function MyApp (props: AppProps) {
   // @ts-ignore
@@ -26,7 +24,7 @@ export default function MyApp (props: AppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <div style={{height: '95dvh'}}>
+        <div style={{ height: '95dvh' }}>
           <Component {...pageProps} />
         </div>
       </ThemeProvider>

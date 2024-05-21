@@ -11,7 +11,7 @@ let theme = createTheme({
     primary: {
       main: '#D100A4',
       dark: '#232223',
-      light: '#eaeaea',
+      light: '#eaeaea'
     },
     secondary: {
       main: '#f28d63',
@@ -36,7 +36,7 @@ let theme = createTheme({
         },
         body: {
           minHeight: '100dvh',
-          background: 'linear-gradient(45deg, #f26f99 5%, #f28d63 100%) 50% 50%',
+          background: 'linear-gradient(45deg, #f26f99 5%, #f28d63 100%) 50% 50%'
         }
       }
     },
@@ -61,9 +61,9 @@ let theme = createTheme({
             borderColor: '#eaeaea',
             textDecoration: `underline ${alpha('#eaeaea', 0.6)}`
           }
-        },
-      },
-    },
+        }
+      }
+    }
   }
 })
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { isMobileOnly } from 'react-device-detect'
 import { Grid, Typography } from '@mui/material'
 import StyledButton from './StyledButton'
@@ -6,7 +6,7 @@ import { StyledAlternateSpan } from './StyledTypography'
 import { MainScreenContainer } from './MainScreen.styled'
 import PhoneView from './PhoneView'
 
-const MainScreen = () => {
+const MainScreen: React.FC = () => {
   const [isMobileOnlyView, setIsMobileOnlyView] = useState<boolean>(false)
   useEffect(() => {
     if (isMobileOnly) {

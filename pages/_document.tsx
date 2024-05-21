@@ -6,7 +6,7 @@ import createEmotionCache from 'src/createEmotionCache'
 import theme from 'src/theme'
 
 export default class MyDocument extends Document {
-  render() {
+  render () {
     return (
       <Html lang="en" >
         <Head>
@@ -66,8 +66,8 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: function app(App) {
-        return function appProps(props) {
+      enhanceApp: function app (App) {
+        return function appProps (props) {
           // @ts-ignore
           return <App emotionCache={cache} {...props} />
         }

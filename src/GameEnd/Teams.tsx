@@ -22,8 +22,8 @@ const GameEnd = ({
   redTeamTilesLeft,
   blueTeamTilesLeft
 }: Props) => {
-  const handleNewGame = () => window.location.href = '/game/teams/new'
-  const handleBackToStart = () => window.location.href = '/'
+  const handleNewGame = () => { window.location.href = '/game/teams/new' }
+  const handleBackToStart = () => { window.location.href = '/' }
 
   let title = ''
   let text = ''

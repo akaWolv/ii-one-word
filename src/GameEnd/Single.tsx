@@ -17,8 +17,8 @@ interface Props {
 }
 
 const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed, gameType }: Props) => {
-  const handleNewGame = () => window.location.href = `/game/${gameType == 'single' ? 'single' : 'duo'}/new`
-  const handleBackToStart = () => window.location.href = '/'
+  const handleNewGame = () => { window.location.href = `/game/${gameType === 'single' ? 'single' : 'duo'}/new` }
+  const handleBackToStart = () => { window.location.href = '/' }
 
   let title = ''
   let text = ''
@@ -50,7 +50,7 @@ const GameEnd = ({ assassin, tilesLeft, isLastChanceUsed, gameType }: Props) => 
         <CardMedia
           component="img"
           height="194"
-          image={`${ process.env.APP_URL }/indieimp.svg`}
+          image={`${process.env.APP_URL}/indieimp.svg`}
   alt = "Logo of IndieImp.com"
   sx = {{ height: '50%' }
 }
